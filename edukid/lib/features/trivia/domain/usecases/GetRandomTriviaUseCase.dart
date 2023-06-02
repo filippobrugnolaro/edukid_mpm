@@ -6,13 +6,14 @@ import '../../../../core/errors/Failure.dart';
 import '../../../../core/util/Wrappers.dart';
 import '../repositories/RandomTriviaRepository.dart';
 
-class GetRandomTrivia extends UseCase<RandomTrivia, Params> {
+class GetRandomTriviaUseCase extends UseCase<RandomTrivia, Params> {
   final RandomTriviaRepository repository;
 
-  GetRandomTrivia(this.repository);
+  GetRandomTriviaUseCase(this.repository);
 
   @override
   Future<Either<Failure, RandomTrivia>> call(Params params) async {
-    return await repository.getRandomTrivia(params.typeQuestion, params.numberQuestion);
+    return await repository.getRandomTrivia(
+        params.typeQuestion, params.numberQuestion);
   }
 }

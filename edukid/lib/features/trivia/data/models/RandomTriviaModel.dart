@@ -11,17 +11,16 @@ class RandomTriviaModel extends RandomTrivia {
 
   factory RandomTriviaModel.fromJson(Map<String, dynamic> json) {
     return RandomTriviaModel(
-      question: json['question_text'],
-      options: (json['options'] as List<String>),
-      answer: json['answer']
-    );
+        question: json['question_text'],
+        options: (json['options'] as List<String>),
+        answer: json['answer']);
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'question_text' : question,
-      'options' : json.encode(options),
-      'answer' : answer
+      'question_text': question,
+      'options': json.encode(options),
+      'answer': answer
     };
   }
 }

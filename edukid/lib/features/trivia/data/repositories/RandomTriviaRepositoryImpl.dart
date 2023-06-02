@@ -6,15 +6,17 @@ import 'package:edukid/features/trivia/domain/repositories/RandomTriviaRepositor
 
 import '../../../../core/errors/Exception.dart';
 
-class RandomTriviaRepositoryImpl implements RandomTriviaRepository{
+class RandomTriviaRepositoryImpl implements RandomTriviaRepository {
   final RandomTriviaRemoteDataSource remoteDataSource;
 
   RandomTriviaRepositoryImpl({required this.remoteDataSource});
 
   @override
-  Future<Either<Failure, RandomTrivia>> getRandomTrivia(String typeQuestion, String numberQuestion) async {
+  Future<Either<Failure, RandomTrivia>> getRandomTrivia(
+      String typeQuestion, String numberQuestion) async {
     try {
-      final remoteTrivia = await remoteDataSource.getRandomTrivia(typeQuestion, numberQuestion);
+      final remoteTrivia =
+          await remoteDataSource.getRandomTrivia(typeQuestion, numberQuestion);
       return Right(remoteTrivia);
     } on ServerException {
       return Left(ServerFailure());

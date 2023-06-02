@@ -10,16 +10,19 @@ abstract class RandomTriviaRemoteDataSource {
 }
 
 class RandomTriviaRemoteDataSourceImpl implements RandomTriviaRemoteDataSource {
-
   final http.Client client;
 
   RandomTriviaRemoteDataSourceImpl({required this.client});
 
   @override
-  Future<RandomTriviaModel> getRandomTrivia(String typeQuestion, String numberQuestion) async {
+  Future<RandomTriviaModel> getRandomTrivia(
+      String typeQuestion, String numberQuestion) async {
     final response = await client.get(
-    Uri(scheme: 'https', host: 'edu-kid-default-rtdb.europe-west1.firebasedatabase.app', path: '$typeQuestion/question$numberQuestion/' ),
-    headers: {'Content-Type': 'application/json'},
+      Uri(
+          scheme: 'https',
+          host: 'edu-kid-default-rtdb.europe-west1.firebasedatabase.app',
+          path: '$typeQuestion/question$numberQuestion/'),
+      headers: {'Content-Type': 'application/json'},
     );
 
     if (response.statusCode == 200) {
