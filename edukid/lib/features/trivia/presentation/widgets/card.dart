@@ -45,15 +45,14 @@ class CardWidget extends StatelessWidget {
             children: [
               Text(
                 text,
-                style: TextStyle(color: app_colors.black, fontSize: 25),
+                style: TextStyle(color: app_colors.black, fontSize: 2.h),
               ),
-              SizedBox(width: 8), // Add spacing between the image and text
+              SizedBox(height: 2.h), // Add spacing between the image and text
               Image.asset(
                 imagePath,
-                width: 30.w, // Set the desired width
-                height: 15.w, // Set the desired height
+                width: 25.w,
+                height: 10.h,
               ),
-              SizedBox(width: 8)
             ],
           ),
         ));

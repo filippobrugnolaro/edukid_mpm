@@ -1,5 +1,7 @@
 import 'package:edukid/features/trivia/presentation/screens/getStarted/getStarted.dart';
-import 'package:edukid/features/trivia/presentation/screens/math/math.dart';
+import 'package:edukid/features/trivia/presentation/screens/question/questions.dart';
+import 'package:edukid/features/trivia/presentation/config/colors.dart'
+    as app_colors;
 import 'package:flutter/material.dart';
 
 class AppRouter {
@@ -8,7 +10,7 @@ class AppRouter {
       case 'getStarted':
         return PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-              const GetStartedPage(),
+              GetStartedPage(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return _getSlideTransition(animation, child);
           },
@@ -16,7 +18,31 @@ class AppRouter {
       case 'math':
         return PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-              const MathQuizPage(),
+              const QuestionPage(title: 'Matematica', color: app_colors.fucsia),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return _getSlideTransition(animation, child);
+          },
+        );
+        case 'geo':
+        return PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              const QuestionPage(title: 'Geografia', color: app_colors.blue),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return _getSlideTransition(animation, child);
+          },
+        );
+        case 'storia':
+        return PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              const QuestionPage(title: 'Storia', color: app_colors.green),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return _getSlideTransition(animation, child);
+          },
+        );
+        case 'scienze':
+        return PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              const QuestionPage(title: 'scienze', color: app_colors.orange),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return _getSlideTransition(animation, child);
           },
@@ -27,6 +53,7 @@ class AppRouter {
               const Scaffold(
             body: Center(child: Text("Blank")),
           ), //unknown screen,
+          transitionDuration: const Duration(milliseconds: 500),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return _getSlideTransition(animation, child);
           },
@@ -34,15 +61,10 @@ class AppRouter {
     }
   }
 
-  SlideTransition _getSlideTransition(Animation animation, Widget child) {
-    const begin = Offset(0.0, 1.0);
-    const end = Offset.zero;
-    const curve = Curves.ease;
+  FadeTransition _getSlideTransition(Animation<double> animation, Widget child) {
 
-    var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
-    return SlideTransition(
-      position: animation.drive(tween),
+    return FadeTransition(
+      opacity: animation,
       child: child,
     );
   }

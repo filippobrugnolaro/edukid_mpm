@@ -5,24 +5,24 @@ import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
 import '../../config/colors.dart' as app_colors;
 
-class MathQuiz extends StatelessWidget {
-  const MathQuiz({Key? key}) : super(key: key);
+class QuestionPage extends StatelessWidget {
+  final Color color;
+  final String title;
 
-  @override
-  Widget build(BuildContext context) {
-    return const MathQuizPage();
-  }
-}
-
-class MathQuizPage extends StatelessWidget {
-  const MathQuizPage({Key? key}) : super(key: key);
+  const QuestionPage({
+    Key? key,
+    required this.color,
+    required this.title,
+    //required this.onPressed,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Matematica'),
-        backgroundColor: app_colors.fucsia,
+        title: Text(title, style: TextStyle(fontSize: 2.5.h),),
+        centerTitle: true,
+        backgroundColor: color,
       ),
       body: Center(
         child: Column(
@@ -35,13 +35,13 @@ class MathQuizPage extends StatelessWidget {
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                AnswerOption(text: 'risp1', borderColor: app_colors.fucsia),
+                AnswerOption(text: 'risp1', borderColor: color),
                 SizedBox(height: 2.h),
-                AnswerOption(text: 'risp2', borderColor: app_colors.fucsia),
+                AnswerOption(text: 'risp2', borderColor: color),
                 SizedBox(height: 2.h),
-                AnswerOption(text: 'risp3', borderColor: app_colors.fucsia),
+                AnswerOption(text: 'risp3', borderColor: color),
                 SizedBox(height: 2.h),
-                AnswerOption(text: 'risp4', borderColor: app_colors.fucsia),
+                AnswerOption(text: 'risp4', borderColor: color),
               ],
             ),
           ],
