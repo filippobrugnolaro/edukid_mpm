@@ -16,4 +16,13 @@ class GetRandomTriviaUseCase extends UseCase<RandomTrivia, Params> {
     return await repository.getRandomTrivia(
         params.typeQuestion, params.numberQuestion);
   }
+
+  RandomTrivia getQuestion(
+      {Params params =
+          const Params(typeQuestion: 'math', numberQuestion: '3')}) {
+    /*return await repository.getRandomTrivia(
+        params.typeQuestion, params.numberQuestion);*/
+    return RandomTrivia(
+        question: 'ciao', options: ['a', 'b', 'c', 'd'].toList(), answer: 'a');
+  }
 }

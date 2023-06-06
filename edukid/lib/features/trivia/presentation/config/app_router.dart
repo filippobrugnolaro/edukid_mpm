@@ -1,10 +1,16 @@
+import 'package:edukid/features/trivia/data/repositories/RandomTriviaRepositoryImpl.dart';
+import 'package:edukid/features/trivia/domain/entities/RandomTrivia.dart';
+import 'package:edukid/features/trivia/domain/repositories/RandomTriviaRepository.dart';
+import 'package:edukid/features/trivia/domain/usecases/GetRandomTriviaUseCase.dart';
 import 'package:edukid/features/trivia/presentation/screens/getStarted/getStarted.dart';
 import 'package:edukid/features/trivia/presentation/screens/question/questions.dart';
 import 'package:edukid/features/trivia/presentation/config/colors.dart'
     as app_colors;
 import 'package:flutter/material.dart';
 
+
 class AppRouter {
+  QuizRepo repo = QuizRepo();
   Route onGenerateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
       case 'getStarted':
@@ -18,36 +24,40 @@ class AppRouter {
       case 'math':
         return PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-              const QuestionPage(title: 'Matematica', color: app_colors.fucsia),
+              QuestionPage(
+            title: 'Matematica',
+            color: app_colors.fucsia,
+            quizRepo: repo,
+          ),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return _getSlideTransition(animation, child);
           },
         );
-        case 'geo':
+      case 'geo':
         return PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-              const QuestionPage(title: 'Geografia', color: app_colors.blue),
+              QuestionPage(title: 'Geografia', color: app_colors.blue, quizRepo: repo),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return _getSlideTransition(animation, child);
           },
         );
-        case 'storia':
+      case 'storia':
         return PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-              const QuestionPage(title: 'Storia', color: app_colors.green),
+              QuestionPage(title: 'Storia', color: app_colors.green,quizRepo: repo),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return _getSlideTransition(animation, child);
           },
         );
-        case 'scienze':
+      case 'scienze':
         return PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-              const QuestionPage(title: 'scienze', color: app_colors.orange),
+              QuestionPage(title: 'scienze', color: app_colors.orange,quizRepo: repo,),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return _getSlideTransition(animation, child);
           },
         );
-        default:
+      default:
         return PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
               const Scaffold(
@@ -61,8 +71,8 @@ class AppRouter {
     }
   }
 
-  FadeTransition _getSlideTransition(Animation<double> animation, Widget child) {
-
+  FadeTransition _getSlideTransition(
+      Animation<double> animation, Widget child) {
     return FadeTransition(
       opacity: animation,
       child: child,

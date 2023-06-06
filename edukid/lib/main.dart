@@ -7,7 +7,7 @@ import 'features/trivia/presentation/config/themes.dart';
 
 Future<void> main() async {
   await di.init();
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
