@@ -13,3 +13,4 @@ class SubmitAnswerEvent extends QuizEvent {
 class LoadQuizEvent extends QuizEvent {
   const LoadQuizEvent();
 }
+

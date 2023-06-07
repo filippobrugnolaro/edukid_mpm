@@ -42,36 +42,54 @@ class QuestionPage extends StatelessWidget {
         body: BlocBuilder<QuizBloc, QuizState>(
           builder: (context, state) {
             if (state is QuizInitialState) {
+              final bloc = BlocProvider.of<QuizBloc>(context);
+                          bloc.add(LoadQuizEvent());
               // Initial state: Display loading indicator or fetch quiz data
               return const Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator()
               );
             } else if (state is QuizQuestionState) {
               // Question state: Display the question and options
-              return Column(
-                children: [
-                  Text(state.question),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: state.options.length,
-                    itemBuilder: (context, index) {
-                      final option = state.options[index];
-                      return ListTile(
-                        title: Text(option),
-                        onTap: () {
-                          final bloc = BlocProvider.of<QuizBloc>(context);
-                          bloc.add(SubmitAnswerEvent(option));
-                        },
-                      );
-                    },
-                  ),
-                ],
+              return Container(
+                padding: EdgeInsets.all(3.w),
+                child: Column(
+                  children: [
+                    Text(state.question, style: TextStyle(fontSize: 3.h),),
+                    SizedBox(height: 3.h,),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: state.options.length,
+                      itemBuilder: (context, index) {
+                        final option = state.options[index];
+                        return Container(
+                          margin: EdgeInsets.all(3.w),
+                          width: 30.w,
+                          decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey, width: 1.0),
+                          borderRadius: BorderRadius.circular(15.0),
+                    ),
+                          child: ListTile(
+                        
+                            title: Text(option),
+                            onTap: () {
+                              final bloc = BlocProvider.of<QuizBloc>(context);
+                              bloc.add(SubmitAnswerEvent(option));
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
               );
             }
-            else if (state is QuizResultState){
-              return const Center(child: Text('results'));
+            else if (state is QuizResultState && state.isCorrect){
+              return const Center(child: Text('risposta corretta.'));
             }
-            else return const Center(child: Text('qualcosa is wrong'));
+            else if (state is QuizResultState){
+              return Center(child: Text(state.correctOption));
+            }
+            else return const Center(child: Text('wrong'));
           },
         ),
       ),

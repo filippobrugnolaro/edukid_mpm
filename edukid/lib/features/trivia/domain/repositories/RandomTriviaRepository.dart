@@ -11,6 +11,6 @@ abstract class RandomTriviaRepository {
 class QuizRepo{
     RandomTrivia getQuestion(){
       return RandomTrivia(
-        question: 'ciao', options: ['a', 'b', 'c', 'd'].toList(), answer: 'a');
+        question: 'Quanto fa 2x3?', options: ['6', '2', '3', '0'].toList(), answer: '6');
   }
 }

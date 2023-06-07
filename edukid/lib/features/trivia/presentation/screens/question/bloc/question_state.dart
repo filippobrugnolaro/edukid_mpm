@@ -15,12 +15,19 @@ class QuizQuestionState extends QuizState {
 
 class QuizResultState extends QuizState {
   final bool isCorrect;
+  final String correctOption;
 
-  QuizResultState(this.isCorrect);
+  QuizResultState(this.isCorrect, this.correctOption);
 }
 
 class QuizErrorState extends QuizState {
   final String errorMessage;
 
   QuizErrorState(this.errorMessage);
+}
+
+class OptionSelectedState extends QuizState {
+  final String selectedOption;
+
+  OptionSelectedState(this.selectedOption);
 }

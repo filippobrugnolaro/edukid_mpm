@@ -24,12 +24,13 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
       // Check if the submitted answer is correct
       final isCorrect = event.selectedOption == correctAnswer;
       // Emit the result state
-      emit(QuizResultState(isCorrect));
+      emit(QuizResultState(isCorrect, correctAnswer));
     }
 
-    if(event is LoadQuizEvent){
+    if (event is LoadQuizEvent) {
       final question = quizRepository.getQuestion();
       emit(QuizQuestionState(question.question, question.options));
     }
+
   }
 }
