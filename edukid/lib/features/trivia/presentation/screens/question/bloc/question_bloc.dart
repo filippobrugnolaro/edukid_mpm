@@ -11,14 +11,34 @@ part 'question_state.dart';
 
 class QuizBloc extends Bloc<QuizEvent, QuizState> {
   final QuizRepo quizRepository;
+  
 
   QuizBloc(this.quizRepository) : super(QuizInitialState()) {
     on<SubmitAnswerEvent>(mapEventToState);
     on<LoadQuizEvent>(mapEventToState);
+    on<SelectOptionEvent>(mapEventToState);
   }
 
   Future<void> mapEventToState(QuizEvent event, Emitter<QuizState> emit) async {
-    if (event is SubmitAnswerEvent) {
+    // load quiz from repo
+    if (event is LoadQuizEvent) {
+      final question = quizRepository.getQuestion();
+      emit(QuizQuestionState(question: question.question, options: question.options));
+    }
+    //select Option
+    if (event is SelectOptionEvent) {
+      final currentState = state;
+      if (currentState is QuizQuestionState) {
+        final selectedOptionIndex = currentState.options.indexOf(event.selectedOption);
+
+        if (selectedOptionIndex != currentState.selectedOptionIndex) {
+          final updatedState = currentState.copyWith(selectedOptionIndex: selectedOptionIndex);
+          emit(updatedState);
+        }
+      }
+    }
+    // submit answer 
+    else if (event is SubmitAnswerEvent) {
       final question = quizRepository.getQuestion();
       final correctAnswer = question.answer;
       // Check if the submitted answer is correct
@@ -27,10 +47,6 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
       emit(QuizResultState(isCorrect, correctAnswer));
     }
 
-    if (event is LoadQuizEvent) {
-      final question = quizRepository.getQuestion();
-      emit(QuizQuestionState(question.question, question.options));
-    }
 
   }
 }

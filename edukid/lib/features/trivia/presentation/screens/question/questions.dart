@@ -18,7 +18,7 @@ class QuestionPage extends StatelessWidget {
   //dependency injection
   late QuizRepo quizRepo;
 
-   QuestionPage({
+  QuestionPage({
     Key? key,
     required this.color,
     required this.title,
@@ -43,83 +43,121 @@ class QuestionPage extends StatelessWidget {
           builder: (context, state) {
             if (state is QuizInitialState) {
               final bloc = BlocProvider.of<QuizBloc>(context);
-                          bloc.add(LoadQuizEvent());
+              bloc.add(LoadQuizEvent());
               // Initial state: Display loading indicator or fetch quiz data
-              return const Center(
-                child: CircularProgressIndicator()
-              );
+              return const Center(child: CircularProgressIndicator());
             } else if (state is QuizQuestionState) {
               // Question state: Display the question and options
               return Container(
-                padding: EdgeInsets.all(3.w),
-                child: Column(
-                  children: [
-                    Text(state.question, style: TextStyle(fontSize: 3.h),),
-                    SizedBox(height: 3.h,),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: state.options.length,
-                      itemBuilder: (context, index) {
-                        final option = state.options[index];
-                        return Container(
-                          margin: EdgeInsets.all(3.w),
-                          width: 30.w,
-                          decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey, width: 1.0),
-                          borderRadius: BorderRadius.circular(15.0),
+                  padding: EdgeInsets.all(3.w),
+                  child: Column(
+                    children: [
+                      Text(
+                        state.question,
+                        style: TextStyle(fontSize: 3.h),
+                      ),
+                      SizedBox(
+                        height: 3.h,
+                      ),
+                      ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: state.options.length,
+                        itemBuilder: (context, index) {
+                          final option = state.options[index];
+                          final isSelected = index == state.selectedOptionIndex;
+
+                          return Container(
+                            margin: EdgeInsets.all(3.w),
+                            width: 30.w,
+                            decoration: BoxDecoration(
+                              border:
+                                  Border.all(color: Colors.grey, width: 1.0),
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            child: ListTile(
+                              title: Text(
+                                option,
+                                style: TextStyle(
+                                    color: isSelected ? color : Colors.black),
+                              ),
+                              onTap: () {
+                                BlocProvider.of<QuizBloc>(context).add(
+                                  SelectOptionEvent(option),
+                                );
+                              },
+                            ),
+                          );
+                        },
+                      ),
+                      ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              color), // Set the background color
+                        ),
+                        onPressed: () {
+                          // Aggiungi l'evento per consegnare la domanda
+                          BlocProvider.of<QuizBloc>(context).add(
+                              SubmitAnswerEvent(
+                                  state.options[state.selectedOptionIndex]));
+                        },
+                        child: Text('Consegna'),
+                      ),
+                    ],
+                  ));
+            }
+            if (state is QuizResultState) {
+              return Center(
+                child: Container(
+                  child: Column(children: [
+                    state.isCorrect
+                        ? getCorrect()
+                        : getWrong(state.correctOption),
+                    SizedBox(
+                      height: 4.h,
                     ),
-                          child: ListTile(
-                        
-                            title: Text(option),
-                            onTap: () {
-                              final bloc = BlocProvider.of<QuizBloc>(context);
-                              bloc.add(SubmitAnswerEvent(option));
-                            },
-                          ),
-                        );
-                      },
+                    ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              color), // Set the background color
+                        ),
+                        onPressed: () {
+                          BlocProvider.of<QuizBloc>(context)
+                              .add(LoadQuizEvent());
+                        },
+                        child: Text('Vai alla prossima domanda')),
+                    SizedBox(
+                      height: 10.h,
                     ),
-                  ],
+                  ]),
                 ),
               );
+            } else {
+              return Text('Si è verificato un errore.');
             }
-            else if (state is QuizResultState && state.isCorrect){
-              return const Center(child: Text('risposta corretta.'));
-            }
-            else if (state is QuizResultState){
-              return Center(child: Text(state.correctOption));
-            }
-            else return const Center(child: Text('wrong'));
           },
         ),
       ),
     );
   }
+
+  Widget getCorrect() {
+    return Column(children: [
+      Image.asset(
+        'images/10pts.png',
+        width: 40.w,
+      ),
+      Text('Complimenti! Hai dato la risposta corretta. Ecco a te 10 gettoni.'),
+    ]);
+  }
+
+  Widget getWrong(String correctAnswer) {
+    return Column(children: [
+      Image.asset(
+        'images/min5pts.png',
+        width: 40.w,
+      ),
+      Text('Oh no! La risposta corretta era ${correctAnswer}.'),
+      Text('Purtroppo hai perso 5 gettoni!')
+    ]);
+  }
 }
-
-/*
-return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text(
-                    'domanda',
-                    style: TextStyle(fontSize: 3.2.h),
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      AnswerOption(text: 'risp1', borderColor: color),
-                      SizedBox(height: 2.h),
-                      AnswerOption(text: 'risp2', borderColor: color),
-                      SizedBox(height: 2.h),
-                      AnswerOption(text: 'risp3', borderColor: color),
-                      SizedBox(height: 2.h),
-                      AnswerOption(text: 'risp4', borderColor: color),
-                    ],
-                  ),
-                ],
-              ),
-            );
-
-*/
