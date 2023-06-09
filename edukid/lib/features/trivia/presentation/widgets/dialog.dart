@@ -24,7 +24,7 @@ class InfoDialog extends Dialog {
         ],
       ),
       content: Text(description ?? 
-        'Ciao io sono Monky! Divertiti e sfida i tuoi amici imparando.Per ogni risposta giusta otterrai 10 gettoni, ma attenzione! Se darai la risposta sbagliata ne perderai 5!'
+        'Divertiti e sfida i tuoi amici imparando.Per ogni risposta giusta otterrai 10 gettoni, ma attenzione! Se darai la risposta sbagliata ne perderai 5!'
       ),
       actionsPadding: const EdgeInsets.all(20),
       actions: <Widget>[

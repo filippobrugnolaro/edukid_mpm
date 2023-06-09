@@ -42,16 +42,16 @@ class CardWidget extends StatelessWidget {
             Navigator.of(context).pushNamed(goTo);
           },
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Text(
-                text,
-                style: TextStyle(color: app_colors.black, fontSize: 2.h),
-              ),
-              SizedBox(height: 2.h), // Add spacing between the image and text
               Image.asset(
                 imagePath,
                 width: 25.w,
-                height: 10.h,
+                height: 12.h,
+              ),
+              Text(
+                text,
+                style: TextStyle(color: app_colors.black, fontSize: 2.h),
               ),
             ],
           ),

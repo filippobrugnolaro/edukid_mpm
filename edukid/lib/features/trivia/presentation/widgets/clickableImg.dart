@@ -3,6 +3,7 @@ import 'package:edukid/features/trivia/presentation/widgets/dialog/dialogBloc.da
 import 'package:edukid/features/trivia/presentation/widgets/dialog/dialog_factory.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import '../config/colors.dart' as app_colors;
 
 class ClickableImage extends StatelessWidget {
 
@@ -10,11 +11,16 @@ class ClickableImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        DialogFactory.showInfoDialog(context, 'Tutorial', 'Ciao io sono Monky!');
+    return InkWell(
+          onTap: () {
+        DialogFactory.showInfoDialog(context, '', '');
       },
-      child: Image.asset('images/monkey.png', width: 15.w,),
+          child: Icon(
+            Icons.info_outline,
+            size: 48,
+            color: app_colors.orange,
+          ),
+      //child: Image.asset('images/info.png', height: 16.h,),
     );
   }
 }
