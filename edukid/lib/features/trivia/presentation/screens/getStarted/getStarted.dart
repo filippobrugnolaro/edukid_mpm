@@ -34,7 +34,7 @@ class GetStartedPage extends StatelessWidget {
         fit: StackFit.expand,
         children: [
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('images/doodle.png'),
                 fit: BoxFit.cover,
