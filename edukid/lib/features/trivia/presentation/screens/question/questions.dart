@@ -62,7 +62,7 @@ class QuestionPage extends StatelessWidget {
                     child: Column(
                       children: [
                         Text(
-                          state.question,
+                          state.question.question,
                           style: TextStyle(fontSize: 3.h),
                         ),
                         SizedBox(
@@ -70,9 +70,9 @@ class QuestionPage extends StatelessWidget {
                         ),
                         ListView.builder(
                           shrinkWrap: true,
-                          itemCount: state.options.length,
+                          itemCount: state.question.options.length,
                           itemBuilder: (context, index) {
-                            final option = state.options[index];
+                            final option = state.question.options[index];
                             final isSelected =
                                 index == state.selectedOptionIndex;
                             final backColor =
@@ -116,27 +116,13 @@ class QuestionPage extends StatelessWidget {
                               showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      title: Text('Attenzione!'),
-                                      content: Text(
-                                          'Devi selezionare almeno un opzione!'),
-                                          actionsPadding: const EdgeInsets.all(20),
-                                          actions: [
-                                            ElevatedButton(
-                                            style: ElevatedButton.styleFrom(backgroundColor: color),
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                            child: Text('Ho capito.'),
-                                            ),
-                                          ],
-                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                                        );
-                                      });
-                            } else
+                                    return getDialog(context);
+                                  });
+                            } else {
                               BlocProvider.of<QuizBloc>(context).add(
-                                  SubmitAnswerEvent(state
+                                  SubmitAnswerEvent(state.question
                                       .options[state.selectedOptionIndex]));
+                            }
                           },
                           child: Text('Consegna'),
                         ),
@@ -162,17 +148,21 @@ class QuestionPage extends StatelessWidget {
                               BlocProvider.of<QuizBloc>(context)
                                   .add(LoadQuizEvent());
                             },
-                            child: Text('Vai alla prossima domanda')),
-                        Text('oppure'),
+                            child: const Text('Vai alla prossima domanda')),
+                        const Text('oppure'),
                         ElevatedButton(
                             style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all<Color>(
-                                  color), // Set the background color
+                                  app_colors.white), //
+                              side: MaterialStateProperty.all<BorderSide>(
+                                BorderSide(color: color, width: 2.0),
+                              ),
                             ),
                             onPressed: () {
-                              Navigator.of(context).pushNamed('getStarted');
+                              Navigator.of(context).pushReplacementNamed('getStarted');
                             },
-                            child: Text('Cambia categoria')),
+                            child: const Text('Cambia categoria',
+                                style: TextStyle(color: app_colors.black))),
                         SizedBox(
                           height: 8.h,
                         )
@@ -191,9 +181,20 @@ class QuestionPage extends StatelessWidget {
 
   Widget getCorrect() {
     return Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-      Image.asset(
-        'images/10pts.png',
-        width: 35.w,
+      Column(
+        children: [
+          Image.asset(
+            'images/coin.png',
+            width: 20.w,
+          ),
+          Text(
+            '+10',
+            style: TextStyle(
+                fontSize: 30.sp,
+                fontWeight: FontWeight.w800,
+                color: app_colors.green),
+          )
+        ],
       ),
       Text('Complimenti! Hai dato la risposta corretta. Ecco a te 10 gettoni.'),
     ]);
@@ -201,12 +202,53 @@ class QuestionPage extends StatelessWidget {
 
   Widget getWrong(String correctAnswer) {
     return Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-      Image.asset(
-        'images/min5pts.png',
-        width: 40.w,
+      Column(
+        children: [
+          Image.asset(
+            'images/coin.png',
+            width: 20.w,
+          ),
+          Text(
+            'Oh no!',
+            style: TextStyle(
+                fontSize: 20.sp,
+                fontWeight: FontWeight.w800,
+                color: app_colors.red),
+          ),
+          Text(
+            '-5',
+            softWrap: true,
+            style: TextStyle(
+                fontSize: 30.sp,
+                fontWeight: FontWeight.w800,
+                color: app_colors.red),
+          )
+        ],
       ),
-      Text('Oh no! La risposta corretta era ${correctAnswer}.'),
-      Text('Purtroppo hai perso 5 gettoni!')
+      Text('La risposta corretta era $correctAnswer.',
+          style: TextStyle(fontSize: 10.sp)),
+      SizedBox(height: 4.h),
+      Text('Purtroppo hai perso 5 gettoni!'),
+      SizedBox(height: 2.h),
+      Text('Rispondi correttamente alla prossima domanda per rimediare!'),
     ]);
+  }
+
+  Widget getDialog(dynamic context) {
+    return AlertDialog(
+      title: const Text('Attenzione!'),
+      content: const Text('Devi selezionare almeno un opzione!'),
+      actionsPadding: const EdgeInsets.all(20),
+      actions: [
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(backgroundColor: color),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: Text('Ho capito.'),
+        ),
+      ],
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+    );
   }
 }

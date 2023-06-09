@@ -22,15 +22,14 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
     // load quiz from repo
     if (event is LoadQuizEvent) {
       final question = quizRepository.getQuestion();
-      emit(QuizQuestionState(
-          question: question.question, options: question.options));
+      emit(QuizQuestionState(question: question));
     }
     //select Option
     if (event is SelectOptionEvent) {
       final currentState = state;
       if (currentState is QuizQuestionState) {
         final selectedOptionIndex =
-            currentState.options.indexOf(event.selectedOption);
+            currentState.question.options.indexOf(event.selectedOption);
 
         if (selectedOptionIndex != currentState.selectedOptionIndex) {
           final updatedState =
@@ -41,16 +40,19 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
     }
     // submit answer
     else if (event is SubmitAnswerEvent) {
+      final currentState = state;
+      if (currentState is QuizQuestionState) {
         if (event.selectedOption == 'null') {
           emit(QuizErrorState('Non hai selezioanto una risposta'));
         } else {
-          final question = quizRepository.getQuestion();
+          final question = currentState.question;
           final correctAnswer = question.answer;
           // Check if the submitted answer is correct
           final isCorrect = event.selectedOption == correctAnswer;
           // Emit the result state
           emit(QuizResultState(isCorrect, correctAnswer));
         }
+      }
     }
   }
 }

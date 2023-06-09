@@ -24,6 +24,7 @@ class GetStartedPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text(
           'EduKid',
           style: TextStyle(fontSize: 2.5.h),

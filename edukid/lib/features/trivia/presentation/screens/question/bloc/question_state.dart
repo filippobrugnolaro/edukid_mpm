@@ -14,24 +14,25 @@ class QuizInitialState extends QuizState {
 }
 
 class QuizLoadingState extends QuizState {
-    @override
+  @override
   QuizLoadingState copyWith() {
     return QuizLoadingState();
   }
 }
 
 class QuizQuestionState extends QuizState {
-  final String question;
-  final List<String> options;
+  final RandomTrivia question;
   final int selectedOptionIndex;
 
-  QuizQuestionState({required this.question, required this.options, this.selectedOptionIndex = -1});
+  QuizQuestionState(
+      {required this.question,
+      this.selectedOptionIndex = -1});
 
   @override
-  QuizQuestionState copyWith({String? question, List<String>? options, int? selectedOptionIndex}) {
+  QuizQuestionState copyWith(
+      {RandomTrivia? question, int? selectedOptionIndex}) {
     return QuizQuestionState(
       question: question ?? this.question,
-      options: options ?? this.options,
       selectedOptionIndex: selectedOptionIndex ?? this.selectedOptionIndex,
     );
   }
