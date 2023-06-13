@@ -1,10 +1,7 @@
 import 'package:edukid/features/trivia/presentation/widgets/card.dart';
 import 'package:edukid/features/trivia/presentation/widgets/clickableImg.dart';
-import 'package:edukid/features/trivia/presentation/widgets/dialog/dialog.dart';
-import 'package:edukid/features/trivia/presentation/widgets/dialog/dialogBloc.dart';
 import 'package:edukid/features/trivia/presentation/widgets/dialog/dialog_factory.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
 import '../../config/colors.dart' as app_colors;
 
@@ -18,7 +15,6 @@ class GetStarted extends StatelessWidget {
 }
 
 class GetStartedPage extends StatelessWidget {
-  final DialogBloc _dialogBloc = DialogBloc();
 
   @override
   Widget build(BuildContext context) {

@@ -1,10 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:edukid/core/util/Wrappers.dart';
-import 'package:edukid/core/util/prepare_quiz.dart';
 import 'package:edukid/features/trivia/domain/entities/RandomTrivia.dart';
 import 'package:edukid/features/trivia/domain/repositories/RandomTriviaRepository.dart';
-import 'package:edukid/features/trivia/domain/usecases/GetRandomTriviaUseCase.dart';
-import 'package:equatable/equatable.dart';
 
 part 'question_event.dart';
 part 'question_state.dart';

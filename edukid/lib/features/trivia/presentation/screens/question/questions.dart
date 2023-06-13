@@ -1,13 +1,7 @@
-import 'package:edukid/features/trivia/data/repositories/RandomTriviaRepositoryImpl.dart';
-import 'package:edukid/features/trivia/domain/entities/RandomTrivia.dart';
 import 'package:edukid/features/trivia/domain/repositories/RandomTriviaRepository.dart';
-import 'package:edukid/features/trivia/domain/usecases/GetRandomTriviaUseCase.dart';
 import 'package:edukid/features/trivia/presentation/screens/question/bloc/question_bloc.dart';
-import 'package:edukid/features/trivia/presentation/widgets/answer.dart';
-import 'package:edukid/features/trivia/presentation/widgets/card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
 import '../../config/colors.dart' as app_colors;
 
@@ -131,7 +125,16 @@ class QuestionPage extends StatelessWidget {
               ]);
             }
             if (state is QuizResultState) {
-              return Center(
+               return Stack(fit: StackFit.expand, children: [
+                Container(
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('images/doodle.png'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Center(
                 child: Container(
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -168,7 +171,7 @@ class QuestionPage extends StatelessWidget {
                         )
                       ]),
                 ),
-              );
+              )]);
             } else if (state is QuizErrorState) {
               return Text(state.errorMessage);
             } else
@@ -196,7 +199,8 @@ class QuestionPage extends StatelessWidget {
           )
         ],
       ),
-      Text('Complimenti! Hai dato la risposta corretta. Ecco a te 10 gettoni.'),
+      Text('Giusto!', style: TextStyle(fontSize: 25.sp)),
+      Text('Hai guadagnato 10 gettoni!'),
     ]);
   }
 

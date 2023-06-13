@@ -1,8 +1,6 @@
-import 'package:edukid/features/trivia/presentation/widgets/dialog.dart';
-import 'package:edukid/features/trivia/presentation/widgets/dialog/dialogBloc.dart';
+
 import 'package:edukid/features/trivia/presentation/widgets/dialog/dialog_factory.dart';
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 import '../config/colors.dart' as app_colors;
 
 class ClickableImage extends StatelessWidget {
@@ -15,7 +13,7 @@ class ClickableImage extends StatelessWidget {
           onTap: () {
         DialogFactory.showInfoDialog(context, '', '');
       },
-          child: Icon(
+          child: const Icon(
             Icons.info_outline,
             size: 48,
             color: app_colors.orange,

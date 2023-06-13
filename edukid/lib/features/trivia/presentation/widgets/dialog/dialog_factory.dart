@@ -1,8 +1,5 @@
 import 'package:edukid/features/trivia/presentation/widgets/dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sizer/sizer.dart';
-import '../../config/colors.dart' as app_colors;
 
 enum DialogType {
   info,

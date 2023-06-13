@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       return MaterialApp(
         title: 'Edukid',
         theme: AppTheme.lightTheme,
-        initialRoute: 'getStarted',
+        initialRoute: 'login',
         onGenerateRoute: AppRouter().onGenerateRoute,
       );
     });
