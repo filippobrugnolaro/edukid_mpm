@@ -1,5 +1,6 @@
 import 'package:edukid/features/trivia/domain/repositories/RandomTriviaRepository.dart';
 import 'package:edukid/features/trivia/presentation/screens/question/bloc/question_bloc.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';

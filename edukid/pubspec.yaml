@@ -52,6 +52,12 @@ dependencies:
   flutter_svg: ^1.0.3
   #form for login
   formz: ^0.4.0
+  # firebase authentication
+  firebase_core: ^2.14.0
+  firebase_auth: ^4.6.3
+  firebase_database: ^10.2.3
+  google_sign_in: ^6.1.4
+  email_validator: ^2.0.1
 
 
 dev_dependencies:
@@ -82,4 +88,3 @@ flutter:
         - asset: assets/fonts/Poppins-Regular.ttf
   assets:
     - assets/images/
-    # https://freepngimg.com/png/81992-symbol-trademark-wii-mario-bros-super 

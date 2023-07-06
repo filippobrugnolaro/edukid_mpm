@@ -61,7 +61,7 @@ class AppRouter {
       case 'login':
         return PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-              LoginPage(),
+              LoginScreen(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return _getSlideTransition(animation, child);
           },

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "208548965320",
+    "firebase_url": "https://edu-kid-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "edu-kid",
+    "storage_bucket": "edu-kid.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:208548965320:android:9ca7abd77a1a451cb8eefd",
+        "android_client_info": {
+          "package_name": "com.example.edukid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "208548965320-hcuobbkerrmhefc1mdtk1orc3ba60lkn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSmAC8xeNvckOIZdssL5VWiJ-MUFsd6Bo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "208548965320-hcuobbkerrmhefc1mdtk1orc3ba60lkn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "208548965320-4haje541kle8v6usctkfhlgtqj6jsd3u.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.edukid"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
