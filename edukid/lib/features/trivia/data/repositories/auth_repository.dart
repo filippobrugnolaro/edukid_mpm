@@ -4,6 +4,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthRepository {
   final _firebaseAuth = FirebaseAuth.instance;
+  final _database = FirebaseDatabase.instance.ref();
 
   Future<void> signInWithGoogle() async {
     try {
@@ -24,19 +25,42 @@ class AuthRepository {
   }
 
   Future<DatabaseEvent> getUserPoints(String uid) {
-    final userRef = FirebaseDatabase.instance.ref().child('users').child(uid).child('points');
+    final userRef = _database.child('users').child(uid).child('points');
     return userRef.once();
   }
 
   Future<void> updateUserPoints(String uid, int newPoints) async {
-    final userRef = FirebaseDatabase.instance.ref().child('users').child(uid);
+    final userRef = _database.child('users').child(uid);
     await userRef.child('points').set(newPoints);
   }
 
-  Future<void> signUp({required String email, required String password}) async {
+  Future<void> signUp({
+    required String email,
+    required String password,
+    required String name,
+    required String surname,
+    required String dateOfBirth,
+    required int points,
+  }) async {
     try {
-      await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: password);
+      final UserCredential userCredential =
+          await _firebaseAuth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      final User? user = userCredential.user;
+      if (user != null) {
+        // Store additional user data in the database
+        final userData = {
+          'name': name,
+          'surname': surname,
+          'dateOfBirth': dateOfBirth,
+          'points': points,
+        };
+        await _database.child('users').child(user.uid).set(userData);
+      }
+
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         throw Exception('The password provided is too weak.');
@@ -53,10 +77,10 @@ class AuthRepository {
     required String password,
   }) async {
     try {
-      print(email);
-      print(password);
-      await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
+      await _firebaseAuth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         throw Exception('No user found for that email.');
@@ -70,7 +94,7 @@ class AuthRepository {
     try {
       await _firebaseAuth.signOut();
     } catch (e) {
-      throw Exception(e);
+      throw Exception(e.toString());
     }
   }
 }

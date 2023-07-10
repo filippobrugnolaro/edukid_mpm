@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:bloc/bloc.dart';
 import 'package:edukid/features/trivia/data/repositories/auth_repository.dart';
 import 'package:edukid/features/trivia/domain/entities/RandomTrivia.dart';

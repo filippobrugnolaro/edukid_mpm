@@ -21,7 +21,6 @@ Future<void> main() async {
       authDomain: 'AIzaSyCw6ARVwXQBYF5HibwlTt0DAumF6IOImIU',
       databaseURL: 'https://edu-kid-default-rtdb.europe-west1.firebasedatabase.app',
       appId: "1:208548965320:web:8d0aa6affc3a866cb8eefd",
-      // Add other necessary options
     ),
   );
   runApp(MyApp());

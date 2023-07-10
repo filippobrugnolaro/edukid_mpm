@@ -1,7 +1,4 @@
-import 'package:edukid/features/trivia/data/repositories/RandomTriviaRepositoryImpl.dart';
-import 'package:edukid/features/trivia/domain/entities/RandomTrivia.dart';
 import 'package:edukid/features/trivia/domain/repositories/RandomTriviaRepository.dart';
-import 'package:edukid/features/trivia/domain/usecases/GetRandomTriviaUseCase.dart';
 import 'package:edukid/features/trivia/presentation/screens/getStarted/getStarted.dart';
 import 'package:edukid/features/trivia/presentation/screens/login/login.dart';
 import 'package:edukid/features/trivia/presentation/screens/question/questions.dart';

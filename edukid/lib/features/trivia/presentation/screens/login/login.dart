@@ -292,6 +292,7 @@ class LoginPage extends StatelessWidget {
 
 import 'package:edukid/features/trivia/data/bloc/auth_bloc.dart';
 import 'package:edukid/features/trivia/presentation/screens/getStarted/getStarted.dart';
+import 'package:edukid/features/trivia/presentation/screens/signup/signup.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -384,10 +385,27 @@ class _LoginState extends State<LoginScreen> {
                       Divider(),
                       SizedBox(height: 3.0.h),
                       Align(
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => SignUpScreen()),
+                            );
+                          },
+                          child: const Text(
+                            'Non hai ancora un account? Registrati!',
+                            style: TextStyle(
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 3.0.h),
+                      Align(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('Oppure accedi con Google'),
+                            const Text('Oppure accedi con Google'),
                             IconButton(
                             onPressed: () {
                               _authenticateWithGoogle(context);

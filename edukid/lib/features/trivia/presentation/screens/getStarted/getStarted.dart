@@ -19,23 +19,13 @@ class GetStarted extends StatelessWidget {
   }
 }
 
+final user = FirebaseAuth.instance.currentUser!;
+final ref = FirebaseDatabase.instance.ref('users/${user.uid}');
+String name = '';
+
 class GetStartedPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser!;
-    final userNode = FirebaseDatabase.instance.ref().child('users/${user.uid}');
-    if (user != null) {
-      final userData = {
-        'points': 0,
-      };
-      userNode.set(userData)
-      .then((_) {
-        print('Custom user data added successfully.');
-      })
-      .catchError((error) {
-        print('Failed to add custom user data: $error');
-      });
-    }
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -43,6 +33,15 @@ class GetStartedPage extends StatelessWidget {
             'EduKid',
             style: TextStyle(fontSize: 2.5.h),
           ),
+          actions: [
+          IconButton(
+            icon: Icon(Icons.account_box_rounded),
+            onPressed: () {
+              // Perform action when the icon is pressed
+              Navigator.of(context).pushNamed('personal');
+            },
+          ),
+        ],
           backgroundColor: app_colors.orange,
         ),
         body: BlocListener<AuthBloc, AuthState>(
@@ -73,10 +72,8 @@ class GetStartedPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Email: ${user.email}',
+                        'User: ${user.email}',
                       ),
-
-                      Text('Ciao ${user.displayName}'),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -84,7 +81,7 @@ class GetStartedPage extends StatelessWidget {
                             'images/coin.png',
                             height: 6.h,
                           ),
-                          Text('200',
+                          Text('-',
                               style: TextStyle(
                                   fontSize: 2.5.h, fontWeight: FontWeight.bold))
                         ],

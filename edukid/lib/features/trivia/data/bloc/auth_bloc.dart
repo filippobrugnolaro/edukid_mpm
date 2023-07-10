@@ -1,14 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:edukid/features/trivia/data/repositories/auth_repository.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository authRepository;
-  
+
   AuthBloc({required this.authRepository}) : super(UnAuthenticated()) {
     // When User Presses the SignIn Button, we will send the SignInRequested Event to the AuthBloc to handle it and emit the Authenticated State if the user is authenticated
     on<SignInRequested>((event, emit) async {
@@ -27,6 +26,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(Loading());
       try {
         await authRepository.signUp(
+            email: event.email,
+            password: event.password,
+            name: event.name,
+            surname: event.surname,
+            dateOfBirth: event.dateOfBirth,
+            points: event.points);
+        await authRepository.signIn(
             email: event.email, password: event.password);
         emit(Authenticated());
       } catch (e) {
