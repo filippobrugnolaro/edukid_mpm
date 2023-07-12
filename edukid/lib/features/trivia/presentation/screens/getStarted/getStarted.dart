@@ -91,7 +91,7 @@ class GetStartedPage extends StatelessWidget {
                           Expanded(
                             flex: 3,
                             child: Text(
-                              'Ciao! Cosa vuoi imparare oggi?',
+                              'Hello there! What would you like to revise today?',
                               style: TextStyle(
                                   fontSize: 3.2.h, fontWeight: FontWeight.bold),
                               softWrap: true,
@@ -104,13 +104,13 @@ class GetStartedPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const CardWidget(
-                              text: 'Matematica',
+                              text: 'Maths',
                               imagePath: 'images/numbers.png',
                               borderColor: app_colors.fucsia,
                               goTo: 'math'),
                           SizedBox(width: 10.w),
                           const CardWidget(
-                              text: 'Geografia',
+                              text: 'Geography',
                               imagePath: 'images/geo.png',
                               borderColor: app_colors.blue,
                               goTo: 'geo'),
@@ -120,13 +120,13 @@ class GetStartedPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const CardWidget(
-                              text: 'Storia',
+                              text: 'History',
                               imagePath: 'images/storia.png',
                               borderColor: app_colors.green,
                               goTo: 'storia'),
                           SizedBox(width: 10.w),
                           const CardWidget(
-                              text: 'Scienze',
+                              text: 'Science',
                               imagePath: 'images/scienze.png',
                               borderColor: app_colors.orange,
                               goTo: 'scienze'),

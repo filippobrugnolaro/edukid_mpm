@@ -21,7 +21,6 @@ class _SignUpState extends State<SignUpScreen> {
   final _passwordController = TextEditingController();
   final _nameController = TextEditingController();
   final _surnameController = TextEditingController();
-  final _dateOfBirthController = TextEditingController();
 
   @override
   void dispose() {
@@ -29,7 +28,6 @@ class _SignUpState extends State<SignUpScreen> {
     _passwordController.dispose();
     _nameController.dispose();
     _surnameController.dispose();
-    _dateOfBirthController.dispose();
     super.dispose();
   }
 
@@ -87,7 +85,7 @@ class _SignUpState extends State<SignUpScreen> {
                         children: <Widget>[
                           Align(
                             child: Text(
-                              'Crea un nuovo account',
+                              'Create a new account!',
                               style: TextStyle(fontSize: 15.sp),
                             ),
                           ),
@@ -95,8 +93,6 @@ class _SignUpState extends State<SignUpScreen> {
                           nameField(context),
                           SizedBox(height: 3.0.h),
                           surnameField(context),
-                          SizedBox(height: 3.0.h),
-                          dateOfBirthField(context),
                           SizedBox(height: 3.0.h),
                           emailField(context),
                           SizedBox(height: 3.0.h),
@@ -116,14 +112,8 @@ class _SignUpState extends State<SignUpScreen> {
   void _createAccountWithEmailAndPassword(BuildContext context) {
     if (_formKey.currentState!.validate()) {
       BlocProvider.of<AuthBloc>(context).add(
-        SignUpRequested(
-          _emailController.text,
-          _passwordController.text,
-          _nameController.text,
-          _surnameController.text,
-          _dateOfBirthController.text,
-          0,
-        ),
+        SignUpRequested(_emailController.text, _passwordController.text,
+            _nameController.text, _surnameController.text, 0),
       );
     }
   }
@@ -140,11 +130,10 @@ class _SignUpState extends State<SignUpScreen> {
         backgroundColor: MaterialStateProperty.all<Color>(
             app_colors.orange), // Set the background color
       ),
-      child: Text("Accedi",
+      child: Text("Signup",
           style: TextStyle(fontSize: 8.0.sp, color: app_colors.white)),
       onPressed: () {
-        _createAccountWithEmailAndPassword(
-            context);
+        _createAccountWithEmailAndPassword(context);
       },
     );
   }
@@ -200,7 +189,7 @@ class _SignUpState extends State<SignUpScreen> {
           autovalidateMode: AutovalidateMode.onUserInteraction,
           validator: (value) {
             return value != null && !EmailValidator.validate(value)
-                ? 'Non è un valido indirizzo mail!'
+                ? 'Please insert a valid email!'
                 : null;
           },
           decoration: InputDecoration(
@@ -236,11 +225,11 @@ class _SignUpState extends State<SignUpScreen> {
           controller: _nameController,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           decoration: InputDecoration(
-              hintText: "Nome",
+              hintText: "Name",
               floatingLabelBehavior: FloatingLabelBehavior.never,
               filled: true,
               fillColor: app_colors.white, // Set your desired background color
-              labelText: 'Nome',
+              labelText: 'Name',
               errorStyle: TextStyle(
                 fontSize: (8.0.sp),
               ),
@@ -267,11 +256,11 @@ class _SignUpState extends State<SignUpScreen> {
           controller: _surnameController,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           decoration: InputDecoration(
-              hintText: "Cognome",
+              hintText: "Surname",
               floatingLabelBehavior: FloatingLabelBehavior.never,
               filled: true,
               fillColor: app_colors.white, // Set your desired background color
-              labelText: 'Cognome',
+              labelText: 'Surname',
               errorStyle: TextStyle(
                 fontSize: (8.0.sp),
               ),
@@ -282,39 +271,4 @@ class _SignUpState extends State<SignUpScreen> {
               )),
         ));
   }
-
-  Widget dateOfBirthField(context) {
-    return Theme(
-      data: Theme.of(context).copyWith(
-        primaryColor: app_colors.orange, // Set your desired cursor color
-        inputDecorationTheme: const InputDecorationTheme(
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-                color: app_colors.orange), // Set your desired border color
-          ),
-        ),
-      ),
-      child: TextFormField(
-        keyboardType: TextInputType.text,
-        controller: _dateOfBirthController,
-        decoration: InputDecoration(
-            hintText: "gg/mm/aaaa",
-            floatingLabelBehavior: FloatingLabelBehavior.never,
-            filled: true,
-            fillColor: app_colors.white, // Set your desired background color
-            labelText: 'gg/mm/aaaa',
-            errorStyle: TextStyle(
-              fontSize: (10.0.sp),
-            ),
-            contentPadding: const EdgeInsets.fromLTRB(10, 3, 10, 6),
-            enabledBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: app_colors.orange),
-              borderRadius: BorderRadius.all(Radius.circular(8.0)),
-            )),
-        autovalidateMode: AutovalidateMode.onUserInteraction,
-      ),
-    );
-  }
 }
-
-

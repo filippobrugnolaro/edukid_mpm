@@ -5,6 +5,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 class AuthRepository {
   final _firebaseAuth = FirebaseAuth.instance;
   final _database = FirebaseDatabase.instance.ref();
+  User? loggedUser;
 
   Future<void> signInWithGoogle() async {
     try {
@@ -24,22 +25,11 @@ class AuthRepository {
     }
   }
 
-  Future<DatabaseEvent> getUserPoints(String uid) {
-    final userRef = _database.child('users').child(uid).child('points');
-    return userRef.once();
-  }
-
-  Future<void> updateUserPoints(String uid, int newPoints) async {
-    final userRef = _database.child('users').child(uid);
-    await userRef.child('points').set(newPoints);
-  }
-
   Future<void> signUp({
     required String email,
     required String password,
     required String name,
     required String surname,
-    required String dateOfBirth,
     required int points,
   }) async {
     try {
@@ -49,18 +39,17 @@ class AuthRepository {
         password: password,
       );
 
-      final User? user = userCredential.user;
+      /*final User? user = userCredential.user;
       if (user != null) {
         // Store additional user data in the database
         final userData = {
           'name': name,
           'surname': surname,
-          'dateOfBirth': dateOfBirth,
           'points': points,
         };
         await _database.child('users').child(user.uid).set(userData);
-      }
-
+        loggedUser = user;
+      }*/
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         throw Exception('The password provided is too weak.');

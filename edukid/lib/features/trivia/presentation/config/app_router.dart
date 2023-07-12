@@ -23,7 +23,7 @@ class AppRouter {
         return PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
               QuestionPage(
-            title: 'Matematica',
+            title: 'Mathematics',
             color: app_colors.fucsia,
             quizRepo: repo,
           ),
@@ -34,7 +34,7 @@ class AppRouter {
       case 'geo':
         return PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-              QuestionPage(title: 'Geografia', color: app_colors.blue, quizRepo: repo),
+              QuestionPage(title: 'Geography', color: app_colors.blue, quizRepo: repo),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return _getSlideTransition(animation, child);
           },
@@ -42,7 +42,7 @@ class AppRouter {
       case 'storia':
         return PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-              QuestionPage(title: 'Storia', color: app_colors.green,quizRepo: repo),
+              QuestionPage(title: 'History', color: app_colors.green,quizRepo: repo),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return _getSlideTransition(animation, child);
           },
@@ -50,7 +50,7 @@ class AppRouter {
       case 'scienze':
         return PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-              QuestionPage(title: 'scienze', color: app_colors.orange,quizRepo: repo,),
+              QuestionPage(title: 'Science', color: app_colors.orange,quizRepo: repo,),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return _getSlideTransition(animation, child);
           },

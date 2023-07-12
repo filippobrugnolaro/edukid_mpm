@@ -118,7 +118,7 @@ class QuestionPage extends StatelessWidget {
                                       .options[state.selectedOptionIndex]));
                             }
                           },
-                          child: Text('Consegna'),
+                          child: Text('Submit'),
                         ),
                       ],
                     ))
@@ -151,8 +151,8 @@ class QuestionPage extends StatelessWidget {
                               BlocProvider.of<QuizBloc>(context)
                                   .add(LoadQuizEvent());
                             },
-                            child: const Text('Vai alla prossima domanda')),
-                        const Text('oppure'),
+                            child: const Text('Next question')),
+                        const Text('or'),
                         ElevatedButton(
                             style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all<Color>(
@@ -164,7 +164,7 @@ class QuestionPage extends StatelessWidget {
                             onPressed: () {
                               Navigator.of(context).pushReplacementNamed('getStarted');
                             },
-                            child: const Text('Cambia categoria',
+                            child: const Text('Change category',
                                 style: TextStyle(color: app_colors.black))),
                         SizedBox(
                           height: 8.h,
@@ -175,7 +175,7 @@ class QuestionPage extends StatelessWidget {
             } else if (state is QuizErrorState) {
               return Text(state.errorMessage);
             } else
-              return Text('Si è verificato un errore');
+              return Text('Sorry an error occured!');
           },
         ),
       ),
@@ -199,8 +199,8 @@ class QuestionPage extends StatelessWidget {
           )
         ],
       ),
-      Text('Giusto!', style: TextStyle(fontSize: 25.sp)),
-      Text('Hai guadagnato 10 gettoni!'),
+      Text('Correct!', style: TextStyle(fontSize: 25.sp)),
+      Text('You earned 10 coins!'),
     ]);
   }
 
@@ -229,19 +229,19 @@ class QuestionPage extends StatelessWidget {
           )
         ],
       ),
-      Text('La risposta corretta era $correctAnswer.',
+      Text('Correct answer was: $correctAnswer.',
           style: TextStyle(fontSize: 10.sp)),
       SizedBox(height: 4.h),
-      Text('Purtroppo hai perso 5 gettoni!'),
+      Text('Unluckily you lost 5 coins!'),
       SizedBox(height: 2.h),
-      Text('Rispondi correttamente alla prossima domanda per rimediare!'),
+      Text('Try to answer the next question correctly to earn them back!'),
     ]);
   }
 
   Widget getDialog(dynamic context) {
     return AlertDialog(
-      title: const Text('Attenzione!'),
-      content: const Text('Devi selezionare almeno un opzione!'),
+      title: const Text('Careful!'),
+      content: const Text('You need to select at least one option!'),
       actionsPadding: const EdgeInsets.all(20),
       actions: [
         ElevatedButton(
@@ -249,7 +249,7 @@ class QuestionPage extends StatelessWidget {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: Text('Ho capito.'),
+          child: Text('Understood.'),
         ),
       ],
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),

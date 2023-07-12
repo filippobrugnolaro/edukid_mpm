@@ -1,6 +1,7 @@
 import 'package:edukid/features/trivia/data/bloc/auth_bloc.dart';
 import 'package:edukid/features/trivia/data/repositories/auth_repository.dart';
 import 'package:edukid/features/trivia/presentation/config/app_router.dart';
+import 'package:edukid/features/trivia/presentation/config/themes.dart';
 import 'package:edukid/features/trivia/presentation/screens/getStarted/getStarted.dart';
 import 'package:edukid/features/trivia/presentation/screens/login/login.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -39,6 +40,8 @@ class MyApp extends StatelessWidget {
                 ),
             child: Sizer(builder: (context, orientation, DeviceType) {
               return MaterialApp(
+                title: 'Edukid',
+                theme: AppTheme.lightTheme,
                 home: StreamBuilder<User?>(
                 stream: FirebaseAuth.instance.authStateChanges(),
                 builder: (context, snapshot) {

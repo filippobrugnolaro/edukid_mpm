@@ -323,7 +323,7 @@ class _LoginState extends State<LoginScreen> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: app_colors.orange,
-          title: Text('Accedi'),
+          title: Text('Login'),
         ),
         body: BlocListener<AuthBloc, AuthState>(listener: (context, state) {
           if (state is Authenticated) {
@@ -370,7 +370,7 @@ class _LoginState extends State<LoginScreen> {
                     children: <Widget>[
                       Align(
                         child: Text(
-                          'Accedi al tuo account',
+                          'Login to your existing account',
                           style: TextStyle(fontSize: 15.sp),
                         ),
                       ),
@@ -393,7 +393,7 @@ class _LoginState extends State<LoginScreen> {
                             );
                           },
                           child: const Text(
-                            'Non hai ancora un account? Registrati!',
+                            'Do not have an account yet? Signup now!',
                             style: TextStyle(
                               decoration: TextDecoration.underline,
                             ),
@@ -405,7 +405,7 @@ class _LoginState extends State<LoginScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text('Oppure accedi con Google'),
+                            const Text('Or login with Google'),
                             IconButton(
                             onPressed: () {
                               _authenticateWithGoogle(context);
@@ -496,7 +496,7 @@ class _LoginState extends State<LoginScreen> {
       validator: (value) {
         return value != null &&
                 !EmailValidator.validate(value)
-            ? 'Non è un valido indirizzo mail!'
+            ? 'Please insert a valid email address.'
             : null;
       },
       decoration: InputDecoration(
@@ -522,7 +522,7 @@ class _LoginState extends State<LoginScreen> {
         backgroundColor: MaterialStateProperty.all<Color>(
             app_colors.orange), // Set the background color
       ),
-      child: Text("Accedi",
+      child: Text("Login",
           style: TextStyle(fontSize: 8.0.sp, color: app_colors.white)),
       onPressed: () {
         _authenticateWithEmailAndPassword(

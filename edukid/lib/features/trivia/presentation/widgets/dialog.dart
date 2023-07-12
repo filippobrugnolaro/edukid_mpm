@@ -24,7 +24,7 @@ class InfoDialog extends Dialog {
         ],
       ),
       content: Text(description ?? 
-        'Divertiti e sfida i tuoi amici imparando.Per ogni risposta giusta otterrai 10 gettoni, ma attenzione! Se darai la risposta sbagliata ne perderai 5!'
+        'Have fun and challenge your friends while learning!\nFor each correct answer you will earn 10 coins but be careful! If your answer is wrong you will lose 5.'
       ),
       actionsPadding: const EdgeInsets.all(20),
       actions: <Widget>[
@@ -37,7 +37,7 @@ class InfoDialog extends Dialog {
                 Navigator.pop(context);
               }
             },
-            child: const Text('chiudi'))
+            child: const Text('Close'))
       ],
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
     );
