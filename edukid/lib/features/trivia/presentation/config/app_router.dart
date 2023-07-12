@@ -1,6 +1,7 @@
 import 'package:edukid/features/trivia/domain/repositories/RandomTriviaRepository.dart';
 import 'package:edukid/features/trivia/presentation/screens/getStarted/getStarted.dart';
 import 'package:edukid/features/trivia/presentation/screens/login/login.dart';
+import 'package:edukid/features/trivia/presentation/screens/personalData/personalData.dart';
 import 'package:edukid/features/trivia/presentation/screens/question/questions.dart';
 import 'package:edukid/features/trivia/presentation/config/colors.dart'
     as app_colors;
@@ -59,6 +60,14 @@ class AppRouter {
         return PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
               LoginScreen(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return _getSlideTransition(animation, child);
+          },
+        );
+      case 'profile':
+      return PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              ProfilePage(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return _getSlideTransition(animation, child);
           },

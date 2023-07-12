@@ -39,7 +39,7 @@ class AuthRepository {
         password: password,
       );
 
-      /*final User? user = userCredential.user;
+      final User? user = userCredential.user;
       if (user != null) {
         // Store additional user data in the database
         final userData = {
@@ -49,7 +49,7 @@ class AuthRepository {
         };
         await _database.child('users').child(user.uid).set(userData);
         loggedUser = user;
-      }*/
+      }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         throw Exception('The password provided is too weak.');
@@ -84,6 +84,18 @@ class AuthRepository {
       await _firebaseAuth.signOut();
     } catch (e) {
       throw Exception(e.toString());
+    }
+  }
+
+  Future<void> updateUserPoints(String userId, int points) async {
+    try {
+      // Update the "points" field in the user node
+      final userRef = _database.child('users').child(userId);
+      await userRef.child('points').set(points);
+    } catch (error) {
+      // Handle any errors that occur during the update
+      print('Error updating user points: $error');
+      throw error;
     }
   }
 }

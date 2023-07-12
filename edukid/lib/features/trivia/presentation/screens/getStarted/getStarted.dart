@@ -10,20 +10,41 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 import '../../config/colors.dart' as app_colors;
 
-class GetStarted extends StatelessWidget {
-  const GetStarted({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GetStartedPage();
-  }
-}
 
 final user = FirebaseAuth.instance.currentUser!;
 final ref = FirebaseDatabase.instance.ref('users/${user.uid}');
 String name = '';
 
-class GetStartedPage extends StatelessWidget {
+class GetStartedPage extends StatefulWidget {
+  @override
+  _GetStartedPageState createState() => _GetStartedPageState();
+}
+
+class _GetStartedPageState extends State<GetStartedPage> {
+  int points = 0;
+  DatabaseReference pointsRef = ref.child('points');
+
+  @override
+  void initState() {
+    super.initState();
+    pointsRef = ref.child('points');
+    // Listen for changes to the "points" field in real-time
+    pointsRef.onValue.listen((event) {
+      var dataSnapshot = event.snapshot;
+      if (dataSnapshot.value != null) {
+        setState(() {
+          points = dataSnapshot.value as int;
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    pointsRef.onValue.listen((event) {}).cancel(); // Cancel the listener when the widget is disposed
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +59,7 @@ class GetStartedPage extends StatelessWidget {
             icon: Icon(Icons.account_box_rounded),
             onPressed: () {
               // Perform action when the icon is pressed
-              Navigator.of(context).pushNamed('personal');
+              Navigator.of(context).pushNamed('profile');
             },
           ),
         ],
@@ -71,9 +92,6 @@ class GetStartedPage extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        'User: ${user.email}',
-                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -81,9 +99,10 @@ class GetStartedPage extends StatelessWidget {
                             'images/coin.png',
                             height: 6.h,
                           ),
-                          Text('-',
+                          Text(
+                            '$points',
                               style: TextStyle(
-                                  fontSize: 2.5.h, fontWeight: FontWeight.bold))
+                                  fontSize: 3.h, fontWeight: FontWeight.bold))
                         ],
                       ),
                       Row(

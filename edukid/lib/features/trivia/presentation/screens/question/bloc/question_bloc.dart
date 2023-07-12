@@ -3,6 +3,7 @@ import 'package:edukid/features/trivia/data/repositories/auth_repository.dart';
 import 'package:edukid/features/trivia/domain/entities/RandomTrivia.dart';
 import 'package:edukid/features/trivia/domain/repositories/RandomTriviaRepository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 part 'question_event.dart';
 part 'question_state.dart';
@@ -11,6 +12,7 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
   final QuizRepo quizRepository;
   final user = FirebaseAuth.instance.currentUser!;
   final authRepository = AuthRepository();
+  final userRef = FirebaseDatabase.instance.ref().child('users').child(FirebaseAuth.instance.currentUser!.uid);
 
   QuizBloc(this.quizRepository) : super(QuizInitialState()) {
     on<SubmitAnswerEvent>(mapEventToState);
@@ -43,7 +45,7 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
       final currentState = state;
       if (currentState is QuizQuestionState) {
         if (event.selectedOption == 'null') {
-          emit(QuizErrorState('Non hai selezionato una risposta'));
+          emit(QuizErrorState('Please select and option'));
         } else {
           final question = currentState.question;
           final correctAnswer = question.answer;
@@ -52,18 +54,12 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
           // Emit the result state
           emit(QuizResultState(isCorrect, correctAnswer));
 
-
-          /*
-          // Update user's "point" field if the answer is correct
-          final userRef =
-                FirebaseDatabase.instance.ref().child('users').child(user.uid);
-          final currentPointsSnapshot =
-              await userRef.child('points').once();
-          final currentPoints =
-              currentPointsSnapshot.snapshot.value as int? ?? 0;
-          int newPoints = currentPoints + (isCorrect ? 10 : -5);
-          await userRef.child('points').set(newPoints);
-          await authRepository.updateUserPoints(user.uid, newPoints);*/
+          // Update user's "points" field if the answer is correct
+            final currentPointsSnapshot = await userRef.child('points').once();
+            final currentPoints = currentPointsSnapshot.snapshot.value as int? ?? 0;
+            int newPoints = currentPoints + (isCorrect ? 10 : -5);
+            await userRef.child('points').set(newPoints);
+            await authRepository.updateUserPoints(user.uid, newPoints);
         }
       }
     }
