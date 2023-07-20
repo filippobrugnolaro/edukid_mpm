@@ -43,7 +43,7 @@ class DatabaseDataSourceImpl implements DatabaseDataSource {
   @override
   Future<PersonalDataModel> getUserData(String userUID) async {
     final userDataSnapshot = await _database.child("users").child(userUID).once();
-      return PersonalDataModel.fromJson(json.decode(userDataSnapshot.snapshot.value!.toString()));
+      return PersonalDataModel.fromJson(jsonDecode(jsonEncode(userDataSnapshot.snapshot.value)));
   }
 
   @override
@@ -57,12 +57,6 @@ class DatabaseDataSourceImpl implements DatabaseDataSource {
             .child("/$typeQuestion")
             .child("question$random")
             .get();
-      var optionsList = [];
-      final optionsDecoded = jsonDecode(jsonEncode(selectedQuestion.value))["options"];
-      print("$optionsDecoded");
-      for(int i=1; i<5; i++) {
-        optionsList.add(optionsDecoded["option" + i.toString()]);
-      }
       return TriviaModel.fromJson(jsonDecode(jsonEncode(selectedQuestion.value)));
     } else {
       throw ServerException();
