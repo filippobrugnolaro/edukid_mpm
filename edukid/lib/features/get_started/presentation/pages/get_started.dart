@@ -1,9 +1,9 @@
 import 'package:edukid/core/presentation/widgets/card.dart';
 import 'package:edukid/core/presentation/widgets/clickableImg.dart';
+import 'package:edukid/di_container.dart';
 import 'package:edukid/features/authentication/presentation/bloc/auth_bloc.dart';
 import 'package:edukid/features/authentication/presentation/pages/login.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
+import 'package:edukid/features/get_started/domain/repositories/get_started_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
@@ -11,38 +11,31 @@ import 'package:sizer/sizer.dart';
 import '../../../../core/config/colors.dart' as app_colors;
 import '../../../../core/presentation/widgets/dialog/dialog_factory.dart';
 
-
-final user = FirebaseAuth.instance.currentUser!;
-final ref = FirebaseDatabase.instance.ref('users/${user.uid}');
-String name = '';
-
 class GetStartedPage extends StatefulWidget {
   @override
   _GetStartedPageState createState() => _GetStartedPageState();
 }
 
 class _GetStartedPageState extends State<GetStartedPage> {
+  final getStartedRepository = sl<GetStartedRepository>();
   int points = 0;
-  DatabaseReference pointsRef = ref.child('points');
 
   @override
   void initState() {
     super.initState();
-    pointsRef = ref.child('points');
-    // Listen for changes to the "points" field in real-time
-    pointsRef.onValue.listen((event) {
-      var dataSnapshot = event.snapshot;
-      if (dataSnapshot.value != null) {
-        setState(() {
-          points = dataSnapshot.value as int;
-        });
-      }
+    getUpdatedPoints();
+  }
+
+  Future<void> getUpdatedPoints() async {
+    final newPoints = await getStartedRepository.listenToUserPoints();
+    setState(() {
+      points = newPoints;
     });
+
   }
 
   @override
   void dispose() {
-    pointsRef.onValue.listen((event) {}).cancel(); // Cancel the listener when the widget is disposed
     super.dispose();
   }
 

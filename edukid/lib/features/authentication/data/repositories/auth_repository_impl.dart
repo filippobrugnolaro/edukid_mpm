@@ -1,12 +1,12 @@
-import 'package:edukid/core/data/data_sources/auth_data_source.dart';
-import 'package:edukid/core/data/data_sources/database_data_source.dart';
+import 'package:edukid/core/data/data_sources/database_api.dart';
+import 'package:edukid/features/authentication/data/data_sources/auth_data_source.dart';
 import 'package:edukid/features/authentication/domain/repositories/auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthDataSource authDataSource;
-  final DatabaseDataSource databaseDataSource;
+  final DatabaseAPI databaseAPI;
 
-  AuthRepositoryImpl({required this.authDataSource, required this.databaseDataSource});
+  AuthRepositoryImpl({required this.authDataSource, required this.databaseAPI});
 
   @override
   Future<void> signInWithGoogle() async {
@@ -28,7 +28,7 @@ class AuthRepositoryImpl implements AuthRepository {
     );
 
     if(!authDataSource.isSignedUpUserNull()) {
-      databaseDataSource.setUserData(
+      databaseAPI.setUserData(
           authDataSource.getSignedUpUserUID(),
           email,
           name,
@@ -56,10 +56,5 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<void> signOut() async {
     await authDataSource.signOut();
-  }
-
-  @override
-  String getSignedInUserUID() {
-    return authDataSource.getSignedInUserUID();
   }
 }

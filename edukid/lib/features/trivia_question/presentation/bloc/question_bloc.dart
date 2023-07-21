@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:edukid/features/authentication/domain/repositories/auth_repository.dart';
 import 'package:edukid/features/trivia_question/domain/entities/trivia.dart';
 import 'package:edukid/features/trivia_question/domain/repositories/trivia_repository.dart';
 
@@ -10,9 +9,8 @@ part 'question_state.dart';
 
 class TriviaBloc extends Bloc<TriviaEvent, TriviaState> {
   final TriviaRepository triviaRepository;
-  final AuthRepository authRepository;
 
-  TriviaBloc({required this.triviaRepository, required this.authRepository}) : super(TriviaInitialState()) {
+  TriviaBloc({required this.triviaRepository}) : super(TriviaInitialState()) {
     on<SubmitTriviaAnswerEvent>(mapEventToState);
     on<LoadTriviaEvent>(mapEventToState);
     on<SelectTriviaOptionEvent>(mapEventToState);
@@ -55,7 +53,7 @@ class TriviaBloc extends Bloc<TriviaEvent, TriviaState> {
           emit(TriviaResultState(isAnswerCorrect, correctAnswer));
 
           // Update user's "points" field if the answer is correct
-          await triviaRepository.updateUserPoints(isAnswerCorrect, authRepository.getSignedInUserUID());
+          await triviaRepository.updateUserPoints(isAnswerCorrect);
         }
       }
     }

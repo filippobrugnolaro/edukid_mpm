@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 abstract class AuthDataSource {
-
   Future<void> signInWithGoogle();
 
   Future<void> signUp({
@@ -24,11 +23,9 @@ abstract class AuthDataSource {
   bool isSignedUpUserNull();
 
   bool isSignedInUserNull();
-
 }
 
 class AuthDataSourceImpl implements AuthDataSource {
-
   final _firebaseAuth = FirebaseAuth.instance;
   User? signedUpUser;
 
@@ -59,10 +56,10 @@ class AuthDataSourceImpl implements AuthDataSource {
   }) async {
     try {
       final UserCredential userCredential =
-        await _firebaseAuth.createUserWithEmailAndPassword(
-          email: email,
-          password: password,
-        );
+      await _firebaseAuth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
 
       final User? user = userCredential.user;
       if (user != null) {
@@ -126,5 +123,4 @@ class AuthDataSourceImpl implements AuthDataSource {
   bool isSignedInUserNull() {
     return _firebaseAuth.currentUser == null;
   }
-
 }

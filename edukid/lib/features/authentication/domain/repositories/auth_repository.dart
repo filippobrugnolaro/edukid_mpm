@@ -17,6 +17,4 @@ abstract class AuthRepository {
 
   Future<void> signOut();
 
-  String getSignedInUserUID();
-
 }
