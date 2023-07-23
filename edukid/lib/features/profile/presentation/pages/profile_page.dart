@@ -73,24 +73,33 @@ class _ProfilePageState extends State<ProfilePage> {
                   height: 35.h,
                 ),
                 Text(
-                  'Name: $name',
-                  style: const TextStyle(fontSize: 18),
+                  '$name $surname',
+                  style: TextStyle(fontSize: 3.5.h, fontFamily: 'Poppins',fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 3.h),
-                Text(
-                  'Surname: $surname',
-                  style: const TextStyle(fontSize: 18),
+                RichText(
+                  text: TextSpan(
+                    children: <TextSpan>[
+                      TextSpan(text: 'Email: ', style: TextStyle(fontSize: 2.5.h, fontFamily: 'Poppins'),),
+                      TextSpan(
+                        text: email,
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 2.5.h, fontFamily: 'Poppins'),
+                      ),
+                    ],
+                  ),
                 ),
                 SizedBox(height: 3.h),
-                Text(
-                  'Email: $email',
-                  style: const TextStyle(fontSize: 18),
-                ),
-                SizedBox(height: 3.h),
-                Text(
-                  'Points: $points',
-                  style: const TextStyle(fontSize: 18),
-                ),
+                RichText(
+                  text: TextSpan(
+                    children: <TextSpan>[
+                      TextSpan(text: 'Points: ', style: TextStyle(fontSize: 2.5.h, fontFamily: 'Poppins'),),
+                      TextSpan(
+                        text: '$points',
+                        style: TextStyle(fontWeight: FontWeight.bold,fontSize: 2.5.h, fontFamily: 'Poppins'),
+                      ),
+                    ],
+                  ),
+                )
               ],
             ),
           )

@@ -87,6 +87,9 @@ class _GetStartedPageState extends State<GetStartedPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                        Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Image.asset(
@@ -96,23 +99,30 @@ class _GetStartedPageState extends State<GetStartedPage> {
                           Text(
                             '$points',
                               style: TextStyle(
-                                  fontSize: 3.h, fontWeight: FontWeight.bold))
+                                  fontSize: 3.h, fontWeight: FontWeight.bold)),
+                      ],),
+                          ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                app_colors.orange), // Set the background color
+                          ),
+                          onPressed: () {
+                            showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return getDialog(context);
+                                  });
+                          },
+                          child: Text('How to play'),
+                        ),
                         ],
                       ),
-                      Row(
-                        children: [
-                          Expanded(
-                            flex: 3,
-                            child: Text(
-                              'Hello there! What would you like to revise today?',
+                      Text(
+                              'Hello there! What would you like to try today?',
                               style: TextStyle(
                                   fontSize: 3.2.h, fontWeight: FontWeight.bold),
                               softWrap: true,
                             ),
-                          ),
-                          const Expanded(flex: 1, child: ClickableImage()),
-                        ],
-                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -154,16 +164,29 @@ class _GetStartedPageState extends State<GetStartedPage> {
         ));
   }
 
-  void dialogShow(BuildContext context) {
-    showDialog(
-        context: context,
-        barrierDismissible: true,
-        builder: (BuildContext context) {
-          return DialogFactory.getDialog(
-              context: context,
-              dialogType: DialogType.info,
-              title: 'Tutorial',
-              description: 'Ciao io sono Monky!');
-        });
+  Widget getDialog(BuildContext context){
+    return AlertDialog(
+      title: Row(
+        children: <Widget>[
+          Icon(Icons.info,
+              color: app_colors.orange,
+              size: (SizerUtil.deviceType == DeviceType.mobile ? null : 4.0.w)),
+          const SizedBox(
+            width: 10,
+          ),
+          const Text('Tutorial')
+        ],
+      ),
+      content: const Text('Have fun and challenge your friends while learning!\nFor each correct answer you will earn 10 coins but be careful! If your answer is wrong you will lose 5.'
+      ),
+      actionsPadding: const EdgeInsets.all(20),
+      actions: <Widget>[
+        ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: app_colors.orange),
+            onPressed: () {Navigator.pop(context);},
+            child: const Text('Close'))
+      ],
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+    );
   }
 }

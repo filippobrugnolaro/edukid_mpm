@@ -108,25 +108,6 @@ class _LoginState extends State<LoginScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 3.0.h),
-                      Align(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text('Or login with Google'),
-                            IconButton(
-                            onPressed: () {
-                              _authenticateWithGoogle(context);
-                            },
-                            icon: Image.network(
-                              "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1200px-Google_%22G%22_Logo.svg.png",
-                              height: 30,
-                              width: 30,
-                            ),
-                          ),
-                          ]
-                        ),
-                      ),
                       ],
 
             )))]);
@@ -142,13 +123,6 @@ class _LoginState extends State<LoginScreen> {
         SignInRequested(_emailController.text, _passwordController.text),
       );
     }
-  }
-
-//
-  void _authenticateWithGoogle(context) {
-    BlocProvider.of<AuthBloc>(context).add(
-      GoogleSignInRequested(),
-    );
   }
 
   Widget passwordField(context) {
