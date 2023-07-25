@@ -1,5 +1,5 @@
 import 'package:edukid/core/presentation/widgets/card.dart';
-import 'package:edukid/core/presentation/widgets/clickableImg.dart';
+import 'package:edukid/core/presentation/widgets/menuDrawer.dart';
 import 'package:edukid/di_container.dart';
 import 'package:edukid/features/authentication/presentation/bloc/auth_bloc.dart';
 import 'package:edukid/features/authentication/presentation/pages/login.dart';
@@ -9,7 +9,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../core/config/colors.dart' as app_colors;
-import '../../../../core/presentation/widgets/dialog/dialog_factory.dart';
 
 class GetStartedPage extends StatefulWidget {
   @override
@@ -42,23 +41,24 @@ class _GetStartedPageState extends State<GetStartedPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
           title: Text(
             'EduKid',
             style: TextStyle(fontSize: 2.5.h),
           ),
-          actions: [
-          IconButton(
-            icon: const Icon(Icons.account_box_rounded),
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: Icon(Icons.menu),
             onPressed: () {
-              // Perform action when the icon is pressed
-              Navigator.of(context).pushNamed('profile');
+              // Now Scaffold.of(context) will work correctly
+              Scaffold.of(context).openDrawer();
             },
           ),
-        ],
+        ),
           backgroundColor: app_colors.orange,
         ),
+        drawer: MenuDrawer(pageNumber: -1,),
         body: BlocListener<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is UnAuthenticated) {

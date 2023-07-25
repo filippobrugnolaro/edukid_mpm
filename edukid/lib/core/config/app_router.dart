@@ -1,8 +1,10 @@
 
 import 'package:edukid/core/config/colors.dart' as app_colors;
+import 'package:edukid/core/presentation/howToPlayPage.dart';
 import 'package:edukid/features/authentication/presentation/pages/login.dart';
 import 'package:edukid/features/get_started/presentation/pages/get_started.dart';
 import 'package:edukid/features/profile/presentation/pages/profile_page.dart';
+import 'package:edukid/features/profile/presentation/pages/statistics.dart';
 import 'package:edukid/features/trivia_question/presentation/pages/questions.dart';
 import 'package:flutter/material.dart';
 
@@ -69,6 +71,23 @@ class AppRouter {
             return _getSlideTransition(animation, child);
           },
         );
+        case 'howtoplay':
+        return PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              InstructionsPage(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return _getSlideTransition(animation, child);
+          },
+        );
+        case 'statistics':
+        return PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              StatisticsPage(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return _getSlideTransition(animation, child);
+          },
+        );
+        
       default:
         return PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>

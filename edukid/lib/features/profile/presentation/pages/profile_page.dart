@@ -99,12 +99,51 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ],
                   ),
+                ),
+                SizedBox(height: 3.h),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(backgroundColor: app_colors.orange, padding: EdgeInsets.all(2.h)),
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return getDialog(context);
+                      });
+                  },
+                  child: Text('Log out', style: TextStyle(fontSize: 10.sp))
                 )
               ],
             ),
           )
         ],
       ),
+    );
+  }
+
+  Widget getDialog(BuildContext context) {
+    return AlertDialog(
+      actionsAlignment: MainAxisAlignment.spaceBetween,
+      title: Text('Confirm logout'),
+      content: const Text('Are you sure you want to logout?'),
+      actionsPadding: const EdgeInsets.all(20),
+      actions: <Widget>[
+        ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.white, // Background color
+              foregroundColor: Colors.black, // Text color
+              side: BorderSide(color: app_colors.orange, width: 2),),
+            onPressed: () {
+              Navigator.of(context).pushReplacementNamed("login");
+            },
+            child: const Text('Yes')),
+            ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: app_colors.orange),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text('No')),
+      ],
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
     );
   }
 }
