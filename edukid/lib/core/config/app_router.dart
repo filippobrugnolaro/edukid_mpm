@@ -4,7 +4,7 @@ import 'package:edukid/core/presentation/howToPlayPage.dart';
 import 'package:edukid/features/authentication/presentation/pages/login.dart';
 import 'package:edukid/features/get_started/presentation/pages/get_started.dart';
 import 'package:edukid/features/profile/presentation/pages/profile_page.dart';
-import 'package:edukid/features/profile/presentation/pages/statistics.dart';
+import 'package:edukid/features/statistics/presentation/pages/statistics.dart';
 import 'package:edukid/features/trivia_question/presentation/pages/questions.dart';
 import 'package:flutter/material.dart';
 

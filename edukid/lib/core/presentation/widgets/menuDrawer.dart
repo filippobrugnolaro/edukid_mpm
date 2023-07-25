@@ -25,34 +25,42 @@ class MenuDrawer extends StatelessWidget {
                 child: Column(
                   children: [
                     _buildMenuItem(
-                      text: 'My profile',
-                      icon: Icons.account_box,
+                      text: 'Home',
+                      icon: Icons.home,
                       onClicked: () {
                         _selectedItem(context, 0);
                       },
                       isAlreadyIn: pageNumber == 0 ? true : false,
                     ),
                     _buildMenuItem(
-                      text: 'Statistics',
-                      icon: Icons.graphic_eq_rounded,
+                      text: 'My profile',
+                      icon: Icons.account_box,
                       onClicked: () {
                         _selectedItem(context, 1);
                       },
                       isAlreadyIn: pageNumber == 1 ? true : false,
                     ),
                     _buildMenuItem(
-                      text: 'How to play',
-                      icon: Icons.question_mark_outlined,
+                      text: 'Statistics',
+                      icon: Icons.graphic_eq_rounded,
                       onClicked: () {
                         _selectedItem(context, 2);
                       },
                       isAlreadyIn: pageNumber == 2 ? true : false,
                     ),
                     _buildMenuItem(
+                      text: 'How to play',
+                      icon: Icons.question_mark_outlined,
+                      onClicked: () {
+                        _selectedItem(context, 3);
+                      },
+                      isAlreadyIn: pageNumber == 3 ? true : false,
+                    ),
+                    _buildMenuItem(
                       text: 'Logout',
                       icon: Icons.directions_run_sharp,
                       onClicked: () {
-                        _selectedItem(context, 3);
+                        _selectedItem(context, 4);
                       },
                       isAlreadyIn: pageNumber == 4 ? true : false,
                     ),
@@ -71,14 +79,14 @@ class MenuDrawer extends StatelessWidget {
     required bool isAlreadyIn,
   }) {
     return ListTile(
-        tileColor: isAlreadyIn ? app_colors.lightblue : null,
+        tileColor: isAlreadyIn ? Color.fromARGB(255, 239, 239, 239) : null,
         leading: Icon(
           icon,
           size: 3.0.h,
-          color: isAlreadyIn ? app_colors.blue : app_colors.black,
+          color: isAlreadyIn ? app_colors.orange : app_colors.black,
         ),
         title: CustomText(text, 12.0.sp, 12.0.sp,
-            color: isAlreadyIn ? app_colors.blue : app_colors.black),
+            color: isAlreadyIn ? app_colors.orange : app_colors.black),
         onTap: onClicked);
   }
 
@@ -88,20 +96,25 @@ class MenuDrawer extends StatelessWidget {
       switch (index) {
         case 0:
           {
-            Navigator.of(context).pushNamed("profile");
+            Navigator.of(context).pushNamed("getStarted");
           }
           break;
         case 1:
           {
-            Navigator.of(context).pushNamed("statistics");
+            Navigator.of(context).pushNamed("profile");
           }
           break;
         case 2:
           {
-            Navigator.of(context).pushNamed("howtoplay");
+            Navigator.of(context).pushNamed("statistics");
           }
           break;
         case 3:
+          {
+            Navigator.of(context).pushNamed("howtoplay");
+          }
+          break;
+        case 4:
           {
             showDialog(
               context: context,

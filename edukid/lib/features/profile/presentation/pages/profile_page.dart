@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:edukid/core/config/colors.dart' as app_colors;
+import 'package:edukid/core/presentation/widgets/menuDrawer.dart';
 import 'package:edukid/di_container.dart';
 import 'package:edukid/features/profile/domain/repositories/profile_repository.dart';
 import 'package:flutter/material.dart';
@@ -48,9 +49,23 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: app_colors.orange,
-        title: const Text('Your profile'),
-      ),
+        automaticallyImplyLeading: false,
+          title: Text(
+            'Your profile',
+            style: TextStyle(fontSize: 2.5.h),
+          ),
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: Icon(Icons.menu),
+            onPressed: () {
+              // Now Scaffold.of(context) will work correctly
+              Scaffold.of(context).openDrawer();
+            },
+          ),
+        ),
+          backgroundColor: app_colors.orange,
+        ),
+        drawer: MenuDrawer(pageNumber: 1,),
       body: Stack(
         fit: StackFit.expand,
         children: [
