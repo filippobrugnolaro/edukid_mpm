@@ -11,6 +11,8 @@ import 'package:sizer/sizer.dart';
 import '../../../../core/config/colors.dart' as app_colors;
 
 class GetStartedPage extends StatefulWidget {
+  const GetStartedPage({Key? key}) : super(key: key);
+
   @override
   _GetStartedPageState createState() => _GetStartedPageState();
 }
@@ -59,7 +61,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
           ),
         leading: Builder(
           builder: (context) => IconButton(
-            icon: Icon(Icons.menu),
+            icon: const Icon(Icons.menu),
             onPressed: () {
               // Now Scaffold.of(context) will work correctly
               Scaffold.of(context).openDrawer();
@@ -123,7 +125,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
                                     return getDialog(context);
                                   });
                           },
-                          child: Text('How to play'),
+                          child: const Text('How to play'),
                         ),
                         ],
                       ),
