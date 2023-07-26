@@ -111,7 +111,7 @@ class QuestionPage extends StatelessWidget {
                             } else {
                               BlocProvider.of<TriviaBloc>(context).add(
                                   SubmitTriviaAnswerEvent(state.question
-                                      .options[state.selectedOptionIndex]));
+                                      .options[state.selectedOptionIndex], title));
                             }
                           },
                           child: Text('Submit'),

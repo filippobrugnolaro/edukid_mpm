@@ -22,6 +22,8 @@ class _GetStartedPageState extends State<GetStartedPage> {
   @override
   void initState() {
     super.initState();
+    copyCurrentToLatest();
+    resetCurrentStatistics();
     getUpdatedPoints();
   }
 
@@ -30,7 +32,15 @@ class _GetStartedPageState extends State<GetStartedPage> {
     setState(() {
       points = newPoints;
     });
+  }
 
+  Future<void> copyCurrentToLatest() async {
+    await getStartedRepository.copyCurrentToLatest();
+  }
+
+  Future<void> resetCurrentStatistics() async {
+    await getStartedRepository.resetAllCurrentToZero();
+    await getStartedRepository.setResetToDo(false);
   }
 
   @override

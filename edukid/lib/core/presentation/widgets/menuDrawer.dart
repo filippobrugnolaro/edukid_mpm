@@ -1,8 +1,5 @@
 import 'package:edukid/core/presentation/widgets/custom_text.dart';
-import 'package:edukid/features/authentication/domain/repositories/auth_repository.dart';
-import 'package:edukid/features/authentication/presentation/bloc/auth_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 import '../../config/colors.dart' as app_colors;
 

@@ -75,7 +75,8 @@ Future<void> init() async {
   sl.registerLazySingleton<GetStartedRepository>(
           () => GetStartedRepositoryImpl(
               getStartedDataSource: sl(),
-              authAPI: sl()
+              authAPI: sl(),
+              databaseAPI: sl()
           )
   );
 

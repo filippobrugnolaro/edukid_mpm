@@ -118,12 +118,6 @@ class _SignUpState extends State<SignUpScreen> {
     }
   }
 
-/*  void _authenticateWithGoogle(context) {
-    BlocProvider.of<AuthBloc>(context).add(
-      GoogleSignInRequested(),
-    );
-  }*/
-
   Widget getSignupButton() {
     return ElevatedButton(
       style: ButtonStyle(

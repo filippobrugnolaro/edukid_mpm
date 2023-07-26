@@ -27,6 +27,11 @@ class TriviaRepositoryImpl implements TriviaRepository {
   }
 
   @override
+  Future<void> updateUserStatistics(bool isAnswerCorrect, String typeQuestion) async {
+    await triviaDataSource.updateUserStatistics(isAnswerCorrect, authAPI.getSignedInUserUID(), typeQuestion);
+  }
+
+  @override
   Future<void> updateUserPoints(bool isAnswerCorrect) async {
     await triviaDataSource.updateUserPoints(isAnswerCorrect, authAPI.getSignedInUserUID());
   }

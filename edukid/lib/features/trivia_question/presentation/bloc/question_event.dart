@@ -17,8 +17,9 @@ class SelectTriviaOptionEvent extends TriviaEvent {
 
 class SubmitTriviaAnswerEvent extends TriviaEvent {
   final String selectedOption;
+  final String typeQuestion;
 
-  SubmitTriviaAnswerEvent(this.selectedOption);
+  SubmitTriviaAnswerEvent(this.selectedOption, this.typeQuestion);
 }
 
 // TODO positioning better

@@ -1,9 +1,8 @@
+import 'package:edukid/core/config/colors.dart' as app_colors;
 import 'package:edukid/core/presentation/widgets/menuDrawer.dart';
 import 'package:edukid/di_container.dart';
 import 'package:edukid/features/profile/domain/repositories/profile_repository.dart';
 import 'package:flutter/material.dart';
-
-import 'package:edukid/core/config/colors.dart' as app_colors;
 import 'package:sizer/sizer.dart';
 
 class StatisticsPage extends StatefulWidget {
@@ -135,10 +134,11 @@ class _StatisticsPageState extends State<StatisticsPage>
                             child: TabBarView(
                               controller: _tabController,
                               children: [
-                                getStats(context,50,70,90,app_colors.fucsia),
-                                getStats(context,59,51,67,app_colors.blue),
-                                getStats(context,43,47,52,app_colors.green),
-                                getStats(context,13,7,20,app_colors.orange),
+                                getStats(
+                                    context, 50, 70, 90, app_colors.fucsia),
+                                getStats(context, 59, 51, 67, app_colors.blue),
+                                getStats(context, 43, 47, 52, app_colors.green),
+                                getStats(context, 13, 7, 20, app_colors.orange),
                               ],
                             ),
                           ),
@@ -196,35 +196,39 @@ class _StatisticsPageState extends State<StatisticsPage>
     );
   }
 
-  Widget getStats(BuildContext context, int previous, int current, int total, Color color) {
+  Widget getStats(
+      BuildContext context, int previous, int current, int total, Color color) {
     return Center(
-          child: Column(
-            children: [
-              SizedBox(height:2.h),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text("Today's stats", style: TextStyle(fontSize: 12.sp),)),
-              LinearProgressIndicator(
-                value: current/total,
-                minHeight: 3.5.h,
-                backgroundColor: Colors.grey[300], // Set the background color
-                valueColor: AlwaysStoppedAnimation<Color>(color), 
-              ),
-              Text('Correct answers: $current/$total'),
-              SizedBox(height: 2.h),
-              LinearProgressIndicator(
-                minHeight: 3.5.h,
-                value: previous/total,
-                backgroundColor: Colors.grey[300], // Set the background color
-                valueColor: AlwaysStoppedAnimation<Color>(color), // Set the progress color
-              ),
-              Text('Correct answers: $previous/$total'),
-            ],
+      child: Column(
+        children: [
+          SizedBox(height: 2.h),
+          Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "Today's stats",
+                style: TextStyle(fontSize: 12.sp),
+              )),
+          LinearProgressIndicator(
+            value: current / total,
+            minHeight: 3.5.h,
+            backgroundColor: Colors.grey[300], // Set the background color
+            valueColor: AlwaysStoppedAnimation<Color>(color),
           ),
-        );
+          Text('Correct answers: $current/$total'),
+          SizedBox(height: 2.h),
+          LinearProgressIndicator(
+            minHeight: 3.5.h,
+            value: previous / total,
+            backgroundColor: Colors.grey[300], // Set the background color
+            valueColor:
+                AlwaysStoppedAnimation<Color>(color), // Set the progress color
+          ),
+          Text('Correct answers: $previous/$total'),
+        ],
+      ),
+    );
   }
 
- 
   Widget customTabBar(BuildContext context) {
     return TabBar(
       controller: _tabController,
@@ -240,9 +244,10 @@ class _StatisticsPageState extends State<StatisticsPage>
             ),
           ),
       ],
-      unselectedLabelColor:
-          Colors.grey, // Set the text color for unselected tabs
-      labelColor: Colors.white, // Set the text color for the selected tab
+      unselectedLabelColor: Colors.grey,
+      // Set the text color for unselected tabs
+      labelColor: Colors.white,
+      // Set the text color for the selected tab
       indicator: BoxDecoration(
         color: tabIndicatorColors[_tabController
             .index], // Set the background color for the selected tab

@@ -9,11 +9,6 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl({required this.authDataSource, required this.databaseAPI});
 
   @override
-  Future<void> signInWithGoogle() async {
-    await authDataSource.signInWithGoogle();
-  }
-
-  @override
   Future<void> signUp({
     required String email,
     required String password,
@@ -28,13 +23,15 @@ class AuthRepositoryImpl implements AuthRepository {
     );
 
     if(!authDataSource.isSignedUpUserNull()) {
+      final userUID = authDataSource.getSignedUpUserUID();
       databaseAPI.setUserData(
-          authDataSource.getSignedUpUserUID(),
+          userUID,
           email,
           name,
           surname,
           points
       );
+      databaseAPI.setInitialUserStatistics(userUID);
     }
 
 

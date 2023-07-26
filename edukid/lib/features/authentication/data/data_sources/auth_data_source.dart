@@ -1,8 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 abstract class AuthDataSource {
-  Future<void> signInWithGoogle();
 
   Future<void> signUp({
     required String email,
@@ -28,26 +26,6 @@ abstract class AuthDataSource {
 class AuthDataSourceImpl implements AuthDataSource {
   final _firebaseAuth = FirebaseAuth.instance;
   User? signedUpUser;
-
-  @override
-  Future<void> signInWithGoogle() async {
-    try {
-      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-
-      final GoogleSignInAuthentication? googleAuth =
-      await googleUser?.authentication;
-
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth?.accessToken,
-        idToken: googleAuth?.idToken,
-      );
-
-      await FirebaseAuth.instance.signInWithCredential(credential);
-
-    } catch (e) {
-      throw Exception(e.toString());
-    }
-  }
 
   @override
   Future<void> signUp({
