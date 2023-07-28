@@ -1,7 +1,8 @@
 import 'package:edukid/core/config/colors.dart' as app_colors;
 import 'package:edukid/core/presentation/widgets/menuDrawer.dart';
 import 'package:edukid/di_container.dart';
-import 'package:edukid/features/profile/domain/repositories/profile_repository.dart';
+import 'package:edukid/features/statistics/domain/repositories/leaderboard_repository.dart';
+import 'package:edukid/features/statistics/domain/repositories/personal_category_statistics_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -14,10 +15,15 @@ class StatisticsPage extends StatefulWidget {
 
 class _StatisticsPageState extends State<StatisticsPage>
     with SingleTickerProviderStateMixin {
-  String name = '';
-  String surname = '';
-  String email = '';
-  int points = 0;
+  List<int> listRanks = [];
+  List<String> listNames = [];
+  List<String> listSurnames = [];
+  List<int> listPoints = [];
+  List<int> listCurrentCorrect = [];
+  List<int> listLatestCorrect = [];
+  List<int> listCurrentDone = [];
+  List<int> listLatestDone = [];
+
   late TabController _tabController;
   List<Color> tabIndicatorColors = [
     app_colors.fucsia,
@@ -34,7 +40,9 @@ class _StatisticsPageState extends State<StatisticsPage>
     _tabController.addListener(() {
       setState(() {}); // Rebuild the widget when the selected tab index changes
     });
-    getUserData();
+    getPodium();
+    getPersonalEntry();
+    getPersonalCategoryStatistics();
   }
 
   @override
@@ -43,14 +51,37 @@ class _StatisticsPageState extends State<StatisticsPage>
     super.dispose();
   }
 
-  Future<void> getUserData() async {
-    final personalData =
-        await sl<ProfileRepository>().getUserData(); // Chiedere ad ale
+  Future<void> getPodium() async {
+    final podium = await sl<LeaderboardRepository>().getPodium();
     setState(() {
-      email = personalData.email;
-      name = personalData.name;
-      surname = personalData.surname;
-      points = personalData.points;
+      for (final element in podium) {
+        listRanks.add(element.rank);
+        listNames.add(element.name);
+        listSurnames.add(element.surname);
+        listPoints.add(element.points);
+      }
+    });
+  }
+
+  Future<void> getPersonalEntry() async {
+    final personalEntry = await sl<LeaderboardRepository>().getPersonalEntry();
+    setState(() {
+      listRanks.add(personalEntry.rank);
+      listNames.add(personalEntry.name);
+      listSurnames.add(personalEntry.surname);
+      listPoints.add(personalEntry.points);
+    });
+  }
+
+  Future<void> getPersonalCategoryStatistics() async {
+    final listStatistics = await sl<PersonalCategoryStatisticsRepository>().getListStatistics();
+    setState(() {
+      for(final element in listStatistics){
+        listCurrentCorrect.add(element.currentCorrect);
+        listCurrentDone.add(element.currentDone);
+        listLatestCorrect.add(element.latestCorrect);
+        listLatestDone.add(element.latestDone);
+      }
     });
   }
 
@@ -94,7 +125,7 @@ class _StatisticsPageState extends State<StatisticsPage>
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
-                      padding: EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
                         color: app_colors.transparent,
                         border: Border.all(color: app_colors.orange, width: 3),
@@ -107,20 +138,29 @@ class _StatisticsPageState extends State<StatisticsPage>
                               style: TextStyle(
                                   fontSize: 13.sp,
                                   fontWeight: FontWeight.bold)),
-                          SizedBox(height: 2.h),
-                          _buildPodiumEntry(1, name, surname, points),
-                          SizedBox(height: 2.h),
-                          _buildPodiumEntry(2, "a", "a", 10),
-                          SizedBox(height: 2.h),
-                          _buildPodiumEntry(3, "b", "b", 7),
+                          ListView.builder(
+                              // it doesn't work :(
+                              shrinkWrap: true, // if false crash
+                              itemCount: listRanks.length,
+                              itemBuilder: (context, index) {
+                                Column(
+                                  children: [
+                                  SizedBox(height: 2.h),
+                                  _buildPodiumEntry(
+                                      listRanks[index],
+                                      listNames[index],
+                                      listSurnames[index],
+                                      listPoints[index])
+                              ]);
+                              })
                         ],
                       ),
                     ),
                     SizedBox(height: 3.h),
-                    Text('Your points: $points',
+                    Text('Your points: ${listPoints.last}',
                         style: TextStyle(fontSize: 13.sp)),
                     Text(
-                      'Your position in the ranking: x',
+                      'Your position in the ranking: ${listRanks.last}',
                       style: TextStyle(fontSize: 13.sp),
                     ),
                     SizedBox(height: 2.h),
@@ -134,11 +174,16 @@ class _StatisticsPageState extends State<StatisticsPage>
                             child: TabBarView(
                               controller: _tabController,
                               children: [
-                                getStats(
-                                    context, 50, 70, 90, app_colors.fucsia),
-                                getStats(context, 59, 51, 67, app_colors.blue),
-                                getStats(context, 43, 47, 52, app_colors.green),
-                                getStats(context, 13, 7, 20, app_colors.orange),
+                                  getStats(context, 50, 70, 90, 110, app_colors.fucsia),
+                                  getStats(context, 50, 70, 90, 110, app_colors.blue),
+                                  getStats(context, 50, 70, 90, 110, app_colors.green),
+                                  getStats(context, 50, 70, 90, 110, app_colors.orange)
+/*                                  ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount: listCurrentCorrect.length,
+                                    itemBuilder: (context, index) {
+                                      getStats(context, listCurrentCorrect[index], listCurrentDone[index], listLatestCorrect[index], listLatestDone[index], tabIndicatorColors[index]);
+                                  })*/
                               ],
                             ),
                           ),
@@ -197,7 +242,7 @@ class _StatisticsPageState extends State<StatisticsPage>
   }
 
   Widget getStats(
-      BuildContext context, int previous, int current, int total, Color color) {
+      BuildContext context, int currentCorrect, int currentDone, int latestCorrect, int latestDone, Color color) {
     return Center(
       child: Column(
         children: [
@@ -209,21 +254,21 @@ class _StatisticsPageState extends State<StatisticsPage>
                 style: TextStyle(fontSize: 12.sp),
               )),
           LinearProgressIndicator(
-            value: current / total,
+            value: currentCorrect / currentDone,
             minHeight: 3.5.h,
             backgroundColor: Colors.grey[300], // Set the background color
             valueColor: AlwaysStoppedAnimation<Color>(color),
           ),
-          Text('Correct answers: $current/$total'),
+          Text('Correct answers: $currentCorrect/$currentDone'),
           SizedBox(height: 2.h),
           LinearProgressIndicator(
             minHeight: 3.5.h,
-            value: previous / total,
+            value: latestCorrect / latestDone,
             backgroundColor: Colors.grey[300], // Set the background color
             valueColor:
                 AlwaysStoppedAnimation<Color>(color), // Set the progress color
           ),
-          Text('Correct answers: $previous/$total'),
+          Text('Correct answers: $latestCorrect/$latestDone'),
         ],
       ),
     );

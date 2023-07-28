@@ -10,12 +10,19 @@ import 'package:edukid/features/get_started/domain/repositories/get_started_repo
 import 'package:edukid/features/profile/data/data_sources/profile_data_source.dart';
 import 'package:edukid/features/profile/data/repositories/profile_repository_impl.dart';
 import 'package:edukid/features/profile/domain/repositories/profile_repository.dart';
+import 'package:edukid/features/statistics/data/data_sources/leaderboard_data_source.dart';
+import 'package:edukid/features/statistics/data/data_sources/personal_category_statistics_data_source.dart';
+import 'package:edukid/features/statistics/data/repositories/leaderboard_repository_impl.dart';
+import 'package:edukid/features/statistics/domain/repositories/leaderboard_repository.dart';
+import 'package:edukid/features/statistics/domain/repositories/personal_category_statistics_repository.dart';
 import 'package:edukid/features/trivia_question/data/data_sources/trivia_data_source.dart';
 import 'package:edukid/features/trivia_question/data/repositories/trivia_repository_impl.dart';
 import 'package:edukid/features/trivia_question/domain/repositories/trivia_repository.dart';
 import 'package:edukid/features/trivia_question/presentation/bloc/question_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'features/statistics/data/repositories/personal_category_statistics_repository_impl.dart';
 
 final sl = GetIt.instance;
 
@@ -37,6 +44,12 @@ Future<void> init() async {
   sl.registerLazySingleton<GetStartedDataSource>(
       () => GetStartedDataSourceImpl());
 
+  sl.registerLazySingleton<LeaderboardDataSource>(
+      () => LeaderboardDataSourceImpl());
+
+  sl.registerLazySingleton<PersonalCategoryStatisticsDataSource>(
+          () => PersonalCategoryStatisticsDataSourceImpl());
+
   // Repository
 
   sl.registerLazySingleton<AuthRepository>(
@@ -52,6 +65,12 @@ Future<void> init() async {
 
   sl.registerLazySingleton<GetStartedRepository>(() => GetStartedRepositoryImpl(
       getStartedDataSource: sl(), authAPI: sl(), databaseAPI: sl()));
+
+  sl.registerLazySingleton<LeaderboardRepository>(() =>
+      LeaderboardRepositoryImpl(leaderboardDataSource: sl(), authAPI: sl()));
+
+  sl.registerLazySingleton<PersonalCategoryStatisticsRepository>(() =>
+      PersonalCategoryStatisticsRepositoryImpl(personalCategoryStatisticsDataSource: sl(), authAPI: sl()));
 
   // Bloc
   sl.registerFactory(() => TriviaBloc(triviaRepository: sl()));
