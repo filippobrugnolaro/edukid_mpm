@@ -36,8 +36,11 @@ class TriviaDataSourceImpl implements TriviaDataSource {
     final userRef = _database.child("users").child(userUID);
     await _currentCorrectUpdate(userRef, typeQuestion, isAnswerCorrect);
     await _currentDoneUpdate(userRef, typeQuestion);
+    await _totalCorrectUpdate(userRef, typeQuestion, isAnswerCorrect);
+    await _totalDoneUpdate(userRef, typeQuestion);
     await _globalCorrectUpdate(userRef, isAnswerCorrect);
     await _globalDoneUpdate(userRef);
+    await _setTimestampLastAnswer(userUID, typeQuestion);
   }
 
   @override
@@ -47,13 +50,13 @@ class TriviaDataSourceImpl implements TriviaDataSource {
       await userRef
           .child("points")
           .once();
-    final currentPoints = currentPointsSnapshot.snapshot.value as int? ?? 0;
+    final currentPoints = currentPointsSnapshot.snapshot.value as int;
     final newPoints = currentPoints + (isAnswerCorrect ? 10 : -5);
     await userRef
         .child("points")
         .set(newPoints);
   }
-
+  
   Future<void> _currentCorrectUpdate(DatabaseReference userRef, String typeQuestion, bool isAnswerCorrect) async {
 
     final valueCorrectSnapshot =
@@ -63,7 +66,7 @@ class TriviaDataSourceImpl implements TriviaDataSource {
           .child("current")
           .child("correct")
           .once();
-    final currentCorrect = valueCorrectSnapshot.snapshot.value as int? ?? 0;
+    final currentCorrect = valueCorrectSnapshot.snapshot.value as int;
     final newCorrect = currentCorrect + (isAnswerCorrect ? 1 : 0);
     await userRef
         .child("statistics")
@@ -82,7 +85,7 @@ class TriviaDataSourceImpl implements TriviaDataSource {
         .child("current")
         .child("done")
         .once();
-    final currentDone = valueDoneSnapshot.snapshot.value as int? ?? 0;
+    final currentDone = valueDoneSnapshot.snapshot.value as int;
     final newDone = currentDone + 1;
     await userRef
         .child("statistics")
@@ -92,19 +95,54 @@ class TriviaDataSourceImpl implements TriviaDataSource {
         .set(newDone);
   }
 
+  Future<void> _totalCorrectUpdate(DatabaseReference userRef, String typeQuestion, bool isAnswerCorrect) async {
+    final valueCorrectSnapshot =
+    await userRef
+        .child("statistics")
+        .child(typeQuestion)
+        .child("total")
+        .child("correct")
+        .once();
+    final totalCorrect = valueCorrectSnapshot.snapshot.value as int;
+    final newCorrect = totalCorrect + (isAnswerCorrect ? 1 : 0);
+    await userRef
+        .child("statistics")
+        .child(typeQuestion)
+        .child("total")
+        .child("correct")
+        .set(newCorrect);
+  }
+  Future<void> _totalDoneUpdate(DatabaseReference userRef, String typeQuestion) async {
+    final valueDoneSnapshot =
+    await userRef
+        .child("statistics")
+        .child(typeQuestion)
+        .child("total")
+        .child("done")
+        .once();
+    final totalDone = valueDoneSnapshot.snapshot.value as int;
+    final newDone = totalDone + 1;
+    await userRef
+        .child("statistics")
+        .child(typeQuestion)
+        .child("total")
+        .child("done")
+        .set(newDone);
+  }
+
   Future<void> _globalCorrectUpdate(DatabaseReference userRef, bool isAnswerCorrect) async {
 
     final valueGlobalCorrectSnapshot =
     await userRef
         .child("statistics")
-        .child("global")
+        .child("Global")
         .child("correct")
         .once();
-    final valueGlobalCorrect = valueGlobalCorrectSnapshot.snapshot.value as int? ?? 0;
+    final valueGlobalCorrect = valueGlobalCorrectSnapshot.snapshot.value as int;
     final newGlobalCorrect = valueGlobalCorrect + (isAnswerCorrect ? 1 : 0);
     await userRef
         .child("statistics")
-        .child("global")
+        .child("Global")
         .child("correct")
         .set(newGlobalCorrect);
   }
@@ -114,15 +152,34 @@ class TriviaDataSourceImpl implements TriviaDataSource {
     final valueGlobalDoneSnapshot =
     await userRef
         .child("statistics")
-        .child("global")
+        .child("Global")
         .child("done")
         .once();
-    final currentGlobalDone = valueGlobalDoneSnapshot.snapshot.value as int? ?? 0;
+    final currentGlobalDone = valueGlobalDoneSnapshot.snapshot.value as int;
     final newGlobalDone = currentGlobalDone + 1;
     await userRef
         .child("statistics")
-        .child("global")
+        .child("Global")
         .child("done")
         .set(newGlobalDone);
+  }
+
+  Future<void> _setTimestampLastAnswer(String userUID, String typeQuestion) async {
+    final timestampLastAnswer = (DateTime.now().millisecondsSinceEpoch/1000).floor();
+    await _database
+        .child("users")
+        .child(userUID)
+        .child("statistics")
+        .child("Global")
+        .child('timestamp')
+        .set(timestampLastAnswer);
+    await _database
+        .child("users")
+        .child(userUID)
+        .child("statistics")
+        .child(typeQuestion)
+        .child("current")
+        .child('timestamp')
+        .set(timestampLastAnswer);
   }
 }

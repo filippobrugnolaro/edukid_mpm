@@ -52,8 +52,11 @@ class TriviaBloc extends Bloc<TriviaEvent, TriviaState> {
           // Emit the result state
           emit(TriviaResultState(isAnswerCorrect, correctAnswer));
 
-          // Update user's "points" and "statistics"
+          // Update user's "points" and "statistics" + reset statistics if necessary
           await triviaRepository.updateUserPoints(isAnswerCorrect);
+          await triviaRepository.copyCurrentToLatest();
+          await triviaRepository.resetAllCurrentToZero();
+          await triviaRepository.setResetToDo(false);
           await triviaRepository.updateUserStatistics(isAnswerCorrect, event.typeQuestion);
 
         }

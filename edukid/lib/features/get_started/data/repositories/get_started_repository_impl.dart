@@ -18,7 +18,7 @@ class GetStartedRepositoryImpl implements GetStartedRepository {
   @override
   Future<void> resetAllCurrentToZero() async {
     final userUID = authAPI.getSignedInUserUID();
-    if(!await databaseAPI.isResetToDo(userUID)) {
+    if(await databaseAPI.isResetToDo(userUID)) {
       await databaseAPI.resetAllCurrentToZero(userUID);
     }
   }
@@ -26,7 +26,7 @@ class GetStartedRepositoryImpl implements GetStartedRepository {
   @override
   Future<void> copyCurrentToLatest() async {
     final userUID = authAPI.getSignedInUserUID();
-    if(!await databaseAPI.isResetToDo(userUID)) {
+    if(await databaseAPI.isResetToDo(userUID)) {
       await databaseAPI.copyCurrentToLatest(userUID);
     }
   }
@@ -34,7 +34,7 @@ class GetStartedRepositoryImpl implements GetStartedRepository {
   @override
   Future<void> setResetToDo(bool boolean) async {
     final userUID = authAPI.getSignedInUserUID();
-    if(!await databaseAPI.isResetToDo(userUID)) {
+    if(await databaseAPI.isResetToDo(userUID)) {
       await databaseAPI.setResetToDo(userUID, boolean);
     }
 }

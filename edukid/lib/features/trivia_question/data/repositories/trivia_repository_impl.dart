@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:edukid/core/data/data_sources/auth_api.dart';
+import 'package:edukid/core/data/data_sources/database_api.dart';
 import 'package:edukid/core/errors/Exception.dart';
 import 'package:edukid/core/errors/Failure.dart';
 import 'package:edukid/features/trivia_question/data/data_sources/trivia_data_source.dart';
@@ -11,8 +12,9 @@ import 'package:edukid/features/trivia_question/domain/repositories/trivia_repos
 class TriviaRepositoryImpl implements TriviaRepository {
   final TriviaDataSource triviaDataSource;
   final AuthAPI authAPI;
+  final DatabaseAPI databaseAPI;
 
-  TriviaRepositoryImpl({required this.triviaDataSource, required this.authAPI});
+  TriviaRepositoryImpl({required this.triviaDataSource, required this.authAPI, required this.databaseAPI});
 
   @override
   Future<Either<Failure, Trivia>> getTrivia(
@@ -36,5 +38,28 @@ class TriviaRepositoryImpl implements TriviaRepository {
     await triviaDataSource.updateUserPoints(isAnswerCorrect, authAPI.getSignedInUserUID());
   }
 
+  @override
+  Future<void> resetAllCurrentToZero() async {
+    final userUID = authAPI.getSignedInUserUID();
+    if(await databaseAPI.isResetToDo(userUID)) {
+      await databaseAPI.resetAllCurrentToZero(userUID);
+    }
+  }
+
+  @override
+  Future<void> copyCurrentToLatest() async {
+    final userUID = authAPI.getSignedInUserUID();
+    if(await databaseAPI.isResetToDo(userUID)) {
+      await databaseAPI.copyCurrentToLatest(userUID);
+    }
+  }
+
+  @override
+  Future<void> setResetToDo(bool boolean) async {
+    final userUID = authAPI.getSignedInUserUID();
+    if (await databaseAPI.isResetToDo(userUID)) {
+      await databaseAPI.setResetToDo(userUID, boolean);
+    }
+  }
 
 }

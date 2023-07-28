@@ -24,9 +24,13 @@ class _GetStartedPageState extends State<GetStartedPage> {
   @override
   void initState() {
     super.initState();
-    copyCurrentToLatest();
-    resetCurrentStatistics();
-    getUpdatedPoints();
+    initialization();
+  }
+
+  Future<void> initialization() async {
+    await copyCurrentToLatest();
+    await resetCurrentStatistics();
+    await getUpdatedPoints();
   }
 
   Future<void> getUpdatedPoints() async {

@@ -1,6 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
 
-  const secondsInOneDay = 86400;
+import '../../utils/utils.dart';
 
 abstract class DatabaseAPI {
   Future<void> setUserData(
@@ -23,13 +23,13 @@ class DatabaseAPIImpl implements DatabaseAPI {
   @override
   Future<void> setUserData(String userUID, String email, String name,
       String surname, int points) async {
-    final timestampToDo = (((DateTime.now().millisecondsSinceEpoch/1000).floor())/secondsInOneDay).floor();
+    final timestampToDo =
+        (DateTime.now().millisecondsSinceEpoch / 1000).floor();
     final userData = {
       'email': email,
       'name': name,
       'surname': surname,
       'points': points,
-      'timestamp_last_answer': 0,
       'reset_statistics': {'todo': false, 'timestamp_todo': timestampToDo},
       'statistics': {}
     };
@@ -39,27 +39,27 @@ class DatabaseAPIImpl implements DatabaseAPI {
   @override
   Future<void> setInitialUserStatistics(String userUID) async {
     final userStatistics = {
-      'math': {
+      'Mathematics': {
         'latest': {'timestamp': 0, 'correct': 0, 'done': 0},
         'current': {'timestamp': 0, 'correct': 0, 'done': 0},
         'total': {'correct': 0, 'done': 0}
       },
-      'geography': {
+      'Geography': {
         'latest': {'timestamp': 0, 'correct': 0, 'done': 0},
         'current': {'timestamp': 0, 'correct': 0, 'done': 0},
         'total': {'correct': 0, 'done': 0}
       },
-      'history': {
+      'History': {
         'latest': {'timestamp': 0, 'correct': 0, 'done': 0},
         'current': {'timestamp': 0, 'correct': 0, 'done': 0},
         'total': {'correct': 0, 'done': 0}
       },
-      'science': {
+      'Science': {
         'latest': {'timestamp': 0, 'correct': 0, 'done': 0},
         'current': {'timestamp': 0, 'correct': 0, 'done': 0},
         'total': {'correct': 0, 'done': 0}
       },
-      'global': {'correct': 0, 'done': 0}
+      'Global': {'timestamp': 0, 'correct': 0, 'done': 0}
     };
     await _database
         .child('users')
@@ -68,7 +68,8 @@ class DatabaseAPIImpl implements DatabaseAPI {
         .set(userStatistics);
   }
 
-  Future<void> _resetCurrentCategory(String userUID, String typeQuestion) async {
+  Future<void> _resetCurrentCategory(
+      String userUID, String typeQuestion) async {
     await _database
         .child('users')
         .child(userUID)
@@ -94,15 +95,20 @@ class DatabaseAPIImpl implements DatabaseAPI {
         .child(userUID)
         .child('reset_statistics')
         .child('timestamp_todo')
-        .once();
-    final lastTimestampToDoDay = ((lastTimestampAnswerSnapShot.snapshot.value as int)/86400).floor();
-    final timestampToDoNow = (((DateTime.now().millisecondsSinceEpoch/1000).floor())/secondsInOneDay).floor();
+        .get();
+    final lastTimestampToDoDay =
+        (((lastTimestampAnswerSnapShot.value as int).floor()) / secondsInOneDay)
+            .floor();
+    final timestampToDoNow =
+        (((DateTime.now().millisecondsSinceEpoch / 1000).floor()) /
+                secondsInOneDay)
+            .floor();
     return lastTimestampToDoDay == timestampToDoNow;
   }
 
   @override
   Future<bool> isResetToDo(String userUID) async {
-    if(!await _isLastToDoToday(userUID)){
+    if (!await _isLastToDoToday(userUID)) {
       await _database
           .child('users')
           .child(userUID)
@@ -127,7 +133,8 @@ class DatabaseAPIImpl implements DatabaseAPI {
         .child('reset_statistics')
         .child('todo')
         .set(boolean);
-    final timestampToDoNow = (((DateTime.now().millisecondsSinceEpoch/1000).floor())/secondsInOneDay).floor();
+    final timestampToDoNow =
+        (DateTime.now().millisecondsSinceEpoch / 1000).floor();
     await _database
         .child('users')
         .child(userUID)
@@ -138,36 +145,52 @@ class DatabaseAPIImpl implements DatabaseAPI {
 
   @override
   Future<void> resetAllCurrentToZero(String userUID) async {
-      await _resetCurrentCategory(userUID, 'math');
-      await _resetCurrentCategory(userUID, 'geography');
-      await _resetCurrentCategory(userUID, 'history');
-      await _resetCurrentCategory(userUID, 'science');
+    await _resetCurrentCategory(userUID, 'Mathematics');
+    await _resetCurrentCategory(userUID, 'Geography');
+    await _resetCurrentCategory(userUID, 'History');
+    await _resetCurrentCategory(userUID, 'Science');
   }
 
-  Future<void> _copyCurrentToLatestCategory(String userUID, String typeQuestion) async {
-    final currentDataSnapshot = await _database
+  Future<void> _copyCurrentToLatestCategory(
+      String userUID, String typeQuestion) async {
+    bool hasAnswered = await _hasAnsweredToCategory(userUID, typeQuestion);
+    if (hasAnswered) {
+      final currentDataSnapshot = await _database
+          .child('users')
+          .child(userUID)
+          .child('statistics')
+          .child(typeQuestion)
+          .child('current')
+          .get();
+
+      await _database
+          .child('users')
+          .child(userUID)
+          .child('statistics')
+          .child(typeQuestion)
+          .child('latest')
+          .set(currentDataSnapshot.value);
+    }
+  }
+
+  Future<bool> _hasAnsweredToCategory(
+      String userUID, String typeQuestion) async {
+    final hasAnswered = await _database
         .child('users')
         .child(userUID)
         .child('statistics')
         .child(typeQuestion)
         .child('current')
-        .once();
-
-    await _database
-        .child('users')
-        .child(userUID)
-        .child('statistics')
-        .child(typeQuestion)
-        .child('latest')
-        .set(currentDataSnapshot.snapshot.value);
+        .child('done')
+        .get();
+    return hasAnswered.exists && hasAnswered.value as int > 0;
   }
 
   @override
   Future<void> copyCurrentToLatest(String userUID) async {
-    await _copyCurrentToLatestCategory(userUID, 'math');
-    await _copyCurrentToLatestCategory(userUID, 'geography');
-    await _copyCurrentToLatestCategory(userUID, 'history');
-    await _copyCurrentToLatestCategory(userUID, 'science');
+    await _copyCurrentToLatestCategory(userUID, 'Mathematics');
+    await _copyCurrentToLatestCategory(userUID, 'Geography');
+    await _copyCurrentToLatestCategory(userUID, 'History');
+    await _copyCurrentToLatestCategory(userUID, 'Science');
   }
-
 }

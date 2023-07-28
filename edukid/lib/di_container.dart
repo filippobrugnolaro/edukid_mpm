@@ -20,78 +20,43 @@ import 'package:shared_preferences/shared_preferences.dart';
 final sl = GetIt.instance;
 
 Future<void> init() async {
-
   // Core API
 
-  sl.registerLazySingleton<DatabaseAPI>(
-          () => DatabaseAPIImpl()
-  );
+  sl.registerLazySingleton<DatabaseAPI>(() => DatabaseAPIImpl());
 
-  sl.registerLazySingleton<AuthAPI>(
-          () => AuthAPIImpl()
-  );
+  sl.registerLazySingleton<AuthAPI>(() => AuthAPIImpl());
 
   // Data sources
 
-  sl.registerLazySingleton<AuthDataSource>(
-          () => AuthDataSourceImpl()
-  );
+  sl.registerLazySingleton<AuthDataSource>(() => AuthDataSourceImpl());
 
-  sl.registerLazySingleton<TriviaDataSource>(
-          () => TriviaDataSourceImpl()
-  );
+  sl.registerLazySingleton<TriviaDataSource>(() => TriviaDataSourceImpl());
 
-  sl.registerLazySingleton<ProfileDataSource>(
-          () => ProfileDataSourceImpl()
-  );
+  sl.registerLazySingleton<ProfileDataSource>(() => ProfileDataSourceImpl());
 
   sl.registerLazySingleton<GetStartedDataSource>(
-          () => GetStartedDataSourceImpl()
-  );
+      () => GetStartedDataSourceImpl());
 
   // Repository
 
   sl.registerLazySingleton<AuthRepository>(
-          () => AuthRepositoryImpl(
-          authDataSource: sl(),
-          databaseAPI: sl()
-      )
-  );
+      () => AuthRepositoryImpl(authDataSource: sl(), databaseAPI: sl()));
 
-  sl.registerLazySingleton<TriviaRepository>(
-          () => TriviaRepositoryImpl(
-          triviaDataSource: sl(),
-          authAPI: sl()
-      )
-  );
+  sl.registerLazySingleton<TriviaRepository>(() => TriviaRepositoryImpl(
+      triviaDataSource: sl(), authAPI: sl(), databaseAPI: sl()));
 
-  sl.registerLazySingleton<ProfileRepository>(
-          () => ProfileRepositoryImpl(
+  sl.registerLazySingleton<ProfileRepository>(() => ProfileRepositoryImpl(
         profileDataSource: sl(),
         authAPI: sl(),
-      )
-  );
+      ));
 
-  sl.registerLazySingleton<GetStartedRepository>(
-          () => GetStartedRepositoryImpl(
-              getStartedDataSource: sl(),
-              authAPI: sl(),
-              databaseAPI: sl()
-          )
-  );
+  sl.registerLazySingleton<GetStartedRepository>(() => GetStartedRepositoryImpl(
+      getStartedDataSource: sl(), authAPI: sl(), databaseAPI: sl()));
 
   // Bloc
-  sl.registerFactory(
-          () => TriviaBloc(
-              triviaRepository: sl()
-          )
-  );
+  sl.registerFactory(() => TriviaBloc(triviaRepository: sl()));
 
-  sl.registerFactory(
-          () => AuthBloc(
-          authRepository: sl()
-      )
-  );
+  sl.registerFactory(() => AuthBloc(authRepository: sl()));
 
   // Shared preferences
   final sharedPreferences = await SharedPreferences.getInstance();
