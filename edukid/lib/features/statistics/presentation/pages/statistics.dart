@@ -48,8 +48,20 @@ class _StatisticsPageState extends State<StatisticsPage>
   @override
   void dispose() {
     _tabController.dispose();
+    //disposeAll();
     super.dispose();
   }
+
+/*  void disposeAll() {
+      listRanks.removeRange(0, listRanks.length - 1);
+      listNames.removeRange(0, listNames.length - 1);
+      listSurnames.removeRange(0, listSurnames.length - 1);
+      listPoints.removeRange(0, listPoints.length - 1);
+      listCurrentCorrect.removeRange(0, listCurrentCorrect.length - 1);
+      listCurrentDone.removeRange(0, listCurrentDone.length - 1);
+      listLatestCorrect.removeRange(0, listLatestCorrect.length - 1);
+      listLatestDone.removeRange(0, listLatestDone.length - 1);
+  }*/
 
   Future<void> getPodium() async {
     final podium = await sl<LeaderboardRepository>().getPodium();
