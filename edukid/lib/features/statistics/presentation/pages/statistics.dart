@@ -154,7 +154,7 @@ class _StatisticsPageState extends State<StatisticsPage>
                               // it doesn't work :(
                               shrinkWrap: true, // if false crash
                               itemCount: listRanks.length,
-                              itemBuilder: (context, index) {
+                              itemBuilder: (context, index) { // the last one should not be displayed because it is referred to our stats
                                 Column(
                                   children: [
                                   SizedBox(height: 2.h),
