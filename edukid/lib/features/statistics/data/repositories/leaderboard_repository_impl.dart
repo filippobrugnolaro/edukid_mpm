@@ -24,7 +24,7 @@ class LeaderboardRepositoryImpl implements LeaderboardRepository {
   @override
   List<EntryLeaderboard> limitLeaderboard(
       List<EntryLeaderboard> list, int numItems) {
-    return list.sublist(0, numItems - 1);
+    return list.sublist(0, numItems);
   }
 
   @override
