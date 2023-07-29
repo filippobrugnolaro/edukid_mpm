@@ -20,6 +20,12 @@ class LeaderboardDataSourceImpl implements LeaderboardDataSource {
             {listObjects.add(userUID.value!)}
         });
     List<EntryLeaderboardModel> listModels = [];
+    for (var element in listObjects) {
+      listModels.add(EntryLeaderboardModel.fromJson(
+          jsonDecode(jsonEncode(element)), 0));
+    }
+    // sort with - => desc
+    // sort with + => asc
     listModels.sort((e1, e2) {
       final int sortByPoints = -e1.points.compareTo(e2.points);
       if (sortByPoints == 0) {
@@ -31,15 +37,13 @@ class LeaderboardDataSourceImpl implements LeaderboardDataSource {
       }
       return sortByPoints;
     });
+
     int rank = 1;
-    for (var element in listObjects) {
-      listModels.add(EntryLeaderboardModel.fromJson(
-          jsonDecode(jsonEncode(element)), rank));
+    for(final element in listModels){
+      element.rank = rank;
       rank++;
     }
-    // sort with - => desc
-    // sort with + => asc
-    
+
     return listModels;
   }
 
