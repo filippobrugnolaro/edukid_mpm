@@ -11,9 +11,8 @@ class InstructionsPage extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: false,
           title: Text(
-            'Instructions',
-            style: TextStyle(fontSize: 2.5.h),
-          ),
+            'Instructions'),
+      
         leading: Builder(
           builder: (context) => IconButton(
             icon: Icon(Icons.menu),
@@ -48,7 +47,7 @@ class InstructionsPage extends StatelessWidget {
                   Flexible(
                     child: Text(
                       'Answer the questions correctly to earn 10 points per correct answer.',
-                      style: TextStyle(fontSize: 10.sp), softWrap: true,),
+                      style: TextStyle(fontSize: 12.5.sp), softWrap: true,),
                   ),
                   SizedBox(width: 2.w,),
                   Container(
@@ -96,7 +95,7 @@ class InstructionsPage extends StatelessWidget {
                   Flexible(
                     child: Text(
                       'If your answer is wrong, you will lose 5 points.',
-                      style: TextStyle(fontSize: 10.sp), softWrap: true,),
+                      style: TextStyle(fontSize: 12.5.sp), softWrap: true,),
                   ),
                   
                 ],
@@ -109,7 +108,7 @@ class InstructionsPage extends StatelessWidget {
                   Flexible(
                     child: Text(
                       'The game will consist of multiple-choice questions. Only one answer is correct.',
-                      style: TextStyle(fontSize: 10.sp), softWrap: true,),
+                      style: TextStyle(fontSize: 12.5.sp), softWrap: true,),
                   ),
                   SizedBox(width: 5.w,),
                   Container(
@@ -146,7 +145,7 @@ class InstructionsPage extends StatelessWidget {
                       ),
                     );
                   },
-                  child: Text('Start to play!', style: TextStyle(fontSize: 10.sp)),
+                  child: Text('Start to play!', style: TextStyle(fontSize: 13.sp)),
                 ),
               ),
             ],

@@ -24,7 +24,6 @@ class QuestionPage extends StatelessWidget {
         appBar: AppBar(
           title: Text(
             title,
-            style: TextStyle(fontSize: 2.5.h),
           ),
           centerTitle: true,
           backgroundColor: color,
@@ -51,9 +50,10 @@ class QuestionPage extends StatelessWidget {
                     padding: EdgeInsets.all(3.w),
                     child: Column(
                       children: [
+                        SizedBox(height:2.h),
                         Text(
                           state.question.question,
-                          style: TextStyle(fontSize: 3.h),
+                          style: TextStyle(fontSize: 18.sp),
                         ),
                         SizedBox(
                           height: 3.h,
@@ -97,6 +97,8 @@ class QuestionPage extends StatelessWidget {
                         SizedBox(height: 5.h),
                         ElevatedButton(
                           style: ButtonStyle(
+                            padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                                EdgeInsets.all(2.h)),
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 color), // Set the background color
                           ),
@@ -114,7 +116,8 @@ class QuestionPage extends StatelessWidget {
                                       .options[state.selectedOptionIndex], title));
                             }
                           },
-                          child: Text('Submit'),
+                          child: Text("Submit",
+                            style: TextStyle(fontSize: 13.0.sp)),
                         ),
                       ],
                     ))
@@ -140,6 +143,8 @@ class QuestionPage extends StatelessWidget {
                             : getWrong(state.correctOption),
                         ElevatedButton(
                             style: ButtonStyle(
+                              padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                                EdgeInsets.all(2.h)),
                               backgroundColor: MaterialStateProperty.all<Color>(
                                   color), // Set the background color
                             ),
@@ -147,10 +152,12 @@ class QuestionPage extends StatelessWidget {
                               BlocProvider.of<TriviaBloc>(context)
                                   .add(LoadTriviaEvent(title));
                             },
-                            child: const Text('Next question')),
-                        const Text('or'),
+                            child: Text('Next question', style: TextStyle(fontSize: 13.sp))),
+                        Text('or',style: TextStyle(fontSize: 13.sp),),
                         ElevatedButton(
                             style: ButtonStyle(
+                              padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                                EdgeInsets.all(2.h)),
                               backgroundColor: MaterialStateProperty.all<Color>(
                                   app_colors.white), //
                               side: MaterialStateProperty.all<BorderSide>(
@@ -160,8 +167,8 @@ class QuestionPage extends StatelessWidget {
                             onPressed: () {
                               Navigator.of(context).pushReplacementNamed('getStarted');
                             },
-                            child: const Text('Change category',
-                                style: TextStyle(color: app_colors.black))),
+                            child:  Text('Change category',
+                                style: TextStyle(color: app_colors.black, fontSize: 13.sp))),
                         SizedBox(
                           height: 8.h,
                         )
@@ -179,7 +186,9 @@ class QuestionPage extends StatelessWidget {
   }
 
   Widget getCorrect() {
-    return Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+    return Container(
+      width: 85.w,
+      child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
       Column(
         children: [
           Image.asset(
@@ -196,42 +205,61 @@ class QuestionPage extends StatelessWidget {
         ],
       ),
       Text('Correct!', style: TextStyle(fontSize: 25.sp)),
-      Text('You earned 10 coins!'),
-    ]);
+      Text('You earned 10 coins!', style: TextStyle(fontSize: 13.sp)),
+    ]));
   }
 
   Widget getWrong(String correctAnswer) {
-    return Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-      Column(
-        children: [
-          Image.asset(
-            'images/coin.png',
-            width: 20.w,
-          ),
-          Text(
-            'Oh no!',
-            style: TextStyle(
-                fontSize: 20.sp,
-                fontWeight: FontWeight.w800,
-                color: app_colors.red),
-          ),
-          Text(
-            '-5',
-            softWrap: true,
-            style: TextStyle(
-                fontSize: 30.sp,
-                fontWeight: FontWeight.w800,
-                color: app_colors.red),
-          )
-        ],
+    return Container(
+      width: 85.w,
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Column(
+              children: [
+                Image.asset(
+                  'images/coin.png',
+                  width: 20.w,
+                ),
+                Text(
+                  'Oh no!',
+                  style: TextStyle(
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.w800,
+                    color: app_colors.red,
+                  ),
+                ),
+                Text(
+                  '-5',
+                  softWrap: true,
+                  style: TextStyle(
+                    fontSize: 30.sp,
+                    fontWeight: FontWeight.w800,
+                    color: app_colors.red,
+                  ),
+                ),
+              ],
+            ),
+            Text(
+              'Correct answer was: $correctAnswer.',
+              style: TextStyle(fontSize: 15.sp),
+            ),
+            SizedBox(height: 4.h),
+            Text(
+              'Unluckily you lost 5 coins!',
+              style: TextStyle(fontSize: 13.sp),
+            ),
+            SizedBox(height: 2.h),
+            Text(
+              'Try to answer the next question correctly to earn them back! ',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 13.sp),
+            ),
+          ],
+        ),
       ),
-      Text('Correct answer was: $correctAnswer.',
-          style: TextStyle(fontSize: 10.sp)),
-      SizedBox(height: 4.h),
-      Text('Unluckily you lost 5 coins!'),
-      SizedBox(height: 2.h),
-      Text('Try to answer the next question correctly to earn them back!'),
-    ]);
+    );
   }
 
   Widget getDialog(dynamic context) {

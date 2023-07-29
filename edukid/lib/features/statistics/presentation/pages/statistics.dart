@@ -40,28 +40,32 @@ class _StatisticsPageState extends State<StatisticsPage>
     _tabController.addListener(() {
       setState(() {}); // Rebuild the widget when the selected tab index changes
     });
-    getPodium();
-    getPersonalEntry();
-    getPersonalCategoryStatistics();
+    loadData();
   }
 
   @override
   void dispose() {
     _tabController.dispose();
-    //disposeAll();
+    disposeAll();
     super.dispose();
   }
 
-/*  void disposeAll() {
-      listRanks.removeRange(0, listRanks.length - 1);
-      listNames.removeRange(0, listNames.length - 1);
-      listSurnames.removeRange(0, listSurnames.length - 1);
-      listPoints.removeRange(0, listPoints.length - 1);
-      listCurrentCorrect.removeRange(0, listCurrentCorrect.length - 1);
-      listCurrentDone.removeRange(0, listCurrentDone.length - 1);
-      listLatestCorrect.removeRange(0, listLatestCorrect.length - 1);
-      listLatestDone.removeRange(0, listLatestDone.length - 1);
-  }*/
+  Future<void> loadData() async {
+  await getPodium();
+  await getPersonalEntry();
+  await getPersonalCategoryStatistics();
+}
+
+  void disposeAll() {
+    listRanks.clear();
+    listNames.clear();
+    listSurnames.clear();
+    listPoints.clear();
+    listCurrentCorrect.clear();
+    listCurrentDone.clear();
+    listLatestCorrect.clear();
+    listLatestDone.clear();
+  }
 
   Future<void> getPodium() async {
     final podium = await sl<LeaderboardRepository>().getPodium();
@@ -86,9 +90,10 @@ class _StatisticsPageState extends State<StatisticsPage>
   }
 
   Future<void> getPersonalCategoryStatistics() async {
-    final listStatistics = await sl<PersonalCategoryStatisticsRepository>().getListStatistics();
+    final listStatistics =
+        await sl<PersonalCategoryStatisticsRepository>().getListStatistics();
     setState(() {
-      for(final element in listStatistics){
+      for (final element in listStatistics) {
         listCurrentCorrect.add(element.currentCorrect);
         listCurrentDone.add(element.currentDone);
         listLatestCorrect.add(element.latestCorrect);
@@ -102,9 +107,8 @@ class _StatisticsPageState extends State<StatisticsPage>
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: Text(
+          title: const Text(
             'Statistics',
-            style: TextStyle(fontSize: 2.5.h),
           ),
           leading: Builder(
             builder: (context) => IconButton(
@@ -146,25 +150,15 @@ class _StatisticsPageState extends State<StatisticsPage>
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text('LEADERBOARD',
-                              style: TextStyle(
-                                  fontSize: 13.sp,
-                                  fontWeight: FontWeight.bold)),
-                          ListView.builder(
-                              // it doesn't work :(
-                              shrinkWrap: true, // if false crash
-                              itemCount: listRanks.length,
-                              itemBuilder: (context, index) { // the last one should not be displayed because it is referred to our stats
-                                Column(
-                                  children: [
-                                  SizedBox(height: 2.h),
-                                  _buildPodiumEntry(
-                                      listRanks[index],
-                                      listNames[index],
-                                      listSurnames[index],
-                                      listPoints[index])
-                              ]);
-                              })
+                          Text('LEADERBOARD', style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.bold)),
+                          SizedBox(height: 2.h),
+                          for (int index = 0; index < listRanks.length-1; index++)
+                            _buildPodiumEntry(
+                              listRanks[index],
+                              listNames[index],
+                              listSurnames[index],
+                              listPoints[index],
+                            ),
                         ],
                       ),
                     ),
@@ -183,19 +177,18 @@ class _StatisticsPageState extends State<StatisticsPage>
                           customTabBar(context),
                           Container(
                             height: 45.h, // Adjust the height as needed
+
                             child: TabBarView(
                               controller: _tabController,
                               children: [
-                                  getStats(context, 50, 70, 90, 110, app_colors.fucsia),
-                                  getStats(context, 50, 70, 90, 110, app_colors.blue),
-                                  getStats(context, 50, 70, 90, 110, app_colors.green),
-                                  getStats(context, 50, 70, 90, 110, app_colors.orange)
-/*                                  ListView.builder(
-                                    shrinkWrap: true,
-                                    itemCount: listCurrentCorrect.length,
-                                    itemBuilder: (context, index) {
-                                      getStats(context, listCurrentCorrect[index], listCurrentDone[index], listLatestCorrect[index], listLatestDone[index], tabIndicatorColors[index]);
-                                  })*/
+                                buildStatisticsWidget(context, 50, 70, 90, 110,
+                                    app_colors.fucsia),
+                                buildStatisticsWidget(
+                                    context, 50, 70, 90, 110, app_colors.blue),
+                                buildStatisticsWidget(
+                                    context, 50, 70, 90, 110, app_colors.green),
+                                buildStatisticsWidget(
+                                    context, 50, 70, 90, 110, app_colors.orange)
                               ],
                             ),
                           ),
@@ -212,6 +205,7 @@ class _StatisticsPageState extends State<StatisticsPage>
       int rank, String firstName, String lastName, int points) {
     return Container(
       padding: EdgeInsets.all(1.5.h),
+      margin: EdgeInsets.only(top: 2.h),
       decoration: BoxDecoration(
         color: app_colors.white,
         border: Border.all(color: app_colors.orange, width: 1),
@@ -228,8 +222,7 @@ class _StatisticsPageState extends State<StatisticsPage>
               ),
               SizedBox(width: 2.w),
               Text('$firstName $lastName', style: TextStyle(fontSize: 13.sp)),
-            ],
-          ),
+        ]),
           Expanded(
             // Use Expanded to align the icon and points to the right
             child: Row(
@@ -253,33 +246,76 @@ class _StatisticsPageState extends State<StatisticsPage>
     );
   }
 
-  Widget getStats(
-      BuildContext context, int currentCorrect, int currentDone, int latestCorrect, int latestDone, Color color) {
+  Widget buildStatisticsWidget(BuildContext context, int currentCorrect,
+      int currentDone, int latestCorrect, int latestDone, Color color) {
     return Center(
       child: Column(
         children: [
+          SizedBox(height: 2.h),
+          Text(
+            currentCorrect / currentDone > latestCorrect / latestDone
+                ? 'Good job! You are improving, keep it like this!'
+                : "C'mon you can do better! Take the challenge and beat yesterday's score!",
+            style: TextStyle(
+                fontSize: 14.sp,
+                fontWeight: FontWeight.bold,
+                color: currentCorrect / currentDone > latestCorrect / latestDone
+                    ? app_colors.green
+                    : app_colors.red),
+          ),
           SizedBox(height: 2.h),
           Align(
               alignment: Alignment.centerLeft,
               child: Text(
                 "Today's stats",
-                style: TextStyle(fontSize: 12.sp),
+                style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
               )),
-          LinearProgressIndicator(
-            value: currentCorrect / currentDone,
-            minHeight: 3.5.h,
-            backgroundColor: Colors.grey[300], // Set the background color
-            valueColor: AlwaysStoppedAnimation<Color>(color),
-          ),
+          Container(
+              height: 3.5.h, // Adjust the height of the linear progress bar
+              width: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(
+                    8), // Adjust the circular border radius
+                border: Border.all(
+                    color: app_colors.black,
+                    width: 1), // Border color and width
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: LinearProgressIndicator(
+                  value: currentCorrect / currentDone,
+                  minHeight: 3.5.h,
+                  backgroundColor: Colors.grey[300], // Set the background color
+                  valueColor: AlwaysStoppedAnimation<Color>(color),
+                ),
+              )),
           Text('Correct answers: $currentCorrect/$currentDone'),
           SizedBox(height: 2.h),
-          LinearProgressIndicator(
-            minHeight: 3.5.h,
-            value: latestCorrect / latestDone,
-            backgroundColor: Colors.grey[300], // Set the background color
-            valueColor:
-                AlwaysStoppedAnimation<Color>(color), // Set the progress color
-          ),
+          Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "Yesterday's stats",
+                style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
+              )),
+          Container(
+              height: 3.5.h, // Adjust the height of the linear progress bar
+              width: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(
+                    8), // Adjust the circular border radius
+                border: Border.all(
+                    color: app_colors.black,
+                    width: 1), // Border color and width
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: LinearProgressIndicator(
+                  value: latestCorrect / latestDone,
+                  minHeight: 3.5.h,
+                  backgroundColor: Colors.grey[300], // Set the background color
+                  valueColor: AlwaysStoppedAnimation<Color>(color),
+                ),
+              )),
           Text('Correct answers: $latestCorrect/$latestDone'),
         ],
       ),
@@ -287,29 +323,36 @@ class _StatisticsPageState extends State<StatisticsPage>
   }
 
   Widget customTabBar(BuildContext context) {
-    return TabBar(
-      controller: _tabController,
-      tabs: [
-        for (int i = 0; i < tabTitles.length; i++)
-          Tab(
-            child: Text(
-              tabTitles[i],
-              style: TextStyle(
-                color: _tabController.index == i ? Colors.white : Colors.black,
-                fontWeight: FontWeight.bold,
+    return Container(
+      decoration: BoxDecoration(
+        color: const Color.fromARGB(255, 246, 246, 246),
+        border: Border.all(
+          color: const Color.fromARGB(255, 246, 246, 246),
+        ),
+        borderRadius:
+            BorderRadius.circular(10), // Border color for inactive tabs
+      ),
+      child: TabBar(
+        controller: _tabController,
+        tabs: [
+          for (int i = 0; i < tabTitles.length; i++)
+            Tab(
+              child: Text(
+                tabTitles[i],
+                style: TextStyle(
+                  color:
+                      _tabController.index == i ? Colors.white : Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-          ),
-      ],
-      unselectedLabelColor: Colors.grey,
-      // Set the text color for unselected tabs
-      labelColor: Colors.white,
-      // Set the text color for the selected tab
-      indicator: BoxDecoration(
-        color: tabIndicatorColors[_tabController
-            .index], // Set the background color for the selected tab
-        borderRadius:
-            BorderRadius.circular(10), // Optional: Add rounded corners
+        ],
+        indicator: BoxDecoration(
+          color: tabIndicatorColors[_tabController
+              .index], // Set the background color for the selected tab
+          borderRadius:
+              BorderRadius.circular(10), // Optional: Add rounded corners
+        ),
       ),
     );
   }

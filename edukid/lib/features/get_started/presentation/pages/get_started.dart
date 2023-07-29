@@ -60,8 +60,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
           title: Text(
-            'EduKid',
-            style: TextStyle(fontSize: 2.5.h),
+            'EduKid'
           ),
         leading: Builder(
           builder: (context) => IconButton(
@@ -100,7 +99,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
                 child: Container(
                   padding: EdgeInsets.fromLTRB(6.w, 6.w, 6.w, 15.w),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -115,10 +114,13 @@ class _GetStartedPageState extends State<GetStartedPage> {
                           Text(
                             '$points',
                               style: TextStyle(
-                                  fontSize: 3.h, fontWeight: FontWeight.bold)),
+                                  fontSize: 20.sp, fontWeight: FontWeight.bold)),
                       ],),
                           ElevatedButton(
+                            
                           style: ButtonStyle(
+                            padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                                EdgeInsets.all(2.h)),
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 app_colors.orange), // Set the background color
                           ),
@@ -133,12 +135,14 @@ class _GetStartedPageState extends State<GetStartedPage> {
                         ),
                         ],
                       ),
+                      SizedBox(height:5.h),
                       Text(
                               'Hello there! What would you like to try today?',
                               style: TextStyle(
-                                  fontSize: 3.2.h, fontWeight: FontWeight.bold),
+                                  fontSize: 20.sp, fontWeight: FontWeight.bold),
                               softWrap: true,
                             ),
+                      SizedBox(height:5.h),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -155,6 +159,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
                               goTo: 'geo'),
                         ],
                       ),
+                      SizedBox(height:5.h),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

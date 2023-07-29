@@ -50,7 +50,7 @@ class CardWidget extends StatelessWidget {
               ),
               Text(
                 text,
-                style: TextStyle(color: app_colors.black, fontSize: 2.h),
+                style: TextStyle(color: app_colors.black, fontSize: 12.5.sp),
               ),
             ],
           ),

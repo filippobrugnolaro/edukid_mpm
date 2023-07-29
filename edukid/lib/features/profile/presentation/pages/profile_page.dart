@@ -50,9 +50,8 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-          title: Text(
-            'Your profile',
-            style: TextStyle(fontSize: 2.5.h),
+          title: const Text(
+            'Your profile'
           ),
         leading: Builder(
           builder: (context) => IconButton(
@@ -89,16 +88,16 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 Text(
                   '$name $surname',
-                  style: TextStyle(fontSize: 3.5.h, fontFamily: 'Poppins',fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 20.sp, fontFamily: 'Poppins',fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 3.h),
                 RichText(
                   text: TextSpan(
                     children: <TextSpan>[
-                      TextSpan(text: 'Email: ', style: TextStyle(fontSize: 2.5.h, fontFamily: 'Poppins'),),
+                      TextSpan(text: 'Email: ', style: TextStyle(fontSize: 13.sp, fontFamily: 'Poppins'),),
                       TextSpan(
                         text: email,
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 2.5.h, fontFamily: 'Poppins'),
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp, fontFamily: 'Poppins'),
                       ),
                     ],
                   ),
@@ -107,16 +106,17 @@ class _ProfilePageState extends State<ProfilePage> {
                 RichText(
                   text: TextSpan(
                     children: <TextSpan>[
-                      TextSpan(text: 'Points: ', style: TextStyle(fontSize: 2.5.h, fontFamily: 'Poppins'),),
+                      TextSpan(text: 'Points: ', style: TextStyle(fontSize: 13.sp, fontFamily: 'Poppins'),),
                       TextSpan(
                         text: '$points',
-                        style: TextStyle(fontWeight: FontWeight.bold,fontSize: 2.5.h, fontFamily: 'Poppins'),
+                        style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14.sp, fontFamily: 'Poppins'),
                       ),
                     ],
                   ),
                 ),
                 SizedBox(height: 3.h),
                 ElevatedButton(
+                  
                   style: ElevatedButton.styleFrom(backgroundColor: app_colors.orange, padding: EdgeInsets.all(2.h)),
                   onPressed: () {
                     showDialog(
@@ -125,7 +125,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         return getDialog(context);
                       });
                   },
-                  child: Text('Log out', style: TextStyle(fontSize: 10.sp))
+                  child: Text('Log out', style: TextStyle(fontSize: 13.sp))
                 )
               ],
             ),

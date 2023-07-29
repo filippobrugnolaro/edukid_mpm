@@ -90,7 +90,7 @@ class _LoginState extends State<LoginScreen> {
                       Align(
                         child: getLoginButton(),),
                       SizedBox(height: 3.0.h),
-                      Divider(),
+                      Divider(color: app_colors.grey,),
                       SizedBox(height: 3.0.h),
                       Align(
                         child: GestureDetector(
@@ -100,12 +100,13 @@ class _LoginState extends State<LoginScreen> {
                               MaterialPageRoute(builder: (context) => SignUpScreen()),
                             );
                           },
-                          child: const Text(
-                            'Do not have an account yet? Signup now!',
-                            style: TextStyle(
-                              decoration: TextDecoration.underline,
+                            child: Text(
+                              'Do not have an account yet?\nSignup now!',
+                              style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                fontSize: 13.sp,
+                              ),
                             ),
-                          ),
                         ),
                       ),
                       ],
@@ -155,6 +156,11 @@ class _LoginState extends State<LoginScreen> {
               borderRadius: BorderRadius.all(Radius.circular(8.0)),
             )),
         autovalidateMode: AutovalidateMode.onUserInteraction,
+        validator: (value) {
+        return value != null && value.isEmpty
+            ? 'Please insert your password.'
+            : null;
+      },
       ),
     );
   }
@@ -188,7 +194,7 @@ class _LoginState extends State<LoginScreen> {
             fillColor: app_colors.white, // Set your desired background color
             labelText: 'Email',
             errorStyle: TextStyle(
-              fontSize: (8.0.sp),
+              fontSize: (10.0.sp),
             ),
             contentPadding: const EdgeInsets.fromLTRB(10, 3, 10, 6),
             enabledBorder: const OutlineInputBorder(
@@ -205,7 +211,7 @@ class _LoginState extends State<LoginScreen> {
             app_colors.orange), // Set the background color
       ),
       child: Text("Login",
-          style: TextStyle(fontSize: 8.0.sp, color: app_colors.white)),
+          style: TextStyle(fontSize: 13.0.sp, color: app_colors.white)),
       onPressed: () {
         _authenticateWithEmailAndPassword(
             context);

@@ -121,11 +121,13 @@ class _SignUpState extends State<SignUpScreen> {
   Widget getSignupButton() {
     return ElevatedButton(
       style: ButtonStyle(
+        padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                                EdgeInsets.all(2.h)),
         backgroundColor: MaterialStateProperty.all<Color>(
             app_colors.orange), // Set the background color
       ),
       child: Text("Signup",
-          style: TextStyle(fontSize: 8.0.sp, color: app_colors.white)),
+          style: TextStyle(fontSize: 13.0.sp, color: app_colors.white)),
       onPressed: () {
         _createAccountWithEmailAndPassword(context);
       },
@@ -162,6 +164,11 @@ class _SignUpState extends State<SignUpScreen> {
               borderRadius: BorderRadius.all(Radius.circular(8.0)),
             )),
         autovalidateMode: AutovalidateMode.onUserInteraction,
+        validator: (value) {
+          return value != null && value.isEmpty
+              ? 'Please insert a password.'
+              : null;
+        },
       ),
     );
   }
@@ -193,7 +200,7 @@ class _SignUpState extends State<SignUpScreen> {
               fillColor: app_colors.white, // Set your desired background color
               labelText: 'Email',
               errorStyle: TextStyle(
-                fontSize: (8.0.sp),
+                fontSize: (10.0.sp),
               ),
               contentPadding: const EdgeInsets.fromLTRB(10, 3, 10, 6),
               enabledBorder: const OutlineInputBorder(
@@ -218,6 +225,11 @@ class _SignUpState extends State<SignUpScreen> {
           keyboardType: TextInputType.emailAddress,
           controller: _nameController,
           autovalidateMode: AutovalidateMode.onUserInteraction,
+          validator: (value) {
+            return value != null && value.isEmpty
+                ? 'Please insert your name.'
+                : null;
+          },
           decoration: InputDecoration(
               hintText: "Name",
               floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -225,7 +237,7 @@ class _SignUpState extends State<SignUpScreen> {
               fillColor: app_colors.white, // Set your desired background color
               labelText: 'Name',
               errorStyle: TextStyle(
-                fontSize: (8.0.sp),
+                fontSize: (10.0.sp),
               ),
               contentPadding: const EdgeInsets.fromLTRB(10, 3, 10, 6),
               enabledBorder: const OutlineInputBorder(
@@ -249,6 +261,11 @@ class _SignUpState extends State<SignUpScreen> {
         child: TextFormField(
           controller: _surnameController,
           autovalidateMode: AutovalidateMode.onUserInteraction,
+          validator: (value) {
+            return value != null && value.isEmpty
+                ? 'Please insert your surname.'
+                : null;
+          },
           decoration: InputDecoration(
               hintText: "Surname",
               floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -256,7 +273,7 @@ class _SignUpState extends State<SignUpScreen> {
               fillColor: app_colors.white, // Set your desired background color
               labelText: 'Surname',
               errorStyle: TextStyle(
-                fontSize: (8.0.sp),
+                fontSize: (10.0.sp),
               ),
               contentPadding: const EdgeInsets.fromLTRB(10, 3, 10, 6),
               enabledBorder: const OutlineInputBorder(
