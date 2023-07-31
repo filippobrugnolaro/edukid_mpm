@@ -1,5 +1,6 @@
 import 'package:edukid/core/data/data_sources/auth_api.dart';
 import 'package:edukid/core/data/data_sources/database_api.dart';
+import 'package:edukid/core/network/networkInfo.dart';
 import 'package:edukid/features/authentication/data/data_sources/auth_data_source.dart';
 import 'package:edukid/features/authentication/data/repositories/auth_repository_impl.dart';
 import 'package:edukid/features/authentication/domain/repositories/auth_repository.dart';
@@ -76,6 +77,9 @@ Future<void> init() async {
   sl.registerFactory(() => TriviaBloc(triviaRepository: sl()));
 
   sl.registerFactory(() => AuthBloc(authRepository: sl()));
+
+  // Network Checker
+  sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(subscription: sl(), internetConnection: sl(), isConnected: sl()));
 
   // Shared preferences
   final sharedPreferences = await SharedPreferences.getInstance();

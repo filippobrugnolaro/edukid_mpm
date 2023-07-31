@@ -177,18 +177,18 @@ class _StatisticsPageState extends State<StatisticsPage>
                           customTabBar(context),
                           Container(
                             height: 45.h, // Adjust the height as needed
-
                             child: TabBarView(
                               controller: _tabController,
                               children: [
-                                buildStatisticsWidget(context, 50, 70, 90, 110,
-                                    app_colors.fucsia),
+                                for(int i=0; i<tabTitles.length; i++)
                                 buildStatisticsWidget(
-                                    context, 50, 70, 90, 110, app_colors.blue),
-                                buildStatisticsWidget(
-                                    context, 50, 70, 90, 110, app_colors.green),
-                                buildStatisticsWidget(
-                                    context, 50, 70, 90, 110, app_colors.orange)
+                                    context,
+                                    listCurrentCorrect[i],
+                                    listCurrentDone[i],
+                                    listLatestCorrect[i],
+                                    listLatestDone[i],
+                                    tabIndicatorColors[i]
+                                )
                               ],
                             ),
                           ),
@@ -253,21 +253,17 @@ class _StatisticsPageState extends State<StatisticsPage>
         children: [
           SizedBox(height: 2.h),
           Text(
-            currentCorrect / currentDone > latestCorrect / latestDone
-                ? 'Good job! You are improving, keep it like this!'
-                : "C'mon you can do better! Take the challenge and beat yesterday's score!",
+            _encourageText(currentCorrect, currentDone, latestCorrect, latestDone),
             style: TextStyle(
                 fontSize: 14.sp,
                 fontWeight: FontWeight.bold,
-                color: currentCorrect / currentDone > latestCorrect / latestDone
-                    ? app_colors.green
-                    : app_colors.red),
+                color: _setColorEncourageText(currentCorrect, currentDone, latestCorrect, latestDone)),
           ),
           SizedBox(height: 2.h),
           Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                "Today's stats",
+                "Today stats",
                 style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
               )),
           Container(
@@ -283,18 +279,18 @@ class _StatisticsPageState extends State<StatisticsPage>
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: LinearProgressIndicator(
-                  value: currentCorrect / currentDone,
+                  value: currentCorrect != 0 && currentDone != 0 ? currentCorrect / currentDone : 0,
                   minHeight: 3.5.h,
                   backgroundColor: Colors.grey[300], // Set the background color
                   valueColor: AlwaysStoppedAnimation<Color>(color),
                 ),
               )),
-          Text('Correct answers: $currentCorrect/$currentDone'),
+          Text('Score: $currentCorrect/$currentDone'),
           SizedBox(height: 2.h),
           Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                "Yesterday's stats",
+                "Latest stats",
                 style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
               )),
           Container(
@@ -310,16 +306,60 @@ class _StatisticsPageState extends State<StatisticsPage>
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: LinearProgressIndicator(
-                  value: latestCorrect / latestDone,
+                  value: latestCorrect != 0 && latestDone != 0 ? latestCorrect / latestDone : 0,
                   minHeight: 3.5.h,
                   backgroundColor: Colors.grey[300], // Set the background color
                   valueColor: AlwaysStoppedAnimation<Color>(color),
                 ),
               )),
-          Text('Correct answers: $latestCorrect/$latestDone'),
+          Text('Score: $latestCorrect/$latestDone'),
         ],
       ),
     );
+  }
+
+  Color _setColorEncourageText(int currentCorrect, int currentDone, int latestCorrect, int latestDone) {
+    late Color colorEncourageText;
+    if(currentDone > 10 && latestDone > 10){
+      colorEncourageText = currentCorrect / currentDone > latestCorrect / latestDone
+          ? app_colors.green
+          : app_colors.red;
+    } else if((currentDone < 10 && latestDone > 10)) {
+      colorEncourageText = currentCorrect / currentDone > latestCorrect / latestDone
+          ? app_colors.orange
+          : app_colors.red;
+    } else if((currentDone > 10 && latestDone < 10)) {
+      colorEncourageText = currentCorrect / currentDone > latestCorrect / latestDone
+          ? app_colors.green
+          : app_colors.orange;
+    } else {
+      colorEncourageText = currentCorrect / currentDone > latestCorrect / latestDone
+          ? app_colors.orange
+          : app_colors.red;
+    }
+    return colorEncourageText;
+  }
+
+  String _encourageText(int currentCorrect, int currentDone, int latestCorrect, int latestDone) {
+    late String encourageText;
+    if(currentDone > 10 && latestDone > 10){
+      encourageText = currentCorrect / currentDone > latestCorrect / latestDone
+          ? 'Good job! You are improving, keep it like this!'
+          : "Try hard, you can do better! Take the challenge and beat latest day score!";
+    } else if((currentDone < 10 && latestDone > 10)) {
+      encourageText = currentCorrect / currentDone > latestCorrect / latestDone
+          ? 'You are improving, but you need to exercise more. Keep it going!'
+          : "Try hard, you can do better! Take the challenge and beat latest day score!";
+    } else if((currentDone > 10 && latestDone < 10)) {
+      encourageText = currentCorrect / currentDone > latestCorrect / latestDone
+          ? 'Good job! You are improving, keep it like this!'
+          : "You are not improving, but you are exercising more. Try to do your best!";
+    } else {
+      encourageText = currentCorrect / currentDone > latestCorrect / latestDone
+          ? 'You are improving, but you need to exercise more. Keep it going!'
+          : "Try hard, you can do better! Exercise more and take the challenge to beat latest day score!";
+    }
+    return encourageText;
   }
 
   Widget customTabBar(BuildContext context) {
