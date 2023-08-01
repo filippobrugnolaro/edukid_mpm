@@ -44,11 +44,6 @@ class _SignUpState extends State<SignUpScreen> {
             Navigator.pushReplacement(context,
                 MaterialPageRoute(builder: (context) => GetStartedPage()));
           }
-          if (state is AuthError) {
-            // Showing the error message if the user has entered invalid credentials
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(state.error)));
-          }
         }, child: BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
           if (state is Loading) {
             // Showing the loading indicator while the user is signing in
@@ -165,9 +160,12 @@ class _SignUpState extends State<SignUpScreen> {
             )),
         autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: (value) {
-          return value != null && value.isEmpty
-              ? 'Please insert a password.'
-              : null;
+          if (value == null || value.isEmpty) {
+            return 'Please insert your password.';
+          } else if (value.length < 6) {
+            return 'Password must be at least 6 characters.';
+          }
+          return null; // Return null to indicate no error
         },
       ),
     );

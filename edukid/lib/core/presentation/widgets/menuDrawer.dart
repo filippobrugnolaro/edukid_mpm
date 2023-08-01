@@ -132,20 +132,20 @@ class MenuDrawer extends StatelessWidget {
       actionsPadding: const EdgeInsets.all(20),
       actions: <Widget>[
         ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.white, // Background color
-              foregroundColor: Colors.black, // Text color
-              side: BorderSide(color: app_colors.orange, width: 2),),
-            onPressed: () {
-              Navigator.of(context).pushReplacementNamed("login");
-            },
-            child: const Text('Yes')),
-            ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: app_colors.orange),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: const Text('No')),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.white, // Background color
+            foregroundColor: Colors.black, // Text color
+            side: BorderSide(color: app_colors.orange, width: 2),),
+          onPressed: () {
+            Navigator.of(context).pushReplacementNamed("login");
+          },
+          child: const Text('Yes')),
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(backgroundColor: app_colors.orange),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: const Text('No')),
       ],
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
     );

@@ -1,11 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class AuthDataSource {
-
-  Future<void> signUp({
-    required String email,
-    required String password
-  });
+  Future<void> signUp({required String email, required String password});
 
   Future<void> signIn({
     required String email,
@@ -28,13 +24,10 @@ class AuthDataSourceImpl implements AuthDataSource {
   User? signedUpUser;
 
   @override
-  Future<void> signUp({
-    required String email,
-    required String password
-  }) async {
+  Future<void> signUp({required String email, required String password}) async {
     try {
       final UserCredential userCredential =
-      await _firebaseAuth.createUserWithEmailAndPassword(
+          await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -44,10 +37,14 @@ class AuthDataSourceImpl implements AuthDataSource {
         signedUpUser = user;
       }
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        throw Exception('The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
-        throw Exception('The account already exists for that email.');
+      if (e.message!.contains('weak-password')) {
+        throw Exception('Password should be at least 6 characters!');
+      }
+      if (e.message!.contains('email-already-in-use')) {
+        throw Exception(
+            'This email address is already in use by another account.');
+      } else {
+        throw Exception(e.toString());
       }
     } catch (e) {
       throw Exception(e.toString());
@@ -65,7 +62,16 @@ class AuthDataSourceImpl implements AuthDataSource {
         password: password,
       );
     } on FirebaseAuthException catch (e) {
-      throw Exception(e.toString());
+      if (e.message!.contains('user-not-found')) {
+        throw Exception(
+            'User not found. Please check your email or create a new account.');
+      }
+      if (e.message!.contains('wrong-password')) {
+        throw Exception(
+            'The password is invalid. Please check your password and try again');
+      } else {
+        throw Exception(e.toString());
+      }
     }
   }
 

@@ -39,34 +39,35 @@ class _LoginState extends State<LoginScreen> {
             // Navigating to the dashboard screen if the user is authenticated
             Navigator.pushReplacement(context,
                 MaterialPageRoute(builder: (context) => GetStartedPage()));
+          } else if (state is AuthError) {
+            Future.microtask(() {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    actionsPadding: const EdgeInsets.all(20),
+                    title: Text('Error'),
+                    content: Text(state.error.replaceFirst('Exception: ', '')),
+                    actions: <Widget>[
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(backgroundColor: app_colors.orange),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text('Ok')),
+                    ],
+                  );
+                },
+              );
+            });
           }
-          else if (state is AuthError) {
-            // Showing the error message if the user has entered invalid credentials
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(state.error),
-                behavior: SnackBarBehavior.floating,
-                duration: const Duration(seconds: 5),
-                action: SnackBarAction(
-                  label: 'Try Again',
-                  onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => LoginScreen()),
-                    );
-                  },
-                ),
-              ),
-            );
-          }
-        },
-        child: BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
-          
+        }, child: BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
           if (state is Loading) {
             // Showing the loading indicator while the user is signing in
             return const Center(
-              child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(app_colors.orange),)
-            );
+                child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(app_colors.orange),
+            ));
           }
           if (state is UnAuthenticated) {
             // Showing the sign in form if the user is not authenticated
@@ -80,53 +81,57 @@ class _LoginState extends State<LoginScreen> {
                 ),
               ),
               Form(
-                key: _formKey,
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
-                  margin: EdgeInsets.fromLTRB(15.0.w, 5.h, 15.w, 0.h),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Align(
-                        child: Text(
-                          'Login to your existing account',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 15.sp),
-                        ),
+                  key: _formKey,
+                  child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20.0),
                       ),
-                      SizedBox(height: 2.0.h),
-                      emailField(context),
-                      SizedBox(height: 3.0.h),
-                      passwordField(context),
-                      SizedBox(height: 3.0.h),
-                      Align(
-                        child: getLoginButton(),),
-                      SizedBox(height: 3.0.h),
-                      Divider(color: app_colors.grey,),
-                      SizedBox(height: 3.0.h),
-                      Align(
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => SignUpScreen()),
-                            );
-                          },
+                      margin: EdgeInsets.fromLTRB(15.0.w, 5.h, 15.w, 0.h),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Align(
                             child: Text(
-                              'Do not have an account yet?\nSignup now!',
+                              'Login to your existing account',
                               textAlign: TextAlign.center,
-                              style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                fontSize: 13.sp,
+                              style: TextStyle(fontSize: 15.sp),
+                            ),
+                          ),
+                          SizedBox(height: 2.0.h),
+                          emailField(context),
+                          SizedBox(height: 3.0.h),
+                          passwordField(context),
+                          SizedBox(height: 3.0.h),
+                          Align(
+                            child: getLoginButton(),
+                          ),
+                          SizedBox(height: 3.0.h),
+                          Divider(
+                            color: app_colors.grey,
+                          ),
+                          SizedBox(height: 3.0.h),
+                          Align(
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SignUpScreen()),
+                                );
+                              },
+                              child: Text(
+                                'Do not have an account yet?\nSignup now!',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  decoration: TextDecoration.underline,
+                                  fontSize: 13.sp,
+                                ),
                               ),
                             ),
-                        ),
-                      ),
-                      ],
-
-            )))]);
+                          ),
+                        ],
+                      )))
+            ]);
           }
           return const Center(
             child: Text('An error occured, try again!'),
@@ -174,51 +179,49 @@ class _LoginState extends State<LoginScreen> {
             )),
         autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: (value) {
-        return value != null && value.isEmpty
-            ? 'Please insert your password.'
-            : null;
-      },
+          return value != null && value.isEmpty
+              ? 'Please insert your password.'
+              : null;
+        },
       ),
     );
   }
 
-  Widget emailField(context){
+  Widget emailField(context) {
     return Theme(
-      data: Theme.of(context).copyWith(
-        primaryColor: app_colors.orange, // Set your desired cursor color
-        inputDecorationTheme: const InputDecorationTheme(
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-                color: app_colors.orange), // Set your desired border color
+        data: Theme.of(context).copyWith(
+          primaryColor: app_colors.orange, // Set your desired cursor color
+          inputDecorationTheme: const InputDecorationTheme(
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                  color: app_colors.orange), // Set your desired border color
+            ),
           ),
         ),
-      ),
-      child: TextFormField(
-      keyboardType: TextInputType.emailAddress,
-      controller: _emailController,
-      autovalidateMode:
-          AutovalidateMode.onUserInteraction,
-      validator: (value) {
-        return value != null &&
-                !EmailValidator.validate(value)
-            ? 'Please insert a valid email address.'
-            : null;
-      },
-      decoration: InputDecoration(
-            hintText: "Email",
-            floatingLabelBehavior: FloatingLabelBehavior.never,
-            filled: true,
-            fillColor: app_colors.white, // Set your desired background color
-            labelText: 'Email',
-            errorStyle: TextStyle(
-              fontSize: (10.0.sp),
-            ),
-            contentPadding: const EdgeInsets.fromLTRB(10, 3, 10, 6),
-            enabledBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: app_colors.orange),
-              borderRadius: BorderRadius.all(Radius.circular(8.0)),
-            )),
-    ));
+        child: TextFormField(
+          keyboardType: TextInputType.emailAddress,
+          controller: _emailController,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          validator: (value) {
+            return value != null && !EmailValidator.validate(value)
+                ? 'Please insert a valid email address.'
+                : null;
+          },
+          decoration: InputDecoration(
+              hintText: "Email",
+              floatingLabelBehavior: FloatingLabelBehavior.never,
+              filled: true,
+              fillColor: app_colors.white, // Set your desired background color
+              labelText: 'Email',
+              errorStyle: TextStyle(
+                fontSize: (10.0.sp),
+              ),
+              contentPadding: const EdgeInsets.fromLTRB(10, 3, 10, 6),
+              enabledBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: app_colors.orange),
+                borderRadius: BorderRadius.all(Radius.circular(8.0)),
+              )),
+        ));
   }
 
   Widget getLoginButton() {
@@ -230,10 +233,8 @@ class _LoginState extends State<LoginScreen> {
       child: Text("Login",
           style: TextStyle(fontSize: 13.0.sp, color: app_colors.white)),
       onPressed: () {
-        _authenticateWithEmailAndPassword(
-            context);
+        _authenticateWithEmailAndPassword(context);
       },
     );
   }
-
 }
