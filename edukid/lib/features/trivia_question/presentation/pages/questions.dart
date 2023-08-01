@@ -55,6 +55,7 @@ class QuestionPage extends StatelessWidget {
                         Text(
                           state.question.question,
                           style: TextStyle(fontSize: 18.sp),
+                          textAlign: TextAlign.center,
                         ),
                         SizedBox(
                           height: 3.h,

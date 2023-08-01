@@ -32,6 +32,7 @@ class _LoginState extends State<LoginScreen> {
         appBar: AppBar(
           backgroundColor: app_colors.orange,
           title: Text('Login'),
+          automaticallyImplyLeading: false,
         ),
         body: BlocListener<AuthBloc, AuthState>(listener: (context, state) {
           if (state is Authenticated) {
@@ -44,8 +45,8 @@ class _LoginState extends State<LoginScreen> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(state.error),
-                behavior: SnackBarBehavior.fixed,
-                duration: const Duration(seconds: 100),
+                behavior: SnackBarBehavior.floating,
+                duration: const Duration(seconds: 5),
                 action: SnackBarAction(
                   label: 'Try Again',
                   onPressed: () {
@@ -60,33 +61,7 @@ class _LoginState extends State<LoginScreen> {
           }
         },
         child: BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
-          if (state is AuthError){
-            return Center(
-              child: Container(
-                width: 85.w,
-                child: Column(
-                  children: [
-                    Text(state.error),
-                    ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(
-                            app_colors.orange), // Set the background color
-                      ),
-                      child: Text("Try again",
-                          style: TextStyle(fontSize: 13.0.sp, color: app_colors.white)),
-                      onPressed: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: (context) => LoginScreen()),
-                        );
-                      },
-                    ),
-                  ],
-                )
-
-              )
-            );
-          }
+          
           if (state is Loading) {
             // Showing the loading indicator while the user is signing in
             return const Center(
@@ -110,17 +85,14 @@ class _LoginState extends State<LoginScreen> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20.0),
                   ),
-                  margin: (MediaQuery.of(context).orientation == Orientation.portrait
-                      ? (SizerUtil.deviceType == DeviceType.mobile
-                          ? EdgeInsets.fromLTRB(8.0.w, 5.0.h, 8.0.w, 0.0.h)
-                          : EdgeInsets.fromLTRB(15.0.w, 5.0.h, 15.0.w, 0.0.h))
-                      : EdgeInsets.fromLTRB(20.0.w, 5.0.h, 20.0.w, 0.0.h)),
+                  margin: EdgeInsets.fromLTRB(15.0.w, 5.h, 15.w, 0.h),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Align(
                         child: Text(
                           'Login to your existing account',
+                          textAlign: TextAlign.center,
                           style: TextStyle(fontSize: 15.sp),
                         ),
                       ),
@@ -144,6 +116,7 @@ class _LoginState extends State<LoginScreen> {
                           },
                             child: Text(
                               'Do not have an account yet?\nSignup now!',
+                              textAlign: TextAlign.center,
                               style: TextStyle(
                                 decoration: TextDecoration.underline,
                                 fontSize: 13.sp,
@@ -155,7 +128,7 @@ class _LoginState extends State<LoginScreen> {
 
             )))]);
           }
-          return Center(
+          return const Center(
             child: Text('An error occured, try again!'),
           );
         })));

@@ -159,9 +159,8 @@ class _StatisticsPageState extends State<StatisticsPage>
                                 children: [
                                   Text('LEADERBOARD',
                                       style: TextStyle(
-                                          fontSize: 13.sp,
+                                          fontSize: 15.sp,
                                           fontWeight: FontWeight.bold)),
-                                  SizedBox(height: 2.h),
                                   for (int index = 0;
                                       index < listRanks.length - 1;
                                       index++)
@@ -226,9 +225,7 @@ class _StatisticsPageState extends State<StatisticsPage>
       int rank, String firstName, String lastName, int points) {
     return Container(
       padding: EdgeInsets.all(1.5.h),
-      margin: listRanks.last != 1 && listRanks.last != 2 && listRanks.last != 3
-          ? EdgeInsets.only(top: 0)
-          : EdgeInsets.only(top: 2.h),
+      margin: EdgeInsets.only(top: 2.h),
       decoration: BoxDecoration(
         color:
             rank == listRanks.last ? app_colors.lightOrange : app_colors.white,

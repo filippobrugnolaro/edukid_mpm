@@ -42,96 +42,21 @@ class InstructionsPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  Flexible(
-                    child: Text(
-                      'Answer the questions correctly to earn 10 points per correct answer.',
-                      style: TextStyle(fontSize: 12.5.sp), softWrap: true,),
-                  ),
-                  SizedBox(width: 2.w,),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15.0), // Set border radius
-                      border: Border.all(
-                        color: app_colors.orange, // Set border color
-                        width: 2.0, // Set border width
-                      ),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(15.0), // Set border radius again for clipping
-                      child: Image.asset(
-                        'images/earn10.png', // Replace with your image asset path
-                        width: 35.w,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 2.5.h),
-              const Divider(color: app_colors.grey,),
-              SizedBox(height: 2.5.h),
-              Row(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15.0), // Set border radius
-                      border: Border.all(
-                        color: app_colors.orange, // Set border color
-                        width: 2.0, // Set border width
-                      ),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(15.0), // Set border radius again for clipping
-                      child: Image.asset(
-                        'images/lost5.png', // Replace with your image asset path
-                        width: 35.w,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 5.w,),
-                  Flexible(
-                    child: Text(
-                      'If your answer is wrong, you will lose 5 points.',
-                      style: TextStyle(fontSize: 12.5.sp), softWrap: true,),
-                  ),
-                  
-                ],
-              ),
-              SizedBox(height: 2.5.h),
-              const Divider(color: app_colors.grey,),
-              SizedBox(height: 2.5.h),
-              Row(
-                children: [
-                  Flexible(
-                    child: Text(
-                      'The game will consist of multiple-choice questions. Only one answer is correct.',
-                      style: TextStyle(fontSize: 12.5.sp), softWrap: true,),
-                  ),
-                  SizedBox(width: 5.w,),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15.0), // Set border radius
-                      border: Border.all(
-                        color: app_colors.orange, // Set border color
-                        width: 2.0, // Set border width
-                      ),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(15.0), // Set border radius again for clipping
-                      child: Image.asset(
-                        'images/question.png', // Replace with your image asset path
-                        width: 50.w,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  
-                  
-                ],
-              ),
+              Text(
+                '1. The game will consist of multiple choice questions categorized in different subjects.\nOnly one answer is correct.',
+                style: TextStyle(fontSize: 12.5.sp), softWrap: true,),
+              SizedBox(height: 2.h),
+              Text(
+                '2. Answer the questions correctly to earn 10 points per correct answer.',
+                style: TextStyle(fontSize: 12.5.sp), softWrap: true,),
+              SizedBox(height: 2.h),
+              Text(
+                '3. If your answer is wrong, you will lose 5 points.',
+                style: TextStyle(fontSize: 12.5.sp), softWrap: true,),
+              SizedBox(height: 2.h),
+              Text(
+                "4. You can keep up with your improvement in the 'Statistics' page.\nTry to beat your score and improve day by day!",
+                style: TextStyle(fontSize: 12.5.sp), softWrap: true,),
               SizedBox(height: 5.h),
               Center(
                 child: ElevatedButton(
