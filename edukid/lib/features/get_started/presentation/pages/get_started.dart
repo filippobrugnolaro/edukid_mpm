@@ -73,7 +73,9 @@ class _GetStartedPageState extends State<GetStartedPage> {
         ),
           backgroundColor: app_colors.orange,
         ),
-        drawer: MenuDrawer(pageNumber: -1,),
+        drawer: MenuDrawer(
+        pageNumber: 0,
+      ),
         body: BlocListener<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is UnAuthenticated) {

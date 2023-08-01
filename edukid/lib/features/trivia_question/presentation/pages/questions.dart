@@ -27,6 +27,7 @@ class QuestionPage extends StatelessWidget {
           ),
           centerTitle: true,
           backgroundColor: color,
+           automaticallyImplyLeading: false
         ),
         body: BlocBuilder<TriviaBloc, TriviaState>(
           builder: (context, state) {
@@ -167,7 +168,7 @@ class QuestionPage extends StatelessWidget {
                             onPressed: () {
                               Navigator.of(context).pushReplacementNamed('getStarted');
                             },
-                            child:  Text('Change category',
+                            child:  Text('Back to the home page',
                                 style: TextStyle(color: app_colors.black, fontSize: 13.sp))),
                         SizedBox(
                           height: 8.h,
