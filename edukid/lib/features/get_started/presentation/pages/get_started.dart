@@ -20,6 +20,7 @@ class GetStartedPage extends StatefulWidget {
 class _GetStartedPageState extends State<GetStartedPage> {
   final getStartedRepository = sl<GetStartedRepository>();
   int points = 0;
+  bool isLoaded = false;
 
   @override
   void initState() {
@@ -37,6 +38,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
     final newPoints = await getStartedRepository.listenToUserPoints();
     setState(() {
       points = newPoints;
+      isLoaded = true;
     });
   }
 
@@ -109,14 +111,25 @@ class _GetStartedPageState extends State<GetStartedPage> {
                         Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Image.asset(
-                            'images/coin.png',
-                            height: 6.h,
-                          ),
-                          Text(
-                            '$points',
-                              style: TextStyle(
+                          isLoaded ?
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                'images/coin.png',
+                                height: 6.h,
+                              ),
+                              Text(
+                                '$points',
+                                  style: TextStyle(
                                   fontSize: 20.sp, fontWeight: FontWeight.bold)),
+                            ]
+                          )
+                          : const Center(
+                              child: CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation<Color>(app_colors.orange),
+                              )
+                          )
                       ],),
                           ElevatedButton(
                             

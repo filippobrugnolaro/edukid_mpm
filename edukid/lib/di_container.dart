@@ -1,7 +1,8 @@
 import 'package:edukid/core/data/data_sources/auth_api.dart';
 import 'package:edukid/core/data/data_sources/database_api.dart';
-import 'package:edukid/core/network/networkInfo.dart';
-import 'package:edukid/features/authentication/data/data_sources/auth_data_source.dart';
+import 'package:edukid/core/network/network_info.dart';
+import 'package:edukid/features/authentication/data/data_sources/auth_data_source_local.dart';
+import 'package:edukid/features/authentication/data/data_sources/auth_data_source_remote.dart';
 import 'package:edukid/features/authentication/data/repositories/auth_repository_impl.dart';
 import 'package:edukid/features/authentication/domain/repositories/auth_repository.dart';
 import 'package:edukid/features/authentication/presentation/bloc/auth_bloc.dart';
@@ -36,7 +37,9 @@ Future<void> init() async {
 
   // Data sources
 
-  sl.registerLazySingleton<AuthDataSource>(() => AuthDataSourceImpl());
+  sl.registerLazySingleton<AuthDataSourceRemote>(() => AuthDataSourceRemoteImpl());
+  
+  sl.registerLazySingleton<AuthDataSourceLocal>(() => AuthDataSourceLocalImpl(sharedPreferences: sl()));
 
   sl.registerLazySingleton<TriviaDataSource>(() => TriviaDataSourceImpl());
 
@@ -54,7 +57,7 @@ Future<void> init() async {
   // Repository
 
   sl.registerLazySingleton<AuthRepository>(
-      () => AuthRepositoryImpl(authDataSource: sl(), databaseAPI: sl()));
+      () => AuthRepositoryImpl(authDataSourceRemote: sl(), authDataSourceLocal: sl(), databaseAPI: sl()));
 
   sl.registerLazySingleton<TriviaRepository>(() => TriviaRepositoryImpl(
       triviaDataSource: sl(), authAPI: sl(), databaseAPI: sl()));
@@ -79,7 +82,7 @@ Future<void> init() async {
   sl.registerFactory(() => AuthBloc(authRepository: sl()));
 
   // Network Checker
-  sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(subscription: sl(), internetConnection: sl(), isConnected: sl()));
+  sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(connectionChecker: sl()));
 
   // Shared preferences
   final sharedPreferences = await SharedPreferences.getInstance();

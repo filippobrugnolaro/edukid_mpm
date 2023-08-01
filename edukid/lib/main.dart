@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
                     stream: FirebaseAuth.instance.authStateChanges(),
                     builder: (context, snapshot) {
                       // If the snapshot has user data, then they're already signed in. So Navigating to the Dashboard.
-                      if (snapshot.hasData) {
+                      if (snapshot.hasData /*or prefs.getAuth is true*/) {
                         return GetStartedPage();
                       }
                       // Otherwise, they're not signed in. Show the sign in page.

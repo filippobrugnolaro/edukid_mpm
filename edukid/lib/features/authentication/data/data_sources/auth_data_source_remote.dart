@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-abstract class AuthDataSource {
+abstract class AuthDataSourceRemote {
   Future<void> signUp({required String email, required String password});
 
   Future<void> signIn({
@@ -19,7 +19,7 @@ abstract class AuthDataSource {
   bool isSignedInUserNull();
 }
 
-class AuthDataSourceImpl implements AuthDataSource {
+class AuthDataSourceRemoteImpl implements AuthDataSourceRemote {
   final _firebaseAuth = FirebaseAuth.instance;
   User? signedUpUser;
 
@@ -79,6 +79,7 @@ class AuthDataSourceImpl implements AuthDataSource {
   Future<void> signOut() async {
     try {
       await _firebaseAuth.signOut();
+      signedUpUser = null;
     } catch (e) {
       throw Exception(e.toString());
     }

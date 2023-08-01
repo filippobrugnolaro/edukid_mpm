@@ -1,5 +1,7 @@
 import 'package:edukid/core/presentation/widgets/custom_text.dart';
+import 'package:edukid/features/authentication/presentation/bloc/auth_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 import '../../config/colors.dart' as app_colors;
 
@@ -137,6 +139,9 @@ class MenuDrawer extends StatelessWidget {
             foregroundColor: Colors.black, // Text color
             side: BorderSide(color: app_colors.orange, width: 2),),
           onPressed: () {
+            BlocProvider.of<AuthBloc>(context).add(
+              SignOutRequested(),
+            );
             Navigator.of(context).pushReplacementNamed("login");
           },
           child: const Text('Yes')),
