@@ -3,4 +3,5 @@ abstract class GetStartedRepository {
   Future<void> resetAllCurrentToZero();
   Future<void> copyCurrentToLatest();
   Future<void> setResetToDo(bool boolean);
+  Future<List<int>> getAllCurrentDone();
 }

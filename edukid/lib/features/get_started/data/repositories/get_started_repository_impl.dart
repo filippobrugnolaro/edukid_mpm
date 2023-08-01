@@ -37,6 +37,20 @@ class GetStartedRepositoryImpl implements GetStartedRepository {
     if(await databaseAPI.isResetToDo(userUID)) {
       await databaseAPI.setResetToDo(userUID, boolean);
     }
-}
+  }
+
+  // if it is only for get_started move getCurrentDone call from databaseAPI to getStartedDataSource
+  // if it has to be added also to statistics leave it here so it can be called from potentially every feature
+  // removing the call also from abstract class and adding the call to the other abstract
+  // the pattern is the same so if you
+  Future<List<int>> getAllCurrentDone() async {
+    final userUID = authAPI.getSignedInUserUID();
+    List<int> listCurrentDone = [];
+    listCurrentDone.add(await databaseAPI.getCurrentDone(userUID, 'Mathematics'));
+    listCurrentDone.add(await databaseAPI.getCurrentDone(userUID, 'Geography'));
+    listCurrentDone.add(await databaseAPI.getCurrentDone(userUID, 'History'));
+    listCurrentDone.add(await databaseAPI.getCurrentDone(userUID, 'Science'));
+    return listCurrentDone;
+  }
 
 }
