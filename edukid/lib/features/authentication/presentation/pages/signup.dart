@@ -53,7 +53,7 @@ class _SignUpState extends State<SignUpScreen> {
           if (state is Loading) {
             // Showing the loading indicator while the user is signing in
             return const Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(app_colors.orange),)
             );
           }
           if (state is UnAuthenticated) {

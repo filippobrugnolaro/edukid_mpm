@@ -4,6 +4,7 @@ const white = Color(0xFFFFFFFF);
 const black = Color(0xFF000000);
 const red = Color.fromARGB(255, 204, 45, 45);
 const orange = Color.fromARGB(255, 255, 132, 0);
+const lightOrange = Color.fromARGB(255, 253, 201, 149);
 const yellow = Color.fromARGB(255, 255, 225, 0);
 const green = Color.fromARGB(255, 63, 188, 46);
 const blue = Color.fromARGB(255, 22, 145, 221);

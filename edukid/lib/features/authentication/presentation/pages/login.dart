@@ -39,16 +39,58 @@ class _LoginState extends State<LoginScreen> {
             Navigator.pushReplacement(context,
                 MaterialPageRoute(builder: (context) => GetStartedPage()));
           }
-          if (state is AuthError) {
+          else if (state is AuthError) {
             // Showing the error message if the user has entered invalid credentials
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(state.error)));
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.error),
+                behavior: SnackBarBehavior.fixed,
+                duration: const Duration(seconds: 100),
+                action: SnackBarAction(
+                  label: 'Try Again',
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginScreen()),
+                    );
+                  },
+                ),
+              ),
+            );
           }
-        }, child: BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
+        },
+        child: BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
+          if (state is AuthError){
+            return Center(
+              child: Container(
+                width: 85.w,
+                child: Column(
+                  children: [
+                    Text(state.error),
+                    ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            app_colors.orange), // Set the background color
+                      ),
+                      child: Text("Try again",
+                          style: TextStyle(fontSize: 13.0.sp, color: app_colors.white)),
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) => LoginScreen()),
+                        );
+                      },
+                    ),
+                  ],
+                )
+
+              )
+            );
+          }
           if (state is Loading) {
             // Showing the loading indicator while the user is signing in
             return const Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(app_colors.orange),)
             );
           }
           if (state is UnAuthenticated) {
@@ -113,7 +155,9 @@ class _LoginState extends State<LoginScreen> {
 
             )))]);
           }
-          return Container();
+          return Center(
+            child: Text('An error occured, try again!'),
+          );
         })));
   }
 

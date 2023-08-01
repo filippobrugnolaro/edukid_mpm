@@ -32,15 +32,16 @@ class _StatisticsPageState extends State<StatisticsPage>
     app_colors.orange
   ];
   List<String> tabTitles = ['Math', 'Geo', 'History', 'Science'];
+  bool isLoading = true;
 
   @override
   void initState() {
     super.initState();
+    loadData();
     _tabController = TabController(length: tabTitles.length, vsync: this);
     _tabController.addListener(() {
       setState(() {}); // Rebuild the widget when the selected tab index changes
     });
-    loadData();
   }
 
   @override
@@ -51,10 +52,13 @@ class _StatisticsPageState extends State<StatisticsPage>
   }
 
   Future<void> loadData() async {
-  await getPodium();
-  await getPersonalEntry();
-  await getPersonalCategoryStatistics();
-}
+    await getPodium();
+    await getPersonalEntry();
+    await getPersonalCategoryStatistics();
+    setState(() {
+      isLoading = false; // Set isLoading to false when data is loaded
+    });
+  }
 
   void disposeAll() {
     listRanks.clear();
@@ -124,105 +128,124 @@ class _StatisticsPageState extends State<StatisticsPage>
         drawer: MenuDrawer(
           pageNumber: 2,
         ),
-        body: Stack(fit: StackFit.expand, children: [
-          Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('images/doodle.png'),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          SingleChildScrollView(
-              child: Column(children: [
-            Padding(
-              padding: EdgeInsets.all(5.w),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: app_colors.transparent,
-                        border: Border.all(color: app_colors.orange, width: 3),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('LEADERBOARD', style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.bold)),
-                          SizedBox(height: 2.h),
-                          for (int index = 0; index < listRanks.length-1; index++)
-                            _buildPodiumEntry(
-                              listRanks[index],
-                              listNames[index],
-                              listSurnames[index],
-                              listPoints[index],
-                            ),
-                        ],
+        body: isLoading 
+            ? const Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(app_colors.orange),))
+            : Stack(fit: StackFit.expand, children: [
+                  Container(
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('images/doodle.png'),
+                        fit: BoxFit.cover,
                       ),
                     ),
-                    SizedBox(height: 3.h),
-                    Text('Your points: ${listPoints.last}',
-                        style: TextStyle(fontSize: 13.sp)),
-                    Text(
-                      'Your position in the ranking: ${listRanks.last}',
-                      style: TextStyle(fontSize: 13.sp),
-                    ),
-                    SizedBox(height: 2.h),
-                    DefaultTabController(
-                      length: 4,
+                  ),
+                  SingleChildScrollView(
+                      child: Column(children: [
+                    Padding(
+                      padding: EdgeInsets.all(5.w),
                       child: Column(
-                        children: [
-                          customTabBar(context),
-                          Container(
-                            height: 45.h, // Adjust the height as needed
-                            child: TabBarView(
-                              controller: _tabController,
-                              children: [
-                                for(int i=0; i<tabTitles.length; i++)
-                                buildStatisticsWidget(
-                                    context,
-                                    listCurrentCorrect[i],
-                                    listCurrentDone[i],
-                                    listLatestCorrect[i],
-                                    listLatestDone[i],
-                                    tabIndicatorColors[i]
-                                )
-                              ],
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(16),
+                              decoration: BoxDecoration(
+                                color: app_colors.transparent,
+                                border: Border.all(
+                                    color: app_colors.orange, width: 3),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text('LEADERBOARD',
+                                      style: TextStyle(
+                                          fontSize: 13.sp,
+                                          fontWeight: FontWeight.bold)),
+                                  SizedBox(height: 2.h),
+                                  for (int index = 0;
+                                      index < listRanks.length - 1;
+                                      index++)
+                                    _buildPodiumEntry(
+                                      listRanks[index],
+                                      listNames[index],
+                                      listSurnames[index],
+                                      listPoints[index],
+                                    ),
+                                  listRanks.last != 1 &&
+                                          listRanks.last != 2 &&
+                                          listRanks.last != 3
+                                      ? Text('. . .')
+                                      : SizedBox(),
+                                  listRanks.last != 1 &&
+                                          listRanks.last != 2 &&
+                                          listRanks.last != 3
+                                      ? _buildPodiumEntry(
+                                          listRanks.last,
+                                          listNames.last,
+                                          listSurnames.last,
+                                          listPoints.last)
+                                      : SizedBox(),
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
+                            SizedBox(height: 2.h),
+                            DefaultTabController(
+                              length: 4,
+                              child: Column(
+                                children: [
+                                  customTabBar(context),
+                                  Container(
+                                    height: 45.h, // Adjust the height as needed
+                                    child: TabBarView(
+                                      controller: _tabController,
+                                      children: [
+                                        for (int index = 0;
+                                            index < listCurrentCorrect.length;
+                                            index++)
+                                          buildStatisticsWidget(
+                                            context,
+                                            listCurrentCorrect[index],
+                                            listCurrentDone[index],
+                                            listLatestCorrect[index],
+                                            listLatestDone[index],
+                                            tabIndicatorColors[index],
+                                          ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ]),
                     )
-                  ]),
-            )
-          ]))
-        ]));
+                  ]))
+                ]));
   }
 
   Widget _buildPodiumEntry(
       int rank, String firstName, String lastName, int points) {
     return Container(
       padding: EdgeInsets.all(1.5.h),
-      margin: EdgeInsets.only(top: 2.h),
+      margin: listRanks.last != 1 && listRanks.last != 2 && listRanks.last != 3
+          ? EdgeInsets.only(top: 0)
+          : EdgeInsets.only(top: 2.h),
       decoration: BoxDecoration(
-        color: app_colors.white,
+        color:
+            rank == listRanks.last ? app_colors.lightOrange : app_colors.white,
         border: Border.all(color: app_colors.orange, width: 1),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            children: [
-              Text(
-                '$rank.',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.sp),
-              ),
-              SizedBox(width: 2.w),
-              Text('$firstName $lastName', style: TextStyle(fontSize: 13.sp)),
-        ]),
+          Row(children: [
+            Text(
+              '$rank.',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.sp),
+            ),
+            SizedBox(width: 2.w),
+            Text('$firstName $lastName', style: TextStyle(fontSize: 13.sp)),
+          ]),
           Expanded(
             // Use Expanded to align the icon and points to the right
             child: Row(
@@ -252,13 +275,8 @@ class _StatisticsPageState extends State<StatisticsPage>
       child: Column(
         children: [
           SizedBox(height: 2.h),
-          Text(
-            _encourageText(currentCorrect, currentDone, latestCorrect, latestDone),
-            style: TextStyle(
-                fontSize: 14.sp,
-                fontWeight: FontWeight.bold,
-                color: _setColorEncourageText(currentCorrect, currentDone, latestCorrect, latestDone)),
-          ),
+          getText(
+              context, currentCorrect, currentDone, latestCorrect, latestDone),
           SizedBox(height: 2.h),
           Align(
               alignment: Alignment.centerLeft,
@@ -279,7 +297,9 @@ class _StatisticsPageState extends State<StatisticsPage>
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: LinearProgressIndicator(
-                  value: currentCorrect != 0 && currentDone != 0 ? currentCorrect / currentDone : 0,
+                  value: currentCorrect != 0 && currentDone != 0
+                      ? currentCorrect / currentDone
+                      : 0,
                   minHeight: 3.5.h,
                   backgroundColor: Colors.grey[300], // Set the background color
                   valueColor: AlwaysStoppedAnimation<Color>(color),
@@ -306,7 +326,9 @@ class _StatisticsPageState extends State<StatisticsPage>
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: LinearProgressIndicator(
-                  value: latestCorrect != 0 && latestDone != 0 ? latestCorrect / latestDone : 0,
+                  value: latestCorrect != 0 && latestDone != 0
+                      ? latestCorrect / latestDone
+                      : 0,
                   minHeight: 3.5.h,
                   backgroundColor: Colors.grey[300], // Set the background color
                   valueColor: AlwaysStoppedAnimation<Color>(color),
@@ -318,48 +340,56 @@ class _StatisticsPageState extends State<StatisticsPage>
     );
   }
 
-  Color _setColorEncourageText(int currentCorrect, int currentDone, int latestCorrect, int latestDone) {
-    late Color colorEncourageText;
-    if(currentDone > 10 && latestDone > 10){
-      colorEncourageText = currentCorrect / currentDone > latestCorrect / latestDone
-          ? app_colors.green
-          : app_colors.red;
-    } else if((currentDone < 10 && latestDone > 10)) {
-      colorEncourageText = currentCorrect / currentDone > latestCorrect / latestDone
-          ? app_colors.orange
-          : app_colors.red;
-    } else if((currentDone > 10 && latestDone < 10)) {
-      colorEncourageText = currentCorrect / currentDone > latestCorrect / latestDone
-          ? app_colors.green
-          : app_colors.orange;
-    } else {
-      colorEncourageText = currentCorrect / currentDone > latestCorrect / latestDone
-          ? app_colors.orange
-          : app_colors.red;
+  Text getText(BuildContext context, int currentCorrect, int currentDone,
+      int latestCorrect, int latestDone) {
+    if (currentDone == 0) {
+      return Text(
+          "You did not answer to any question yet! Let's set today's score!",
+          style: TextStyle(
+              fontSize: 14.sp,
+              fontWeight: FontWeight.bold,
+              color: app_colors.red));
     }
-    return colorEncourageText;
-  }
-
-  String _encourageText(int currentCorrect, int currentDone, int latestCorrect, int latestDone) {
-    late String encourageText;
-    if(currentDone > 10 && latestDone > 10){
-      encourageText = currentCorrect / currentDone > latestCorrect / latestDone
-          ? 'Good job! You are improving, keep it like this!'
-          : "Try hard, you can do better! Take the challenge and beat latest day score!";
-    } else if((currentDone < 10 && latestDone > 10)) {
-      encourageText = currentCorrect / currentDone > latestCorrect / latestDone
-          ? 'You are improving, but you need to exercise more. Keep it going!'
-          : "Try hard, you can do better! Take the challenge and beat latest day score!";
-    } else if((currentDone > 10 && latestDone < 10)) {
-      encourageText = currentCorrect / currentDone > latestCorrect / latestDone
-          ? 'Good job! You are improving, keep it like this!'
-          : "You are not improving, but you are exercising more. Try to do your best!";
-    } else {
-      encourageText = currentCorrect / currentDone > latestCorrect / latestDone
-          ? 'You are improving, but you need to exercise more. Keep it going!'
-          : "Try hard, you can do better! Exercise more and take the challenge to beat latest day score!";
+    if (latestDone == 0) {
+      return Text("Good job! You are improving, keep it like this!",
+          style: TextStyle(
+              fontSize: 14.sp,
+              fontWeight: FontWeight.bold,
+              color: app_colors.green));
     }
-    return encourageText;
+    if (currentCorrect / currentDone >= latestCorrect / latestDone &&
+        currentDone >= latestDone) {
+      return Text("Good job! You are improving, keep it like this!",
+          style: TextStyle(
+              fontSize: 14.sp,
+              fontWeight: FontWeight.bold,
+              color: app_colors.green));
+    }
+    if (currentCorrect / currentDone >= latestCorrect / latestDone &&
+        currentDone < latestDone) {
+      return Text(
+          'You are improving, but you need to exercise more. Keep it going!',
+          style: TextStyle(
+              fontSize: 14.sp,
+              fontWeight: FontWeight.bold,
+              color: app_colors.orange));
+    }
+    if (currentCorrect / currentDone < latestCorrect / latestDone &&
+        currentDone >= latestDone) {
+      return Text(
+          "You are not improving, but you are exercising more. Keep going and try to do your best!",
+          style: TextStyle(
+              fontSize: 14.sp,
+              fontWeight: FontWeight.bold,
+              color: app_colors.orange));
+    } else {
+      return Text(
+          "Try hard, you can do better! Exercise more and take the challenge to beat your last score!",
+          style: TextStyle(
+              fontSize: 14.sp,
+              fontWeight: FontWeight.bold,
+              color: app_colors.red));
+    }
   }
 
   Widget customTabBar(BuildContext context) {

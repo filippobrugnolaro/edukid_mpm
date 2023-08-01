@@ -14,7 +14,6 @@ final random = Random();
 final randomIndex = random.nextInt(letters.length);
 final randomLetter = letters[randomIndex];
 
-
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
 
@@ -23,11 +22,11 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-
   String name = '';
   String surname = '';
   String email = '';
   int points = 0;
+  bool isLoaded = false;
 
   @override
   void initState() {
@@ -36,13 +35,15 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Future<void> getUserData() async {
-    final personalData = await sl<ProfileRepository>().getUserData(); // Chiedere ad ale
-      setState(() {
-        email = personalData.email;
-        name = personalData.name;
-        surname = personalData.surname;
-        points = personalData.points;
-      });
+    final personalData =
+        await sl<ProfileRepository>().getUserData(); // Chiedere ad ale
+    setState(() {
+      email = personalData.email;
+      name = personalData.name;
+      surname = personalData.surname;
+      points = personalData.points;
+      isLoaded = true;
+    });
   }
 
   @override
@@ -50,9 +51,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-          title: const Text(
-            'Your profile'
-          ),
+        title: const Text('Your profile'),
         leading: Builder(
           builder: (context) => IconButton(
             icon: Icon(Icons.menu),
@@ -62,10 +61,12 @@ class _ProfilePageState extends State<ProfilePage> {
             },
           ),
         ),
-          backgroundColor: app_colors.orange,
-        ),
-        drawer: MenuDrawer(pageNumber: 1,),
-      body: Stack(
+        backgroundColor: app_colors.orange,
+      ),
+      drawer: MenuDrawer(
+        pageNumber: 1,
+      ),
+      body: isLoaded ? Stack(
         fit: StackFit.expand,
         children: [
           Container(
@@ -88,16 +89,26 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 Text(
                   '$name $surname',
-                  style: TextStyle(fontSize: 20.sp, fontFamily: 'Poppins',fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: 20.sp,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 3.h),
                 RichText(
                   text: TextSpan(
                     children: <TextSpan>[
-                      TextSpan(text: 'Email: ', style: TextStyle(fontSize: 13.sp, fontFamily: 'Poppins'),),
+                      TextSpan(
+                        text: 'Email: ',
+                        style:
+                            TextStyle(fontSize: 13.sp, fontFamily: 'Poppins'),
+                      ),
                       TextSpan(
                         text: email,
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp, fontFamily: 'Poppins'),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14.sp,
+                            fontFamily: 'Poppins'),
                       ),
                     ],
                   ),
@@ -106,32 +117,39 @@ class _ProfilePageState extends State<ProfilePage> {
                 RichText(
                   text: TextSpan(
                     children: <TextSpan>[
-                      TextSpan(text: 'Points: ', style: TextStyle(fontSize: 13.sp, fontFamily: 'Poppins'),),
+                      TextSpan(
+                        text: 'Points: ',
+                        style:
+                            TextStyle(fontSize: 13.sp, fontFamily: 'Poppins'),
+                      ),
                       TextSpan(
                         text: '$points',
-                        style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14.sp, fontFamily: 'Poppins'),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14.sp,
+                            fontFamily: 'Poppins'),
                       ),
                     ],
                   ),
                 ),
                 SizedBox(height: 3.h),
                 ElevatedButton(
-                  
-                  style: ElevatedButton.styleFrom(backgroundColor: app_colors.orange, padding: EdgeInsets.all(2.h)),
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return getDialog(context);
-                      });
-                  },
-                  child: Text('Log out', style: TextStyle(fontSize: 13.sp))
-                )
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: app_colors.orange,
+                        padding: EdgeInsets.all(2.h)),
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return getDialog(context);
+                          });
+                    },
+                    child: Text('Log out', style: TextStyle(fontSize: 13.sp)))
               ],
             ),
           )
         ],
-      ),
+      ) : const Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(app_colors.orange),)),
     );
   }
 
@@ -146,12 +164,13 @@ class _ProfilePageState extends State<ProfilePage> {
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.white, // Background color
               foregroundColor: Colors.black, // Text color
-              side: BorderSide(color: app_colors.orange, width: 2),),
+              side: BorderSide(color: app_colors.orange, width: 2),
+            ),
             onPressed: () {
               Navigator.of(context).pushReplacementNamed("login");
             },
             child: const Text('Yes')),
-            ElevatedButton(
+        ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: app_colors.orange),
             onPressed: () {
               Navigator.pop(context);
