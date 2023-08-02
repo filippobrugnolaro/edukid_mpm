@@ -3,6 +3,7 @@ import 'package:firebase_database/firebase_database.dart';
 abstract class GetStartedDataSource {
   Future<int> listenToUserPoints(String userUID);
   int getPoints();
+  Future<int> getCurrentDone(String userUID, String typeQuestion);
 }
 
 class GetStartedDataSourceImpl implements GetStartedDataSource {
@@ -18,5 +19,17 @@ class GetStartedDataSourceImpl implements GetStartedDataSource {
   @override
   int getPoints(){
     return points;
+  }
+
+  Future<int> getCurrentDone(String userUID, String typeQuestion) async {
+    final currentDoneSnapshot = await _database
+        .child('users')
+        .child(userUID)
+        .child('statistics')
+        .child(typeQuestion)
+        .child('current')
+        .child('done')
+        .get();
+    return currentDoneSnapshot.value as int;
   }
 }

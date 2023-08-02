@@ -15,8 +15,6 @@ abstract class DatabaseAPI {
   Future<void> copyCurrentToLatest(String userUID);
 
   Future<void> setResetToDo(String userUID, bool boolean);
-
-  Future<int> getCurrentDone(String userUID, String typeQuestion);
 }
 
 class DatabaseAPIImpl implements DatabaseAPI {
@@ -194,20 +192,5 @@ class DatabaseAPIImpl implements DatabaseAPI {
     await _copyCurrentToLatestCategory(userUID, 'Geography');
     await _copyCurrentToLatestCategory(userUID, 'History');
     await _copyCurrentToLatestCategory(userUID, 'Science');
-  }
-
-  // if you want to get current correct, latest correct and latest done:
-  // substitute with latest with current and correct with done eventually
-  @override
-  Future<int> getCurrentDone(String userUID, String typeQuestion) async {
-    final currentDoneSnapshot = await _database
-        .child('users')
-        .child(userUID)
-        .child('statistics')
-        .child(typeQuestion)
-        .child('current')
-        .child('done')
-        .get();
-    return currentDoneSnapshot.value as int;
   }
 }

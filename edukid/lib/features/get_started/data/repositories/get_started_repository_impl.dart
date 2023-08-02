@@ -47,10 +47,10 @@ class GetStartedRepositoryImpl implements GetStartedRepository {
   Future<List<int>> getAllCurrentDone() async {
     final userUID = authAPI.getSignedInUserUID();
     List<int> listCurrentDone = [];
-    listCurrentDone.add(await databaseAPI.getCurrentDone(userUID, 'Mathematics'));
-    listCurrentDone.add(await databaseAPI.getCurrentDone(userUID, 'Geography'));
-    listCurrentDone.add(await databaseAPI.getCurrentDone(userUID, 'History'));
-    listCurrentDone.add(await databaseAPI.getCurrentDone(userUID, 'Science'));
+    listCurrentDone.add(await getStartedDataSource.getCurrentDone(userUID, 'Mathematics'));
+    listCurrentDone.add(await getStartedDataSource.getCurrentDone(userUID, 'Geography'));
+    listCurrentDone.add(await getStartedDataSource.getCurrentDone(userUID, 'History'));
+    listCurrentDone.add(await getStartedDataSource.getCurrentDone(userUID, 'Science'));
     return listCurrentDone;
   }
 
