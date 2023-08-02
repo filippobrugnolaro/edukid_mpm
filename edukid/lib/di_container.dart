@@ -1,7 +1,6 @@
 import 'package:edukid/core/data/data_sources/auth_api.dart';
 import 'package:edukid/core/data/data_sources/database_api.dart';
 import 'package:edukid/core/network/network_info.dart';
-import 'package:edukid/features/authentication/data/data_sources/auth_data_source_local.dart';
 import 'package:edukid/features/authentication/data/data_sources/auth_data_source_remote.dart';
 import 'package:edukid/features/authentication/data/repositories/auth_repository_impl.dart';
 import 'package:edukid/features/authentication/domain/repositories/auth_repository.dart';
@@ -22,7 +21,6 @@ import 'package:edukid/features/trivia_question/data/repositories/trivia_reposit
 import 'package:edukid/features/trivia_question/domain/repositories/trivia_repository.dart';
 import 'package:edukid/features/trivia_question/presentation/bloc/question_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'features/statistics/data/repositories/personal_category_statistics_repository_impl.dart';
 
@@ -38,8 +36,6 @@ Future<void> init() async {
   // Data sources
 
   sl.registerLazySingleton<AuthDataSourceRemote>(() => AuthDataSourceRemoteImpl());
-  
-  sl.registerLazySingleton<AuthDataSourceLocal>(() => AuthDataSourceLocalImpl(sharedPreferences: sl()));
 
   sl.registerLazySingleton<TriviaDataSource>(() => TriviaDataSourceImpl());
 
@@ -57,7 +53,7 @@ Future<void> init() async {
   // Repository
 
   sl.registerLazySingleton<AuthRepository>(
-      () => AuthRepositoryImpl(authDataSourceRemote: sl(), authDataSourceLocal: sl(), databaseAPI: sl()));
+      () => AuthRepositoryImpl(authDataSourceRemote: sl(), databaseAPI: sl()));
 
   sl.registerLazySingleton<TriviaRepository>(() => TriviaRepositoryImpl(
       triviaDataSource: sl(), authAPI: sl(), databaseAPI: sl()));
@@ -83,8 +79,4 @@ Future<void> init() async {
 
   // Network Checker
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(connectionChecker: sl()));
-
-  // Shared preferences
-  final sharedPreferences = await SharedPreferences.getInstance();
-  sl.registerLazySingleton(() => sharedPreferences);
 }

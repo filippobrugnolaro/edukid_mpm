@@ -1,14 +1,12 @@
 import 'package:edukid/core/data/data_sources/database_api.dart';
-import 'package:edukid/features/authentication/data/data_sources/auth_data_source_local.dart';
 import 'package:edukid/features/authentication/data/data_sources/auth_data_source_remote.dart';
 import 'package:edukid/features/authentication/domain/repositories/auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthDataSourceRemote authDataSourceRemote;
-  final AuthDataSourceLocal authDataSourceLocal;
   final DatabaseAPI databaseAPI;
 
-  AuthRepositoryImpl({required this.authDataSourceRemote, required this.authDataSourceLocal, required this.databaseAPI});
+  AuthRepositoryImpl({required this.authDataSourceRemote, required this.databaseAPI});
 
   @override
   Future<void> signUp({
@@ -35,8 +33,6 @@ class AuthRepositoryImpl implements AuthRepository {
       );
       databaseAPI.setInitialUserStatistics(userUID);
     }
-
-    await authDataSourceLocal.setAuthState(authDataSourceRemote.getSignedInUserUID(), true);
   }
 
   @override
@@ -49,13 +45,10 @@ class AuthRepositoryImpl implements AuthRepository {
         email: email,
         password: password
     );
-    await authDataSourceLocal.setAuthState(authDataSourceRemote.getSignedInUserUID(), true);
   }
 
   @override
   Future<void> signOut() async {
-    final userUID = authDataSourceRemote.getSignedInUserUID();
     await authDataSourceRemote.signOut();
-    await authDataSourceLocal.setAuthState(userUID, false);
   }
 }
