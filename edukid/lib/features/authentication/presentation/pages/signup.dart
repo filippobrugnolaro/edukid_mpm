@@ -36,13 +36,13 @@ class _SignUpState extends State<SignUpScreen> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: app_colors.orange,
-          title: Text('Signup'),
+          title: const Text('Signup'),
         ),
         body: BlocListener<AuthBloc, AuthState>(listener: (context, state) {
           if (state is Authenticated) {
             // Navigating to the dashboard screen if the user is authenticated
             Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => GetStartedPage()));
+                MaterialPageRoute(builder: (context) => const GetStartedPage()));
           }
         }, child: BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
           if (state is Loading) {
@@ -62,42 +62,45 @@ class _SignUpState extends State<SignUpScreen> {
                   ),
                 ),
               ),
-              Form(
-                  key: _formKey,
-                  child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      margin: (MediaQuery.of(context).orientation ==
-                              Orientation.portrait
-                          ? (SizerUtil.deviceType == DeviceType.mobile
-                              ? EdgeInsets.fromLTRB(8.0.w, 5.0.h, 8.0.w, 0.0.h)
-                              : EdgeInsets.fromLTRB(
-                                  15.0.w, 5.0.h, 15.0.w, 0.0.h))
-                          : EdgeInsets.fromLTRB(20.0.w, 5.0.h, 20.0.w, 0.0.h)),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Align(
-                            child: Text(
-                              'Create a new account!',
-                              style: TextStyle(fontSize: 15.sp),
+              SingleChildScrollView(
+                physics: const NeverScrollableScrollPhysics(),
+                child: Form(
+                    key: _formKey,
+                    child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                        margin: (MediaQuery.of(context).orientation ==
+                                Orientation.portrait
+                            ? (SizerUtil.deviceType == DeviceType.mobile
+                                ? EdgeInsets.fromLTRB(8.0.w, 5.0.h, 8.0.w, 0.0.h)
+                                : EdgeInsets.fromLTRB(
+                                    15.0.w, 5.0.h, 15.0.w, 0.0.h))
+                            : EdgeInsets.fromLTRB(20.0.w, 5.0.h, 20.0.w, 0.0.h)),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Align(
+                              child: Text(
+                                'Create a new account!',
+                                style: TextStyle(fontSize: 15.sp),
+                              ),
                             ),
-                          ),
-                          SizedBox(height: 2.0.h),
-                          nameField(context),
-                          SizedBox(height: 3.0.h),
-                          surnameField(context),
-                          SizedBox(height: 3.0.h),
-                          emailField(context),
-                          SizedBox(height: 3.0.h),
-                          passwordField(context),
-                          SizedBox(height: 3.0.h),
-                          Align(
-                            child: getSignupButton(),
-                          ),
-                        ],
-                      )))
+                            SizedBox(height: 2.0.h),
+                            nameField(context),
+                            SizedBox(height: 3.0.h),
+                            surnameField(context),
+                            SizedBox(height: 3.0.h),
+                            emailField(context),
+                            SizedBox(height: 3.0.h),
+                            passwordField(context),
+                            SizedBox(height: 3.0.h),
+                            Align(
+                              child: getSignupButton(),
+                            ),
+                          ],
+                        ))),
+              )
             ]);
           }
           return Container();

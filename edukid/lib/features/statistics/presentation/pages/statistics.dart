@@ -173,8 +173,8 @@ class _StatisticsPageState extends State<StatisticsPage>
                                   listRanks.last != 1 &&
                                           listRanks.last != 2 &&
                                           listRanks.last != 3
-                                      ? Text('. . .')
-                                      : SizedBox(),
+                                      ? const Text('. . .')
+                                      : const SizedBox(),
                                   listRanks.last != 1 &&
                                           listRanks.last != 2 &&
                                           listRanks.last != 3
@@ -183,7 +183,7 @@ class _StatisticsPageState extends State<StatisticsPage>
                                           listNames.last,
                                           listSurnames.last,
                                           listPoints.last)
-                                      : SizedBox(),
+                                      : const SizedBox(),
                                 ],
                               ),
                             ),

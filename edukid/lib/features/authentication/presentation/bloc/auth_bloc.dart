@@ -18,7 +18,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(Authenticated());
       } catch (e) {
         emit(AuthError(e.toString()));
-        print(e);
         emit(UnAuthenticated());
       }
     });

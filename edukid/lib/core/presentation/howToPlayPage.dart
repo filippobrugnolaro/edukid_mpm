@@ -10,12 +10,12 @@ class InstructionsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-          title: Text(
+          title: const Text(
             'Instructions'),
       
         leading: Builder(
           builder: (context) => IconButton(
-            icon: Icon(Icons.menu),
+            icon: const Icon(Icons.menu),
             onPressed: () {
               // Now Scaffold.of(context) will work correctly
               Scaffold.of(context).openDrawer();
@@ -66,7 +66,7 @@ class InstructionsPage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => GetStartedPage(),
+                        builder: (context) => const GetStartedPage(),
                       ),
                     );
                   },

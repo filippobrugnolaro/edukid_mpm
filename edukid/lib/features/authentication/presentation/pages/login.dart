@@ -31,14 +31,14 @@ class _LoginState extends State<LoginScreen> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: app_colors.orange,
-          title: Text('Login'),
+          title: const Text('Login'),
           automaticallyImplyLeading: false,
         ),
         body: BlocListener<AuthBloc, AuthState>(listener: (context, state) {
           if (state is Authenticated) {
             // Navigating to the dashboard screen if the user is authenticated
             Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => GetStartedPage()));
+                MaterialPageRoute(builder: (context) => const GetStartedPage()));
           } else if (state is AuthError) {
             Future.microtask(() {
               showDialog(
@@ -46,7 +46,7 @@ class _LoginState extends State<LoginScreen> {
                 builder: (context) {
                   return AlertDialog(
                     actionsPadding: const EdgeInsets.all(20),
-                    title: Text('Error'),
+                    title: const Text('Error'),
                     content: Text(state.error.replaceFirst('Exception: ', '')),
                     actions: <Widget>[
                       ElevatedButton(
@@ -87,49 +87,52 @@ class _LoginState extends State<LoginScreen> {
                         borderRadius: BorderRadius.circular(20.0),
                       ),
                       margin: EdgeInsets.fromLTRB(15.0.w, 5.h, 15.w, 0.h),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Align(
-                            child: Text(
-                              'Login to your existing account',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 15.sp),
-                            ),
-                          ),
-                          SizedBox(height: 2.0.h),
-                          emailField(context),
-                          SizedBox(height: 3.0.h),
-                          passwordField(context),
-                          SizedBox(height: 3.0.h),
-                          Align(
-                            child: getLoginButton(),
-                          ),
-                          SizedBox(height: 3.0.h),
-                          Divider(
-                            color: app_colors.grey,
-                          ),
-                          SizedBox(height: 3.0.h),
-                          Align(
-                            child: GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => SignUpScreen()),
-                                );
-                              },
+                      child: SingleChildScrollView(
+                        physics: const NeverScrollableScrollPhysics(),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Align(
                               child: Text(
-                                'Do not have an account yet?\nSignup now!',
+                                'Login to your existing account',
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  decoration: TextDecoration.underline,
-                                  fontSize: 13.sp,
+                                style: TextStyle(fontSize: 15.sp),
+                              ),
+                            ),
+                            SizedBox(height: 2.0.h),
+                            emailField(context),
+                            SizedBox(height: 3.0.h),
+                            passwordField(context),
+                            SizedBox(height: 3.0.h),
+                            Align(
+                              child: getLoginButton(),
+                            ),
+                            SizedBox(height: 3.0.h),
+                            const Divider(
+                              color: app_colors.grey,
+                            ),
+                            SizedBox(height: 3.0.h),
+                            Align(
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => const SignUpScreen()),
+                                  );
+                                },
+                                child: Text(
+                                  'Do not have an account yet?\nSignup now!',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    decoration: TextDecoration.underline,
+                                    fontSize: 13.sp,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       )))
             ]);
           }

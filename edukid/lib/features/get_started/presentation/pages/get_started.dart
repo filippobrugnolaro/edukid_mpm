@@ -61,7 +61,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-          title: Text(
+          title: const Text(
             'EduKid'
           ),
         leading: Builder(

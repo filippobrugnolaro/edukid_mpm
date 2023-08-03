@@ -15,7 +15,7 @@ class MenuDrawer extends StatelessWidget {
     return SizedBox(
         width: 80.w,
         child: Drawer(
-            child: Material(
+            child: SafeArea(
           child: ListView(
             padding: const EdgeInsets.all(0.0),
             children: <Widget>[
@@ -78,7 +78,7 @@ class MenuDrawer extends StatelessWidget {
     required bool isAlreadyIn,
   }) {
     return ListTile(
-        tileColor: isAlreadyIn ? Color.fromARGB(255, 239, 239, 239) : null,
+        tileColor: isAlreadyIn ? const Color.fromARGB(255, 239, 239, 239) : null,
         leading: Icon(
           icon,
           size: 3.0.h,
@@ -129,7 +129,7 @@ class MenuDrawer extends StatelessWidget {
   Widget getDialog(BuildContext context) {
     return AlertDialog(
       actionsAlignment: MainAxisAlignment.spaceBetween,
-      title: Text('Confirm logout'),
+      title: const Text('Confirm logout'),
       content: const Text('Are you sure you want to logout?'),
       actionsPadding: const EdgeInsets.all(20),
       actions: <Widget>[
@@ -137,7 +137,7 @@ class MenuDrawer extends StatelessWidget {
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.white, // Background color
             foregroundColor: Colors.black, // Text color
-            side: BorderSide(color: app_colors.orange, width: 2),),
+            side: const BorderSide(color: app_colors.orange, width: 2),),
           onPressed: () {
             BlocProvider.of<AuthBloc>(context).add(
               SignOutRequested(),

@@ -56,7 +56,7 @@ class _ProfilePageState extends State<ProfilePage> {
         title: const Text('Your profile'),
         leading: Builder(
           builder: (context) => IconButton(
-            icon: Icon(Icons.menu),
+            icon: const Icon(Icons.menu),
             onPressed: () {
               // Now Scaffold.of(context) will work correctly
               Scaffold.of(context).openDrawer();
@@ -92,6 +92,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 Text(
                   '$name $surname',
                   style: TextStyle(
+                      color: app_colors.black,
                       fontSize: 20.sp,
                       fontFamily: 'Poppins',
                       fontWeight: FontWeight.bold),
@@ -103,14 +104,18 @@ class _ProfilePageState extends State<ProfilePage> {
                       TextSpan(
                         text: 'Email: ',
                         style:
-                            TextStyle(fontSize: 13.sp, fontFamily: 'Poppins'),
+                            TextStyle(
+                              fontSize: 13.sp, 
+                              fontFamily: 'Poppins', 
+                              color: app_colors.black),
                       ),
                       TextSpan(
                         text: email,
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14.sp,
-                            fontFamily: 'Poppins'),
+                          color: app_colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14.sp,
+                          fontFamily: 'Poppins'),
                       ),
                     ],
                   ),
@@ -122,11 +127,15 @@ class _ProfilePageState extends State<ProfilePage> {
                       TextSpan(
                         text: 'Points: ',
                         style:
-                            TextStyle(fontSize: 13.sp, fontFamily: 'Poppins'),
+                            TextStyle(
+                              color: app_colors.black,
+                              fontSize: 13.sp, 
+                              fontFamily: 'Poppins'),
                       ),
                       TextSpan(
                         text: '$points',
                         style: TextStyle(
+                            color: app_colors.black,
                             fontWeight: FontWeight.bold,
                             fontSize: 14.sp,
                             fontFamily: 'Poppins'),
@@ -158,7 +167,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget getDialog(BuildContext context) {
     return AlertDialog(
       actionsAlignment: MainAxisAlignment.spaceBetween,
-      title: Text('Confirm logout'),
+      title: const Text('Confirm logout'),
       content: const Text('Are you sure you want to logout?'),
       actionsPadding: const EdgeInsets.all(20),
       actions: <Widget>[
@@ -166,7 +175,7 @@ class _ProfilePageState extends State<ProfilePage> {
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.white, // Background color
               foregroundColor: Colors.black, // Text color
-              side: BorderSide(color: app_colors.orange, width: 2),
+              side: const BorderSide(color: app_colors.orange, width: 2),
             ),
             onPressed: () {
               BlocProvider.of<AuthBloc>(context).add(

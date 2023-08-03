@@ -15,7 +15,7 @@ class AppRouter {
       case 'getStarted':
         return PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-              GetStartedPage(),
+              const GetStartedPage(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return _getSlideTransition(animation, child);
           },
@@ -58,7 +58,7 @@ class AppRouter {
       case 'login':
         return PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-              LoginScreen(),
+              const LoginScreen(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return _getSlideTransition(animation, child);
           },
@@ -66,7 +66,7 @@ class AppRouter {
       case 'profile':
       return PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-              ProfilePage(),
+              const ProfilePage(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return _getSlideTransition(animation, child);
           },
@@ -82,7 +82,7 @@ class AppRouter {
         case 'statistics':
         return PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-              StatisticsPage(),
+              const StatisticsPage(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return _getSlideTransition(animation, child);
           },
