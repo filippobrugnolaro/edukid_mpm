@@ -20,8 +20,10 @@ class GetStartedPage extends StatefulWidget {
 class _GetStartedPageState extends State<GetStartedPage> {
   final getStartedRepository = sl<GetStartedRepository>();
   int points = 0;
-  bool isLoaded = false;
+  bool isListLoaded = false;
+  bool arePointsLoaded = false;
   bool isConnected = true;
+  List<int> currentDone = [];
 
   @override
   void initState() {
@@ -30,10 +32,11 @@ class _GetStartedPageState extends State<GetStartedPage> {
   }
 
   Future<void> initialization() async {
-    if(await getStartedRepository.isDeviceConnected()) {
+    if (await getStartedRepository.isDeviceConnected()) {
       await copyCurrentToLatest();
       await resetCurrentStatistics();
       await getUpdatedPoints();
+      await getCurrentDone();
     } else {
       setState(() {
         isConnected = false;
@@ -45,7 +48,15 @@ class _GetStartedPageState extends State<GetStartedPage> {
     final newPoints = await getStartedRepository.listenToUserPoints();
     setState(() {
       points = newPoints;
-      isLoaded = true;
+      arePointsLoaded = true;
+    });
+  }
+
+  Future<void> getCurrentDone() async {
+    final List<int> done = await getStartedRepository.getAllCurrentDone();
+    setState(() {
+      currentDone = List.from(done);
+      isListLoaded = true;
     });
   }
 
@@ -66,25 +77,23 @@ class _GetStartedPageState extends State<GetStartedPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-          title: const Text(
-            'EduKid'
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: const Text('EduKid'),
+          leading: Builder(
+            builder: (context) => IconButton(
+              icon: const Icon(Icons.menu),
+              onPressed: () {
+                // Now Scaffold.of(context) will work correctly
+                Scaffold.of(context).openDrawer();
+              },
+            ),
           ),
-        leading: Builder(
-          builder: (context) => IconButton(
-            icon: const Icon(Icons.menu),
-            onPressed: () {
-              // Now Scaffold.of(context) will work correctly
-              Scaffold.of(context).openDrawer();
-            },
-          ),
-        ),
           backgroundColor: app_colors.orange,
         ),
         drawer: MenuDrawer(
-        pageNumber: 0,
-      ),
+          pageNumber: 0,
+        ),
         body: BlocListener<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is UnAuthenticated) {
@@ -106,124 +115,217 @@ class _GetStartedPageState extends State<GetStartedPage> {
                   ),
                 ),
               ),
-              Center(
-                child: Container(
-                  padding: EdgeInsets.fromLTRB(6.w, 6.w, 6.w, 15.w),
-                  child: Column(
-                    //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              isLoaded ?
-                              Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Image.asset(
-                                      'assets/images/coin.png',
-                                      height: 6.h,
-                                    ),
-                                    Text(
-                                        '$points',
-                                        style: TextStyle(
-                                            fontSize: 20.sp, fontWeight: FontWeight.bold)),
-                                  ]
-                              )
-                                  : const Center(
-                                  child: CircularProgressIndicator(
-                                    valueColor: AlwaysStoppedAnimation<Color>(app_colors.orange),
-                                  )
-                              )
-                            ],),
-                          ElevatedButton(
-
-                            style: ButtonStyle(
-                              padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                                  EdgeInsets.all(2.h)),
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  app_colors.orange), // Set the background color
+              SingleChildScrollView(
+                child: Center(
+                  child: Container(
+                    padding: EdgeInsets.fromLTRB(6.w, 6.w, 6.w, 15.w),
+                    child: Column(
+                      //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        'assets/images/coin.png',
+                                        height: 6.h,
+                                      ),
+                                      arePointsLoaded
+                                          ? Text('$points',
+                                              style: TextStyle(
+                                                  fontSize: 20.sp,
+                                                  fontWeight: FontWeight.bold))
+                                          : const CircularProgressIndicator(
+                                              valueColor:
+                                                  AlwaysStoppedAnimation<Color>(
+                                                      app_colors.orange),
+                                            ),
+                                    ])
+                              ],
                             ),
-                            onPressed: () {
-                              showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return getDialog(context);
-                                  });
-                            },
-                            child: const Text('How to play'),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height:5.h),
-                      Text(
-                        'Hello there! What would you like to try today?',
-                        style: TextStyle(
-                            fontSize: 20.sp, fontWeight: FontWeight.bold),
-                        softWrap: true,
-                      ),
-                      SizedBox(height:5.h),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const CardWidget(
-                              text: 'Maths',
-                              imagePath: 'assets/images/numbers.png',
-                              borderColor: app_colors.fucsia,
-                              goTo: 'math'),
-                          SizedBox(width: 10.w),
-                          const CardWidget(
-                              text: 'Geography',
-                              imagePath: 'assets/images/geo.png',
-                              borderColor: app_colors.blue,
-                              goTo: 'geo'),
-                        ],
-                      ),
-                      SizedBox(height:5.h),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const CardWidget(
-                              text: 'History',
-                              imagePath: 'assets/images/storia.png',
-                              borderColor: app_colors.green,
-                              goTo: 'storia'),
-                          SizedBox(width: 10.w),
-                          const CardWidget(
-                              text: 'Science',
-                              imagePath: 'assets/images/scienze.png',
-                              borderColor: app_colors.orange,
-                              goTo: 'scienze'),
-                        ],
-                      ),
-                    ],
+                            ElevatedButton(
+                              style: ButtonStyle(
+                                padding: MaterialStateProperty.all<
+                                    EdgeInsetsGeometry>(EdgeInsets.all(2.h)),
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(app_colors
+                                        .orange), // Set the background color
+                              ),
+                              onPressed: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return getDialog(context);
+                                    });
+                              },
+                              child: const Text('How to play'),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 5.h),
+                        Text(
+                          'Hello there! What would you like to try today?',
+                          style: TextStyle(
+                              fontSize: 20.sp, fontWeight: FontWeight.bold),
+                          softWrap: true,
+                        ),
+                        SizedBox(height: 5.h),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Column(
+                              children: [
+                                const CardWidget(
+                                    text: 'Maths',
+                                    imagePath: 'assets/images/numbers.png',
+                                    borderColor: app_colors.fucsia,
+                                    goTo: 'math'),
+                                SizedBox(
+                                  height: 1.h,
+                                ),
+                                isListLoaded && currentDone[0] == 0
+                                    ? Row(children: [
+                                        const Icon(
+                                          Icons.circle,
+                                          color: app_colors.red,
+                                        ),
+                                        SizedBox(width: 0.5.w),
+                                        Text(
+                                          'No answers yet!',
+                                          style: TextStyle(
+                                              fontSize: 11.sp,
+                                              color: app_colors.red),
+                                        ),
+                                      ])
+                                    : SizedBox(),
+                              ],
+                            ),
+                            SizedBox(width: 10.w),
+                            Column(
+                              children: [
+                                const CardWidget(
+                                    text: 'Geography',
+                                    imagePath: 'assets/images/geo.png',
+                                    borderColor: app_colors.blue,
+                                    goTo: 'geo'),
+                                SizedBox(
+                                  height: 1.h,
+                                ),
+                                isListLoaded && currentDone[1] == 0
+                                    ? Row(children: [
+                                        const Icon(
+                                          Icons.circle,
+                                          color: app_colors.red,
+                                        ),
+                                        SizedBox(width: 0.5.w),
+                                        Text(
+                                          'No answers yet!',
+                                          style: TextStyle(
+                                              fontSize: 11.sp,
+                                              color: app_colors.red),
+                                        ),
+                                      ])
+                                    : SizedBox(),
+                              ],
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 5.h),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Column(
+                              children: [
+                                const CardWidget(
+                                    text: 'History',
+                                    imagePath: 'assets/images/storia.png',
+                                    borderColor: app_colors.green,
+                                    goTo: 'storia'),
+                                SizedBox(
+                                  height: 1.h,
+                                ),
+                                isListLoaded && currentDone[2] == 0
+                                    ? Row(children: [
+                                        const Icon(
+                                          Icons.circle,
+                                          color: app_colors.red,
+                                        ),
+                                        SizedBox(width: 0.5.w),
+                                        Text(
+                                          'No answers yet!',
+                                          style: TextStyle(
+                                              fontSize: 11.sp,
+                                              color: app_colors.red),
+                                        ),
+                                      ])
+                                    : SizedBox(),
+                              ],
+                            ),
+                            SizedBox(width: 10.w),
+                            Column(
+                              children: [
+                                const CardWidget(
+                                    text: 'Science',
+                                    imagePath: 'assets/images/scienze.png',
+                                    borderColor: app_colors.orange,
+                                    goTo: 'scienze'),
+                                SizedBox(
+                                  height: 1.h,
+                                ),
+                                isListLoaded && currentDone[3] == 0
+                                    ? Row(children: [
+                                        const Icon(
+                                          Icons.circle,
+                                          color: app_colors.red,
+                                        ),
+                                        SizedBox(width: 0.5.w),
+                                        Text(
+                                          'No answers yet!',
+                                          style: TextStyle(
+                                              fontSize: 11.sp,
+                                              color: app_colors.red),
+                                        ),
+                                      ])
+                                    : SizedBox(),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-              if(!isConnected)
-              AlertDialog(
-                actionsPadding: const EdgeInsets.all(20),
-                title: const Text('Error'),
-                content: const Text('It seems there is no internet connection. Please connect to a wifi or mobile data network.'),
-                actions: <Widget>[
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(backgroundColor: app_colors.orange),
-                      onPressed: () {
-                        Navigator.pushNamed(context, "getStarted");
-                        if(isConnected) {
-                          Navigator.of(context).pop();
-                        }
-                      },
-                      child: const Text('Ok')),
-                ],
-              ),
+              if (!isConnected)
+                AlertDialog(
+                  actionsPadding: const EdgeInsets.all(20),
+                  title: const Text('Error'),
+                  content: const Text(
+                      'It seems there is no internet connection. Please connect to a wifi or mobile data network.'),
+                  actions: <Widget>[
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: app_colors.orange),
+                        onPressed: () {
+                          Navigator.pushNamed(context, "getStarted");
+                          if (isConnected) {
+                            Navigator.of(context).pop();
+                          }
+                        },
+                        child: const Text('Ok')),
+                  ],
+                ),
             ],
           ),
         ));
   }
-  Widget getDialog(BuildContext context){
+
+  Widget getDialog(BuildContext context) {
     return AlertDialog(
       title: Row(
         children: <Widget>[
@@ -236,13 +338,15 @@ class _GetStartedPageState extends State<GetStartedPage> {
           const Text('Tutorial')
         ],
       ),
-      content: const Text('Have fun and challenge your friends while learning!\nFor each correct answer you will earn 10 coins but be careful! If your answer is wrong you will lose 5.'
-      ),
+      content: const Text(
+          'Have fun and challenge your friends while learning!\nFor each correct answer you will earn 10 coins but be careful! If your answer is wrong you will lose 5.'),
       actionsPadding: const EdgeInsets.all(20),
       actions: <Widget>[
         ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: app_colors.orange),
-            onPressed: () {Navigator.pop(context);},
+            onPressed: () {
+              Navigator.pop(context);
+            },
             child: const Text('Close'))
       ],
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
