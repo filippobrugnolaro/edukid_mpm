@@ -20,8 +20,7 @@ class GetStartedPage extends StatefulWidget {
 class _GetStartedPageState extends State<GetStartedPage> {
   final getStartedRepository = sl<GetStartedRepository>();
   int points = 0;
-  bool isListLoaded = false;
-  bool arePointsLoaded = false;
+  bool isLoaded = false;
   bool isConnected = true;
   List<int> currentDone = [];
 
@@ -37,6 +36,9 @@ class _GetStartedPageState extends State<GetStartedPage> {
       await resetCurrentStatistics();
       await getUpdatedPoints();
       await getCurrentDone();
+      setState(() {
+        isLoaded = true;
+      });
     } else {
       setState(() {
         isConnected = false;
@@ -48,7 +50,6 @@ class _GetStartedPageState extends State<GetStartedPage> {
     final newPoints = await getStartedRepository.listenToUserPoints();
     setState(() {
       points = newPoints;
-      arePointsLoaded = true;
     });
   }
 
@@ -56,7 +57,6 @@ class _GetStartedPageState extends State<GetStartedPage> {
     final List<int> done = await getStartedRepository.getAllCurrentDone();
     setState(() {
       currentDone = List.from(done);
-      isListLoaded = true;
     });
   }
 
@@ -135,7 +135,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
                                         'assets/images/coin.png',
                                         height: 6.h,
                                       ),
-                                      arePointsLoaded
+                                      isLoaded
                                           ? Text('$points',
                                               style: TextStyle(
                                                   fontSize: 20.sp,
@@ -188,7 +188,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
                                 SizedBox(
                                   height: 1.h,
                                 ),
-                                isListLoaded && currentDone[0] == 0
+                                isLoaded && currentDone[0] == 0
                                     ? Row(children: [
                                         const Icon(
                                           Icons.circle,
@@ -202,7 +202,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
                                               color: app_colors.red),
                                         ),
                                       ])
-                                    : SizedBox(),
+                                    : const SizedBox(),
                               ],
                             ),
                             SizedBox(width: 10.w),
@@ -216,7 +216,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
                                 SizedBox(
                                   height: 1.h,
                                 ),
-                                isListLoaded && currentDone[1] == 0
+                                isLoaded && currentDone[1] == 0
                                     ? Row(children: [
                                         const Icon(
                                           Icons.circle,
@@ -230,7 +230,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
                                               color: app_colors.red),
                                         ),
                                       ])
-                                    : SizedBox(),
+                                    : const SizedBox(),
                               ],
                             ),
                           ],
@@ -249,7 +249,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
                                 SizedBox(
                                   height: 1.h,
                                 ),
-                                isListLoaded && currentDone[2] == 0
+                                isLoaded && currentDone[2] == 0
                                     ? Row(children: [
                                         const Icon(
                                           Icons.circle,
@@ -263,7 +263,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
                                               color: app_colors.red),
                                         ),
                                       ])
-                                    : SizedBox(),
+                                    : const SizedBox(),
                               ],
                             ),
                             SizedBox(width: 10.w),
@@ -277,7 +277,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
                                 SizedBox(
                                   height: 1.h,
                                 ),
-                                isListLoaded && currentDone[3] == 0
+                                isLoaded && currentDone[3] == 0
                                     ? Row(children: [
                                         const Icon(
                                           Icons.circle,
@@ -291,7 +291,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
                                               color: app_colors.red),
                                         ),
                                       ])
-                                    : SizedBox(),
+                                    : const SizedBox(),
                               ],
                             ),
                           ],

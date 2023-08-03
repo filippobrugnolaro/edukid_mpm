@@ -137,7 +137,7 @@ class _LoginState extends State<LoginScreen> {
             ]);
           }
           return const Center(
-            child: Text('An error occured, try again!'),
+            child: Text('An error occurred, try again!'),
           );
         })));
   }

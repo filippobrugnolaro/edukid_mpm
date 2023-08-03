@@ -202,7 +202,7 @@ class _StatisticsPageState extends State<StatisticsPage>
                       child: Column(
                         children: [
                           customTabBar(context),
-                          Container(
+                          SizedBox(
                             height: 45.h, // Adjust the height as needed
                             child: TabBarView(
                               controller: _tabController,
