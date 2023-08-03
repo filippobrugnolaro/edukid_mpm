@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+
 import '../../config/colors.dart' as app_colors;
 
 class CustomText extends StatelessWidget {

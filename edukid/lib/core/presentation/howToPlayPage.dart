@@ -1,7 +1,7 @@
+import 'package:edukid/core/config/colors.dart' as app_colors;
 import 'package:edukid/core/presentation/widgets/menuDrawer.dart';
 import 'package:edukid/features/get_started/presentation/pages/get_started.dart';
 import 'package:flutter/material.dart';
-import 'package:edukid/core/config/colors.dart' as app_colors;
 import 'package:sizer/sizer.dart';
 
 class InstructionsPage extends StatelessWidget {
