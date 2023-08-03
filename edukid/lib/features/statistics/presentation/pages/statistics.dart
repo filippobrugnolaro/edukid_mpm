@@ -372,7 +372,7 @@ class _StatisticsPageState extends State<StatisticsPage>
 
   Text getText(BuildContext context, int currentCorrect, int currentDone,
       int latestCorrect, int latestDone) {
-    if (currentDone == 0) {
+    if (currentDone == 0) {//examples :: c: 0/0 -> l: 0/0
       return Text(
           "You did not answer to any question yet! Let's set today's score!",
           style: TextStyle(
@@ -380,23 +380,30 @@ class _StatisticsPageState extends State<StatisticsPage>
               fontWeight: FontWeight.bold,
               color: app_colors.red));
     }
-    if (latestDone == 0) {
+    if (latestDone == 0 && currentCorrect > 0) { //examples :: c: 1/1 -> l: 0/0
       return Text("Good job! You are improving, keep it like this!",
           style: TextStyle(
               fontSize: 14.sp,
               fontWeight: FontWeight.bold,
               color: app_colors.green));
     }
-    if (currentCorrect / currentDone >= latestCorrect / latestDone &&
-        currentDone >= latestDone) {
+    if (latestDone == 0 && currentCorrect == 0) {//examples :: c: 0/1 -> l: 0/0
+      return Text("You are exercising more, try to do your best to improve the score!",
+          style: TextStyle(
+              fontSize: 14.sp,
+              fontWeight: FontWeight.bold,
+              color: app_colors.orange));
+    }
+    if (currentCorrect / currentDone > latestCorrect / latestDone &&
+        currentDone >= latestDone) { //examples :: c: 2/3 -> l: 1/2 or 2/3 -> l: 1/3
       return Text("Good job! You are improving, keep it like this!",
           style: TextStyle(
               fontSize: 14.sp,
               fontWeight: FontWeight.bold,
               color: app_colors.green));
     }
-    if (currentCorrect / currentDone >= latestCorrect / latestDone &&
-        currentDone < latestDone) {
+    if (currentCorrect / currentDone > latestCorrect / latestDone &&
+        currentDone < latestDone) { //examples :: c: 1/2 -> l: 1/3
       return Text(
           'You are improving, but you need to exercise more. Keep it going!',
           style: TextStyle(
@@ -404,15 +411,33 @@ class _StatisticsPageState extends State<StatisticsPage>
               fontWeight: FontWeight.bold,
               color: app_colors.orange));
     }
-    if (currentCorrect / currentDone < latestCorrect / latestDone &&
-        currentDone >= latestDone) {
+    if (currentCorrect / currentDone == latestCorrect / latestDone &&
+        currentDone > latestDone) { //examples :: c: 2/4 -> l: 1/2
       return Text(
           "You are not improving, but you are exercising more. Keep going and try to do your best!",
           style: TextStyle(
               fontSize: 14.sp,
               fontWeight: FontWeight.bold,
               color: app_colors.orange));
-    } else {
+    }
+    if (currentCorrect / currentDone == latestCorrect / latestDone &&
+        currentDone <= latestDone) { //examples :: c: 1/2 -> l: 1/2 or c: 1/2 -> l: 2/4
+      return Text(
+          "You are not improving and doing more exercise. Keep going and try to do your best!",
+          style: TextStyle(
+              fontSize: 14.sp,
+              fontWeight: FontWeight.bold,
+              color: app_colors.orange));
+    }
+    if (currentCorrect / currentDone < latestCorrect / latestDone &&
+        currentDone > latestDone) { //examples :: c: 2/6 -> l: 1/2
+      return Text(
+          "You are not improving, but you are exercising more. Keep going and try to do your best!",
+          style: TextStyle(
+              fontSize: 14.sp,
+              fontWeight: FontWeight.bold,
+              color: app_colors.orange));
+    } else { // 1. < , == ::: 2. < , < :: examples :: c: 1/4 -> l: 2/4 and c: 1/2 -> l: 2/3
       return Text(
           "Try hard, you can do better! Exercise more and take the challenge to beat your last score!",
           style: TextStyle(
