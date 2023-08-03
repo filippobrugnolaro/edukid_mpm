@@ -89,3 +89,12 @@ flutter:
         - asset: assets/fonts/Poppins-Regular.ttf
   assets:
     - assets/images/
+    - assets/images/avatars/a.png
+    - assets/images/avatars/b.png
+    - assets/images/avatars/c.png
+    - assets/images/avatars/d.png
+    - assets/images/avatars/e.png
+    - assets/images/avatars/f.png
+    - assets/images/avatars/g.png
+    - assets/images/avatars/h.png
+    - assets/images/avatars/i.png

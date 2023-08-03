@@ -75,7 +75,7 @@ class _LoginState extends State<LoginScreen> {
               Container(
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('images/doodle.png'),
+                    image: AssetImage('assets/images/doodle.png'),
                     fit: BoxFit.cover,
                   ),
                 ),

@@ -42,7 +42,7 @@ class QuestionPage extends StatelessWidget {
                 Container(
                   decoration: const BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('images/doodle.png'),
+                      image: AssetImage('assets/images/doodle.png'),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -130,7 +130,7 @@ class QuestionPage extends StatelessWidget {
                 Container(
                   decoration: const BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('images/doodle.png'),
+                      image: AssetImage('assets/images/doodle.png'),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -194,7 +194,7 @@ class QuestionPage extends StatelessWidget {
       Column(
         children: [
           Image.asset(
-            'images/coin.png',
+            'assets/images/coin.png',
             width: 20.w,
           ),
           Text(
@@ -221,7 +221,7 @@ class QuestionPage extends StatelessWidget {
             Column(
               children: [
                 Image.asset(
-                  'images/coin.png',
+                  'assets/images/coin.png',
                   width: 20.w,
                 ),
                 Text(

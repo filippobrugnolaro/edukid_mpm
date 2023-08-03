@@ -74,7 +74,7 @@ class _ProfilePageState extends State<ProfilePage> {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('images/doodle.png'),
+                image: AssetImage('assets/images/doodle.png'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -85,7 +85,7 @@ class _ProfilePageState extends State<ProfilePage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Image.asset(
-                  'images/avatars/$randomLetter.png',
+                  'assets/images/avatars/$randomLetter.png',
                   width: 35.w,
                   height: 35.h,
                 ),

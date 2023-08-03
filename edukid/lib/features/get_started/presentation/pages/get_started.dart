@@ -94,7 +94,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
               Container(
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('images/doodle.png'),
+                    image: AssetImage('assets/images/doodle.png'),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -116,7 +116,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Image.asset(
-                                'images/coin.png',
+                                'assets/images/coin.png',
                                 height: 6.h,
                               ),
                               Text(
@@ -163,13 +163,13 @@ class _GetStartedPageState extends State<GetStartedPage> {
                         children: [
                           const CardWidget(
                               text: 'Maths',
-                              imagePath: 'images/numbers.png',
+                              imagePath: 'assets/images/numbers.png',
                               borderColor: app_colors.fucsia,
                               goTo: 'math'),
                           SizedBox(width: 10.w),
                           const CardWidget(
                               text: 'Geography',
-                              imagePath: 'images/geo.png',
+                              imagePath: 'assets/images/geo.png',
                               borderColor: app_colors.blue,
                               goTo: 'geo'),
                         ],
@@ -180,13 +180,13 @@ class _GetStartedPageState extends State<GetStartedPage> {
                         children: [
                           const CardWidget(
                               text: 'History',
-                              imagePath: 'images/storia.png',
+                              imagePath: 'assets/images/storia.png',
                               borderColor: app_colors.green,
                               goTo: 'storia'),
                           SizedBox(width: 10.w),
                           const CardWidget(
                               text: 'Science',
-                              imagePath: 'images/scienze.png',
+                              imagePath: 'assets/images/scienze.png',
                               borderColor: app_colors.orange,
                               goTo: 'scienze'),
                         ],

@@ -134,7 +134,7 @@ class _StatisticsPageState extends State<StatisticsPage>
                   Container(
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage('images/doodle.png'),
+                        image: AssetImage('assets/images/doodle.png'),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -255,7 +255,7 @@ class _StatisticsPageState extends State<StatisticsPage>
                 ),
                 SizedBox(width: 2.w),
                 Image.asset(
-                  'images/coin.png',
+                  'assets/images/coin.png',
                   height: 3.5.h,
                 ),
               ],
