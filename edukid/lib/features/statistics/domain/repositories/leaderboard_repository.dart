@@ -9,4 +9,6 @@ abstract class LeaderboardRepository {
       List<EntryLeaderboard> list, int numItems);
 
   Future<EntryLeaderboard> getPersonalEntry();
+
+  Future<bool> isDeviceConnected();
 }

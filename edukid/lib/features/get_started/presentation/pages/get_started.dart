@@ -21,6 +21,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
   final getStartedRepository = sl<GetStartedRepository>();
   int points = 0;
   bool isLoaded = false;
+  bool isConnected = true;
 
   @override
   void initState() {
@@ -29,9 +30,15 @@ class _GetStartedPageState extends State<GetStartedPage> {
   }
 
   Future<void> initialization() async {
-    await copyCurrentToLatest();
-    await resetCurrentStatistics();
-    await getUpdatedPoints();
+    if(await getStartedRepository.isDeviceConnected()) {
+      await copyCurrentToLatest();
+      await resetCurrentStatistics();
+      await getUpdatedPoints();
+    } else {
+      setState(() {
+        isConnected = false;
+      });
+    }
   }
 
   Future<void> getUpdatedPoints() async {
@@ -108,55 +115,55 @@ class _GetStartedPageState extends State<GetStartedPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                        Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          isLoaded ?
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Image.asset(
-                                'assets/images/coin.png',
-                                height: 6.h,
-                              ),
-                              Text(
-                                '$points',
-                                  style: TextStyle(
-                                  fontSize: 20.sp, fontWeight: FontWeight.bold)),
-                            ]
-                          )
-                          : const Center(
-                              child: CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation<Color>(app_colors.orange),
+                              isLoaded ?
+                              Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset(
+                                      'assets/images/coin.png',
+                                      height: 6.h,
+                                    ),
+                                    Text(
+                                        '$points',
+                                        style: TextStyle(
+                                            fontSize: 20.sp, fontWeight: FontWeight.bold)),
+                                  ]
                               )
-                          )
-                      ],),
+                                  : const Center(
+                                  child: CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation<Color>(app_colors.orange),
+                                  )
+                              )
+                            ],),
                           ElevatedButton(
-                            
-                          style: ButtonStyle(
-                            padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                                EdgeInsets.all(2.h)),
-                            backgroundColor: MaterialStateProperty.all<Color>(
-                                app_colors.orange), // Set the background color
-                          ),
-                          onPressed: () {
-                            showDialog(
+
+                            style: ButtonStyle(
+                              padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                                  EdgeInsets.all(2.h)),
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  app_colors.orange), // Set the background color
+                            ),
+                            onPressed: () {
+                              showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
                                     return getDialog(context);
                                   });
-                          },
-                          child: const Text('How to play'),
-                        ),
+                            },
+                            child: const Text('How to play'),
+                          ),
                         ],
                       ),
                       SizedBox(height:5.h),
                       Text(
-                              'Hello there! What would you like to try today?',
-                              style: TextStyle(
-                                  fontSize: 20.sp, fontWeight: FontWeight.bold),
-                              softWrap: true,
-                            ),
+                        'Hello there! What would you like to try today?',
+                        style: TextStyle(
+                            fontSize: 20.sp, fontWeight: FontWeight.bold),
+                        softWrap: true,
+                      ),
                       SizedBox(height:5.h),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -195,11 +202,27 @@ class _GetStartedPageState extends State<GetStartedPage> {
                   ),
                 ),
               ),
+              if(!isConnected)
+              AlertDialog(
+                actionsPadding: const EdgeInsets.all(20),
+                title: const Text('Error'),
+                content: const Text('It seems there is no internet connection. Please connect to a wifi or mobile data network.'),
+                actions: <Widget>[
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(backgroundColor: app_colors.orange),
+                      onPressed: () {
+                        Navigator.pushNamed(context, "getStarted");
+                        if(isConnected) {
+                          Navigator.of(context).pop();
+                        }
+                      },
+                      child: const Text('Ok')),
+                ],
+              ),
             ],
           ),
         ));
   }
-
   Widget getDialog(BuildContext context){
     return AlertDialog(
       title: Row(

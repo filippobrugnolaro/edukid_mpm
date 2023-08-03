@@ -1,5 +1,6 @@
 import 'package:edukid/core/data/data_sources/auth_api.dart';
 import 'package:edukid/core/data/data_sources/database_api.dart';
+import 'package:edukid/core/network/network_info.dart';
 import 'package:edukid/features/get_started/data/data_sources/get_started_data_source.dart';
 import 'package:edukid/features/get_started/domain/repositories/get_started_repository.dart';
 
@@ -7,8 +8,9 @@ class GetStartedRepositoryImpl implements GetStartedRepository {
   final GetStartedDataSource getStartedDataSource;
   final AuthAPI authAPI;
   final DatabaseAPI databaseAPI;
+  final NetworkInfo networkInfo;
 
-  GetStartedRepositoryImpl({required this.getStartedDataSource, required this.authAPI, required this.databaseAPI});
+  GetStartedRepositoryImpl({required this.getStartedDataSource, required this.authAPI, required this.databaseAPI, required this.networkInfo});
 
   @override
   Future<int> listenToUserPoints() async {
@@ -39,10 +41,6 @@ class GetStartedRepositoryImpl implements GetStartedRepository {
     }
   }
 
-  // if it is only for get_started move getCurrentDone call from databaseAPI to getStartedDataSource
-  // if it has to be added also to statistics leave it here so it can be called from potentially every feature
-  // removing the call also from abstract class and adding the call to the other abstract
-  // the pattern is the same so if you
   @override
   Future<List<int>> getAllCurrentDone() async {
     final userUID = authAPI.getSignedInUserUID();
@@ -52,6 +50,11 @@ class GetStartedRepositoryImpl implements GetStartedRepository {
     listCurrentDone.add(await getStartedDataSource.getCurrentDone(userUID, 'History'));
     listCurrentDone.add(await getStartedDataSource.getCurrentDone(userUID, 'Science'));
     return listCurrentDone;
+  }
+
+  @override
+  Future<bool> isDeviceConnected() async {
+    return await networkInfo.isConnected;
   }
 
 }

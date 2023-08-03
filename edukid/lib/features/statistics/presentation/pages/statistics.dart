@@ -15,6 +15,8 @@ class StatisticsPage extends StatefulWidget {
 
 class _StatisticsPageState extends State<StatisticsPage>
     with SingleTickerProviderStateMixin {
+  final leaderBoardRepository = sl<LeaderboardRepository>();
+  final personalCategoryStatisticsRepository = sl<PersonalCategoryStatisticsRepository>();
   List<int> listRanks = [];
   List<String> listNames = [];
   List<String> listSurnames = [];
@@ -23,6 +25,7 @@ class _StatisticsPageState extends State<StatisticsPage>
   List<int> listLatestCorrect = [];
   List<int> listCurrentDone = [];
   List<int> listLatestDone = [];
+  bool isConnected = true;
 
   late TabController _tabController;
   List<Color> tabIndicatorColors = [
@@ -32,7 +35,7 @@ class _StatisticsPageState extends State<StatisticsPage>
     app_colors.orange
   ];
   List<String> tabTitles = ['Math', 'Geo', 'History', 'Science'];
-  bool isLoading = true;
+  bool isLoaded = false;
 
   @override
   void initState() {
@@ -52,12 +55,19 @@ class _StatisticsPageState extends State<StatisticsPage>
   }
 
   Future<void> loadData() async {
-    await getPodium();
-    await getPersonalEntry();
-    await getPersonalCategoryStatistics();
-    setState(() {
-      isLoading = false; // Set isLoading to false when data is loaded
-    });
+    if(await leaderBoardRepository.isDeviceConnected()
+        && await personalCategoryStatisticsRepository.isDeviceConnected()) {
+      await getPodium();
+      await getPersonalEntry();
+      await getPersonalCategoryStatistics();
+      setState(() {
+        isLoaded = true; // Set isLoading to false when data is loaded
+      });
+    } else {
+      setState(() {
+        isConnected = false;
+      });
+    }
   }
 
   void disposeAll() {
@@ -128,97 +138,120 @@ class _StatisticsPageState extends State<StatisticsPage>
         drawer: MenuDrawer(
           pageNumber: 2,
         ),
-        body: isLoading 
-            ? const Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(app_colors.orange),))
-            : Stack(fit: StackFit.expand, children: [
-                  Container(
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/images/doodle.png'),
-                        fit: BoxFit.cover,
+        body: isLoaded ?
+        Stack(fit: StackFit.expand, children: [
+          Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/doodle.png'),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          SingleChildScrollView(
+              child: Column(children: [
+            Padding(
+              padding: EdgeInsets.all(5.w),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: app_colors.transparent,
+                        border: Border.all(
+                            color: app_colors.orange, width: 3),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('LEADERBOARD',
+                              style: TextStyle(
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.bold)),
+                          for (int index = 0;
+                              index < listRanks.length - 1;
+                              index++)
+                            _buildPodiumEntry(
+                              listRanks[index],
+                              listNames[index],
+                              listSurnames[index],
+                              listPoints[index],
+                            ),
+                          listRanks.last != 1 &&
+                                  listRanks.last != 2 &&
+                                  listRanks.last != 3
+                              ? const Text('. . .')
+                              : const SizedBox(),
+                          listRanks.last != 1 &&
+                                  listRanks.last != 2 &&
+                                  listRanks.last != 3
+                              ? _buildPodiumEntry(
+                                  listRanks.last,
+                                  listNames.last,
+                                  listSurnames.last,
+                                  listPoints.last)
+                              : const SizedBox(),
+                        ],
                       ),
                     ),
-                  ),
-                  SingleChildScrollView(
-                      child: Column(children: [
-                    Padding(
-                      padding: EdgeInsets.all(5.w),
+                    SizedBox(height: 2.h),
+                    DefaultTabController(
+                      length: 4,
                       child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(16),
-                              decoration: BoxDecoration(
-                                color: app_colors.transparent,
-                                border: Border.all(
-                                    color: app_colors.orange, width: 3),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text('LEADERBOARD',
-                                      style: TextStyle(
-                                          fontSize: 15.sp,
-                                          fontWeight: FontWeight.bold)),
-                                  for (int index = 0;
-                                      index < listRanks.length - 1;
-                                      index++)
-                                    _buildPodiumEntry(
-                                      listRanks[index],
-                                      listNames[index],
-                                      listSurnames[index],
-                                      listPoints[index],
-                                    ),
-                                  listRanks.last != 1 &&
-                                          listRanks.last != 2 &&
-                                          listRanks.last != 3
-                                      ? const Text('. . .')
-                                      : const SizedBox(),
-                                  listRanks.last != 1 &&
-                                          listRanks.last != 2 &&
-                                          listRanks.last != 3
-                                      ? _buildPodiumEntry(
-                                          listRanks.last,
-                                          listNames.last,
-                                          listSurnames.last,
-                                          listPoints.last)
-                                      : const SizedBox(),
-                                ],
-                              ),
-                            ),
-                            SizedBox(height: 2.h),
-                            DefaultTabController(
-                              length: 4,
-                              child: Column(
-                                children: [
-                                  customTabBar(context),
-                                  Container(
-                                    height: 45.h, // Adjust the height as needed
-                                    child: TabBarView(
-                                      controller: _tabController,
-                                      children: [
-                                        for (int index = 0;
-                                            index < listCurrentCorrect.length;
-                                            index++)
-                                          buildStatisticsWidget(
-                                            context,
-                                            listCurrentCorrect[index],
-                                            listCurrentDone[index],
-                                            listLatestCorrect[index],
-                                            listLatestDone[index],
-                                            tabIndicatorColors[index],
-                                          ),
-                                      ],
-                                    ),
+                        children: [
+                          customTabBar(context),
+                          Container(
+                            height: 45.h, // Adjust the height as needed
+                            child: TabBarView(
+                              controller: _tabController,
+                              children: [
+                                for (int index = 0;
+                                    index < listCurrentCorrect.length;
+                                    index++)
+                                  buildStatisticsWidget(
+                                    context,
+                                    listCurrentCorrect[index],
+                                    listCurrentDone[index],
+                                    listLatestCorrect[index],
+                                    listLatestDone[index],
+                                    tabIndicatorColors[index],
                                   ),
-                                ],
-                              ),
-                            )
-                          ]),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     )
-                  ]))
-                ]));
+                  ]),
+            )
+          ]))
+        ]) :
+        Stack(
+          fit: StackFit.expand,
+          children: [
+            const Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(app_colors.orange),)),
+            if(!isConnected)
+              AlertDialog(
+                actionsPadding: const EdgeInsets.all(20),
+                title: const Text('Error'),
+                content: const Text('It seems there is no internet connection. Please connect to a wifi or mobile data network.'),
+                actions: <Widget>[
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(backgroundColor: app_colors.orange),
+                      onPressed: () {
+                        Navigator.pushNamed(context, "statistics");
+                        if(isConnected) {
+                          Navigator.of(context).pop();
+                        }
+                      },
+                      child: const Text('Ok')),
+                ],
+              ),
+          ],
+        ),
+    );
   }
 
   Widget _buildPodiumEntry(

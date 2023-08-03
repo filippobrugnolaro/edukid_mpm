@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:math';
 
-import 'package:edukid/core/errors/Exception.dart';
 import 'package:edukid/features/trivia_question/data/models/trivia_model.dart';
 import 'package:firebase_database/firebase_database.dart';
 
@@ -16,18 +15,24 @@ class TriviaDataSourceImpl implements TriviaDataSource {
 
   @override
   Future<TriviaModel> getTrivia(String typeQuestion) async {
-
-    final response = await _database.child("/subject").child("/$typeQuestion").get();
-    if (response.exists) {
-      final random = Random().nextInt(response.children.length);
-      final selectedQuestion =
-      await _database.child("/subject")
+    try {
+      final response = await _database.child("/subject")
           .child("/$typeQuestion")
-          .child("question$random")
           .get();
-      return TriviaModel.fromJson(jsonDecode(jsonEncode(selectedQuestion.value)));
-    } else {
-      throw ServerException();
+      if (response.exists) {
+        final random = Random().nextInt(response.children.length);
+        final selectedQuestion =
+        await _database.child("/subject")
+            .child("/$typeQuestion")
+            .child("question$random")
+            .get();
+        return TriviaModel.fromJson(
+            jsonDecode(jsonEncode(selectedQuestion.value)));
+      } else {
+        throw Exception("Unknown error");
+      }
+    } catch (e) {
+      throw Exception(e.toString());
     }
   }
 

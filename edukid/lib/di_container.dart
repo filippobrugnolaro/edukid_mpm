@@ -21,6 +21,7 @@ import 'package:edukid/features/trivia_question/data/repositories/trivia_reposit
 import 'package:edukid/features/trivia_question/domain/repositories/trivia_repository.dart';
 import 'package:edukid/features/trivia_question/presentation/bloc/question_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
 import 'features/statistics/data/repositories/personal_category_statistics_repository_impl.dart';
 
@@ -53,24 +54,25 @@ Future<void> init() async {
   // Repository
 
   sl.registerLazySingleton<AuthRepository>(
-      () => AuthRepositoryImpl(authDataSourceRemote: sl(), databaseAPI: sl()));
+      () => AuthRepositoryImpl(authDataSourceRemote: sl(), databaseAPI: sl(), networkInfo: sl()));
 
   sl.registerLazySingleton<TriviaRepository>(() => TriviaRepositoryImpl(
-      triviaDataSource: sl(), authAPI: sl(), databaseAPI: sl()));
+      triviaDataSource: sl(), authAPI: sl(), databaseAPI: sl(), networkInfo: sl()));
 
   sl.registerLazySingleton<ProfileRepository>(() => ProfileRepositoryImpl(
         profileDataSource: sl(),
         authAPI: sl(),
+        networkInfo: sl()
       ));
 
   sl.registerLazySingleton<GetStartedRepository>(() => GetStartedRepositoryImpl(
-      getStartedDataSource: sl(), authAPI: sl(), databaseAPI: sl()));
+      getStartedDataSource: sl(), authAPI: sl(), databaseAPI: sl(), networkInfo: sl()));
 
   sl.registerLazySingleton<LeaderboardRepository>(() =>
-      LeaderboardRepositoryImpl(leaderboardDataSource: sl(), authAPI: sl()));
+      LeaderboardRepositoryImpl(leaderboardDataSource: sl(), authAPI: sl(), networkInfo: sl()));
 
   sl.registerLazySingleton<PersonalCategoryStatisticsRepository>(() =>
-      PersonalCategoryStatisticsRepositoryImpl(personalCategoryStatisticsDataSource: sl(), authAPI: sl()));
+      PersonalCategoryStatisticsRepositoryImpl(personalCategoryStatisticsDataSource: sl(), authAPI: sl(), networkInfo: sl()));
 
   // Bloc
   sl.registerFactory(() => TriviaBloc(triviaRepository: sl()));
@@ -78,5 +80,5 @@ Future<void> init() async {
   sl.registerFactory(() => AuthBloc(authRepository: sl()));
 
   // Network Checker
-  sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(connectionChecker: sl()));
+  sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(connectionChecker: InternetConnection()));
 }

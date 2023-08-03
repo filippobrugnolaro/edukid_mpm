@@ -24,11 +24,13 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  final profileRepository = sl<ProfileRepository>();
   String name = '';
   String surname = '';
   String email = '';
   int points = 0;
   bool isLoaded = false;
+  bool isConnected = true;
 
   @override
   void initState() {
@@ -37,15 +39,20 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Future<void> getUserData() async {
-    final personalData =
-        await sl<ProfileRepository>().getUserData(); // Chiedere ad ale
-    setState(() {
-      email = personalData.email;
-      name = personalData.name;
-      surname = personalData.surname;
-      points = personalData.points;
-      isLoaded = true;
-    });
+    if(await profileRepository.isDeviceConnected()) {
+      final personalData = await profileRepository.getUserData();
+      setState(() {
+        email = personalData.email;
+        name = personalData.name;
+        surname = personalData.surname;
+        points = personalData.points;
+        isLoaded = true;
+      });
+    } else {
+      setState(() {
+        isConnected = false;
+      });
+    }
   }
 
   @override
@@ -160,7 +167,30 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           )
         ],
-      ) : const Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(app_colors.orange),)),
+      ) :
+      Stack(
+          fit: StackFit.expand,
+          children: [
+      const Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(app_colors.orange),)),
+        if(!isConnected)
+          AlertDialog(
+            actionsPadding: const EdgeInsets.all(20),
+            title: const Text('Error'),
+            content: const Text('It seems there is no internet connection. Please connect to a wifi or mobile data network.'),
+            actions: <Widget>[
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(backgroundColor: app_colors.orange),
+                  onPressed: () {
+                    Navigator.pushNamed(context, "profile");
+                    if(isConnected) {
+                      Navigator.of(context).pop();
+                    }
+                  },
+                  child: const Text('Ok')),
+      ],
+    ),
+    ],
+      ),
     );
   }
 

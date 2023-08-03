@@ -178,9 +178,27 @@ class QuestionPage extends StatelessWidget {
                 ),
               )]);
             } else if (state is TriviaErrorState) {
-              return Text(state.errorMessage);
-            } else
-              return Text('Sorry an error occured!');
+              return Stack(fit: StackFit.expand,
+                  children: [
+                    Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(color),)),
+                    AlertDialog(
+                      actionsPadding: const EdgeInsets.all(20),
+                      title: const Text('Error'),
+                      content: Text(state.errorMessage),
+                      actions: <Widget>[
+                        ElevatedButton(
+                            style: ElevatedButton.styleFrom(backgroundColor: app_colors.orange),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text('Ok')),
+                      ],
+                    ),
+                  ],
+              );
+            } else {
+              return const Text('Unknown error');
+            }
           },
         ),
       ),
