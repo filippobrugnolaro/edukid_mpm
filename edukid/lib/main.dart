@@ -1,19 +1,26 @@
-import 'package:edukid/features/trivia/data/bloc/auth_bloc.dart';
-import 'package:edukid/features/trivia/data/repositories/auth_repository.dart';
-import 'package:edukid/features/trivia/presentation/config/app_router.dart';
-import 'package:edukid/features/trivia/presentation/config/themes.dart';
-import 'package:edukid/features/trivia/presentation/screens/getStarted/getStarted.dart';
-import 'package:edukid/features/trivia/presentation/screens/login/login.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:sizer/sizer.dart';
-import 'package:flutter/material.dart';
-
+import 'package:edukid/core/config/themes.dart';
+import 'package:edukid/di_container.dart' as di;
+import 'package:edukid/di_container.dart';
+import 'package:edukid/features/authentication/domain/repositories/auth_repository.dart';
+import 'package:edukid/features/authentication/presentation/bloc/auth_bloc.dart';
+import 'package:edukid/features/get_started/presentation/pages/get_started.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sizer/sizer.dart';
+
+import 'core/config/app_router.dart';
+import 'features/authentication/presentation/pages/login.dart';
 
 Future<void> main() async {
-  //await di.init();
+  await di.init();
   WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   await Firebase.initializeApp(
     options: const FirebaseOptions(
       projectId: "edu-kid",
@@ -25,20 +32,20 @@ Future<void> main() async {
       appId: "1:208548965320:web:8d0aa6affc3a866cb8eefd",
     ),
   );
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
     return RepositoryProvider(
-        create: (context) => AuthRepository(),
+        create: (context) => sl<AuthRepository>(),
         child: BlocProvider(
-            create: (context) => AuthBloc(
-                  authRepository:
-                      RepositoryProvider.of<AuthRepository>(context),
-                ),
+            create: (context) => sl<AuthBloc>(),
             child: Sizer(builder: (context, orientation, DeviceType) {
               return MaterialApp(
                 title: 'Edukid',
@@ -47,11 +54,11 @@ class MyApp extends StatelessWidget {
                     stream: FirebaseAuth.instance.authStateChanges(),
                     builder: (context, snapshot) {
                       // If the snapshot has user data, then they're already signed in. So Navigating to the Dashboard.
-                      if (snapshot.hasData) {
-                        return GetStartedPage();
+                      if (snapshot.hasData /*or prefs.getAuth is true*/) {
+                        return const GetStartedPage();
                       }
                       // Otherwise, they're not signed in. Show the sign in page.
-                      return LoginScreen();
+                      return const LoginScreen();
                     }),
                 onGenerateRoute: AppRouter().onGenerateRoute,
               );
