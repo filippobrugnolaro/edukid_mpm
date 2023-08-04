@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:edukid/core/config/colors.dart' as app_colors;
-import 'package:edukid/core/presentation/widgets/menuDrawer.dart';
+import 'package:edukid/core/presentation/widgets/menu_drawer.dart';
 import 'package:edukid/di_container.dart';
 import 'package:edukid/features/authentication/presentation/bloc/auth_bloc.dart';
 import 'package:edukid/features/profile/domain/repositories/profile_repository.dart';
@@ -72,7 +72,7 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
         backgroundColor: app_colors.orange,
       ),
-      drawer: MenuDrawer(
+      drawer: const MenuDrawer(
         pageNumber: 1,
       ),
       body: isLoaded ? Stack(

@@ -22,7 +22,6 @@ class SubmitTriviaAnswerEvent extends TriviaEvent {
   SubmitTriviaAnswerEvent(this.selectedOption, this.typeQuestion);
 }
 
-// TODO positioning better
 class TriviaAnswerOption {
   final String text;
   bool isSelected;

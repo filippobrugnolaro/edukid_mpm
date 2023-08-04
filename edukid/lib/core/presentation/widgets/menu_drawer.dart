@@ -9,7 +9,7 @@ import '../../config/colors.dart' as app_colors;
 class MenuDrawer extends StatelessWidget {
   final int pageNumber;
 
-  MenuDrawer({Key? key, required this.pageNumber}) : super(key: key);
+  const MenuDrawer({Key? key, required this.pageNumber}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

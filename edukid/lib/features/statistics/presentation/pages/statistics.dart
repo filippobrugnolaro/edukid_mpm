@@ -1,5 +1,5 @@
 import 'package:edukid/core/config/colors.dart' as app_colors;
-import 'package:edukid/core/presentation/widgets/menuDrawer.dart';
+import 'package:edukid/core/presentation/widgets/menu_drawer.dart';
 import 'package:edukid/di_container.dart';
 import 'package:edukid/features/statistics/domain/repositories/leaderboard_repository.dart';
 import 'package:edukid/features/statistics/domain/repositories/personal_category_statistics_repository.dart';
@@ -34,7 +34,7 @@ class _StatisticsPageState extends State<StatisticsPage>
     app_colors.green,
     app_colors.orange
   ];
-  List<String> tabTitles = ['Math', 'Geo', 'History', 'Science'];
+  List<String> tabTitles = ['Maths', 'Geography', 'History', 'Science'];
   bool isLoaded = false;
 
   @override
@@ -135,7 +135,7 @@ class _StatisticsPageState extends State<StatisticsPage>
           ),
           backgroundColor: app_colors.orange,
         ),
-        drawer: MenuDrawer(
+        drawer: const MenuDrawer(
           pageNumber: 2,
         ),
         body: isLoaded ?
@@ -458,6 +458,7 @@ class _StatisticsPageState extends State<StatisticsPage>
             BorderRadius.circular(10), // Border color for inactive tabs
       ),
       child: TabBar(
+        isScrollable: true,
         controller: _tabController,
         tabs: [
           for (int i = 0; i < tabTitles.length; i++)

@@ -1,6 +1,6 @@
 
 import 'package:edukid/core/config/colors.dart' as app_colors;
-import 'package:edukid/core/presentation/howToPlayPage.dart';
+import 'package:edukid/core/presentation/how_to_play_page.dart';
 import 'package:edukid/features/authentication/presentation/pages/login.dart';
 import 'package:edukid/features/get_started/presentation/pages/get_started.dart';
 import 'package:edukid/features/profile/presentation/pages/profile_page.dart';
@@ -23,7 +23,7 @@ class AppRouter {
       case 'math':
         return PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-              QuestionPage(
+              const QuestionPage(
                 title: 'Mathematics',
                 color: app_colors.fucsia,
           ),
@@ -34,7 +34,7 @@ class AppRouter {
       case 'geo':
         return PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-              QuestionPage(title: 'Geography', color: app_colors.blue),
+              const QuestionPage(title: 'Geography', color: app_colors.blue),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return _getSlideTransition(animation, child);
           },
@@ -42,7 +42,7 @@ class AppRouter {
       case 'storia':
         return PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-              QuestionPage(title: 'History', color: app_colors.green),
+              const QuestionPage(title: 'History', color: app_colors.green),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return _getSlideTransition(animation, child);
           },
@@ -50,7 +50,7 @@ class AppRouter {
       case 'scienze':
         return PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-              QuestionPage(title: 'Science', color: app_colors.orange),
+              const QuestionPage(title: 'Science', color: app_colors.orange),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return _getSlideTransition(animation, child);
           },

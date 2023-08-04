@@ -1,5 +1,5 @@
 import 'package:edukid/core/presentation/widgets/card.dart';
-import 'package:edukid/core/presentation/widgets/menuDrawer.dart';
+import 'package:edukid/core/presentation/widgets/menu_drawer.dart';
 import 'package:edukid/di_container.dart';
 import 'package:edukid/features/authentication/presentation/bloc/auth_bloc.dart';
 import 'package:edukid/features/authentication/presentation/pages/login.dart';
@@ -91,7 +91,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
           ),
           backgroundColor: app_colors.orange,
         ),
-        drawer: MenuDrawer(
+        drawer: const MenuDrawer(
           pageNumber: 0,
         ),
         body: BlocListener<AuthBloc, AuthState>(

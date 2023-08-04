@@ -32,7 +32,7 @@ Future<void> main() async {
       appId: "1:208548965320:web:8d0aa6affc3a866cb8eefd",
     ),
   );
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
                     builder: (context, snapshot) {
                       // If the snapshot has user data, then they're already signed in. So Navigating to the Dashboard.
                       if (snapshot.hasData /*or prefs.getAuth is true*/) {
-                        return GetStartedPage();
+                        return const GetStartedPage();
                       }
                       // Otherwise, they're not signed in. Show the sign in page.
                       return const LoginScreen();
