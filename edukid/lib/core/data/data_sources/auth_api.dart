@@ -6,6 +6,8 @@ abstract class AuthAPI {
 
   bool isSignedInUserNull();
 
+  DateTime getLocalTimeStampSignUp();
+
 }
 
 class AuthAPIImpl implements AuthAPI {
@@ -20,6 +22,11 @@ class AuthAPIImpl implements AuthAPI {
   @override
   bool isSignedInUserNull() {
     return _firebaseAuth.currentUser == null;
+  }
+
+  @override
+  DateTime getLocalTimeStampSignUp() {
+    return _firebaseAuth.currentUser!.metadata.creationTime!.toLocal();
   }
 
 }

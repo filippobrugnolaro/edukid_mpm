@@ -5,4 +5,5 @@ abstract class GetStartedRepository {
   Future<void> setResetToDo(bool boolean);
   Future<List<int>> getAllCurrentDone();
   Future<bool> isDeviceConnected();
+  DateTime getLocalTimeStampSignUp();
 }

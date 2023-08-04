@@ -57,4 +57,9 @@ class GetStartedRepositoryImpl implements GetStartedRepository {
     return await networkInfo.isConnected;
   }
 
+  @override
+  DateTime getLocalTimeStampSignUp() {
+    return authAPI.getLocalTimeStampSignUp();
+  }
+
 }
