@@ -9,7 +9,7 @@ class QuestionPage extends StatelessWidget {
   final Color color;
   final String title;
 
-  QuestionPage({
+  const QuestionPage({
     Key? key,
     required this.color,
     required this.title,
@@ -24,10 +24,10 @@ class QuestionPage extends StatelessWidget {
         appBar: AppBar(
           title: Text(
             title,
-            style: TextStyle(fontSize: 2.5.h),
           ),
           centerTitle: true,
           backgroundColor: color,
+           automaticallyImplyLeading: false
         ),
         body: BlocBuilder<TriviaBloc, TriviaState>(
           builder: (context, state) {
@@ -35,14 +35,14 @@ class QuestionPage extends StatelessWidget {
               final bloc = BlocProvider.of<TriviaBloc>(context);
               bloc.add(LoadTriviaEvent(title));
               // Initial state: Display loading indicator or fetch quiz data
-              return const Center(child: CircularProgressIndicator());
+              return Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(color),));
             } else if (state is TriviaQuestionState) {
               // Question state: Display the question and options
               return Stack(fit: StackFit.expand, children: [
                 Container(
                   decoration: const BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('images/doodle.png'),
+                      image: AssetImage('assets/images/doodle.png'),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -51,9 +51,11 @@ class QuestionPage extends StatelessWidget {
                     padding: EdgeInsets.all(3.w),
                     child: Column(
                       children: [
+                        SizedBox(height:2.h),
                         Text(
                           state.question.question,
-                          style: TextStyle(fontSize: 3.h),
+                          style: TextStyle(fontSize: 18.sp),
+                          textAlign: TextAlign.center,
                         ),
                         SizedBox(
                           height: 3.h,
@@ -97,11 +99,12 @@ class QuestionPage extends StatelessWidget {
                         SizedBox(height: 5.h),
                         ElevatedButton(
                           style: ButtonStyle(
+                            padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                                EdgeInsets.all(2.h)),
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 color), // Set the background color
                           ),
                           onPressed: () {
-                            // Aggiungi l'evento per consegnare la domanda
                             if (state.selectedOptionIndex == -1) {
                               showDialog(
                                   context: context,
@@ -111,10 +114,11 @@ class QuestionPage extends StatelessWidget {
                             } else {
                               BlocProvider.of<TriviaBloc>(context).add(
                                   SubmitTriviaAnswerEvent(state.question
-                                      .options[state.selectedOptionIndex]));
+                                      .options[state.selectedOptionIndex], title));
                             }
                           },
-                          child: Text('Submit'),
+                          child: Text("Submit",
+                            style: TextStyle(fontSize: 13.0.sp)),
                         ),
                       ],
                     ))
@@ -125,53 +129,73 @@ class QuestionPage extends StatelessWidget {
                 Container(
                   decoration: const BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('images/doodle.png'),
+                      image: AssetImage('assets/images/doodle.png'),
                       fit: BoxFit.cover,
                     ),
                   ),
                 ),
                 Center(
-                child: Container(
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        state.isCorrect
-                            ? getCorrect()
-                            : getWrong(state.correctOption),
-                        ElevatedButton(
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  color), // Set the background color
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      state.isCorrect
+                          ? getCorrect()
+                          : getWrong(state.correctOption),
+                      ElevatedButton(
+                          style: ButtonStyle(
+                            padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                              EdgeInsets.all(2.h)),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                color), // Set the background color
+                          ),
+                          onPressed: () {
+                            BlocProvider.of<TriviaBloc>(context)
+                                .add(LoadTriviaEvent(title));
+                          },
+                          child: Text('Next question', style: TextStyle(fontSize: 13.sp))),
+                      Text('or',style: TextStyle(fontSize: 13.sp),),
+                      ElevatedButton(
+                          style: ButtonStyle(
+                            padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                              EdgeInsets.all(2.h)),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                app_colors.white), //
+                            side: MaterialStateProperty.all<BorderSide>(
+                              BorderSide(color: color, width: 2.0),
                             ),
-                            onPressed: () {
-                              BlocProvider.of<TriviaBloc>(context)
-                                  .add(LoadTriviaEvent(title));
-                            },
-                            child: const Text('Next question')),
-                        const Text('or'),
-                        ElevatedButton(
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  app_colors.white), //
-                              side: MaterialStateProperty.all<BorderSide>(
-                                BorderSide(color: color, width: 2.0),
-                              ),
-                            ),
-                            onPressed: () {
-                              Navigator.of(context).pushReplacementNamed('getStarted');
-                            },
-                            child: const Text('Change category',
-                                style: TextStyle(color: app_colors.black))),
-                        SizedBox(
-                          height: 8.h,
-                        )
-                      ]),
-                ),
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pushReplacementNamed('getStarted');
+                          },
+                          child:  Text('Back to the home page',
+                              style: TextStyle(color: app_colors.black, fontSize: 13.sp))),
+                      SizedBox(
+                        height: 8.h,
+                      )
+                    ]),
               )]);
             } else if (state is TriviaErrorState) {
-              return Text(state.errorMessage);
-            } else
-              return Text('Sorry an error occured!');
+              return Stack(fit: StackFit.expand,
+                  children: [
+                    Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(color),)),
+                    AlertDialog(
+                      actionsPadding: const EdgeInsets.all(20),
+                      title: const Text('Error'),
+                      content: Text(state.errorMessage),
+                      actions: <Widget>[
+                        ElevatedButton(
+                            style: ElevatedButton.styleFrom(backgroundColor: app_colors.orange),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text('Ok')),
+                      ],
+                    ),
+                  ],
+              );
+            } else {
+              return const Text('Unknown error');
+            }
           },
         ),
       ),
@@ -179,11 +203,13 @@ class QuestionPage extends StatelessWidget {
   }
 
   Widget getCorrect() {
-    return Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+    return SizedBox(
+      width: 85.w,
+      child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
       Column(
         children: [
           Image.asset(
-            'images/coin.png',
+            'assets/images/coin.png',
             width: 20.w,
           ),
           Text(
@@ -196,42 +222,61 @@ class QuestionPage extends StatelessWidget {
         ],
       ),
       Text('Correct!', style: TextStyle(fontSize: 25.sp)),
-      Text('You earned 10 coins!'),
-    ]);
+      Text('You earned 10 coins!', style: TextStyle(fontSize: 13.sp)),
+    ]));
   }
 
   Widget getWrong(String correctAnswer) {
-    return Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-      Column(
-        children: [
-          Image.asset(
-            'images/coin.png',
-            width: 20.w,
-          ),
-          Text(
-            'Oh no!',
-            style: TextStyle(
-                fontSize: 20.sp,
-                fontWeight: FontWeight.w800,
-                color: app_colors.red),
-          ),
-          Text(
-            '-5',
-            softWrap: true,
-            style: TextStyle(
-                fontSize: 30.sp,
-                fontWeight: FontWeight.w800,
-                color: app_colors.red),
-          )
-        ],
+    return SizedBox(
+      width: 85.w,
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Column(
+              children: [
+                Image.asset(
+                  'assets/images/coin.png',
+                  width: 20.w,
+                ),
+                Text(
+                  'Oh no!',
+                  style: TextStyle(
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.w800,
+                    color: app_colors.red,
+                  ),
+                ),
+                Text(
+                  '-5',
+                  softWrap: true,
+                  style: TextStyle(
+                    fontSize: 30.sp,
+                    fontWeight: FontWeight.w800,
+                    color: app_colors.red,
+                  ),
+                ),
+              ],
+            ),
+            Text(
+              'Correct answer was: $correctAnswer.',
+              style: TextStyle(fontSize: 15.sp),
+            ),
+            SizedBox(height: 4.h),
+            Text(
+              'Unluckily you lost 5 coins!',
+              style: TextStyle(fontSize: 13.sp),
+            ),
+            SizedBox(height: 2.h),
+            Text(
+              'Try to answer the next question correctly to earn them back! ',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 13.sp),
+            ),
+          ],
+        ),
       ),
-      Text('Correct answer was: $correctAnswer.',
-          style: TextStyle(fontSize: 10.sp)),
-      SizedBox(height: 4.h),
-      Text('Unluckily you lost 5 coins!'),
-      SizedBox(height: 2.h),
-      Text('Try to answer the next question correctly to earn them back!'),
-    ]);
+    );
   }
 
   Widget getDialog(dynamic context) {
@@ -245,7 +290,7 @@ class QuestionPage extends StatelessWidget {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: Text('Understood.'),
+          child: const Text('Understood.'),
         ),
       ],
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),

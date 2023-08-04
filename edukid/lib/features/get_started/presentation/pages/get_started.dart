@@ -1,5 +1,5 @@
 import 'package:edukid/core/presentation/widgets/card.dart';
-import 'package:edukid/core/presentation/widgets/clickableImg.dart';
+import 'package:edukid/core/presentation/widgets/menu_drawer.dart';
 import 'package:edukid/di_container.dart';
 import 'package:edukid/features/authentication/presentation/bloc/auth_bloc.dart';
 import 'package:edukid/features/authentication/presentation/pages/login.dart';
@@ -9,9 +9,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../core/config/colors.dart' as app_colors;
-import '../../../../core/presentation/widgets/dialog/dialog_factory.dart';
 
 class GetStartedPage extends StatefulWidget {
+  const GetStartedPage({Key? key}) : super(key: key);
+
   @override
   _GetStartedPageState createState() => _GetStartedPageState();
 }
@@ -19,11 +20,30 @@ class GetStartedPage extends StatefulWidget {
 class _GetStartedPageState extends State<GetStartedPage> {
   final getStartedRepository = sl<GetStartedRepository>();
   int points = 0;
+  bool isLoaded = false;
+  bool isConnected = true;
+  List<int> currentDone = [];
 
   @override
   void initState() {
     super.initState();
-    getUpdatedPoints();
+    initialization();
+  }
+
+  Future<void> initialization() async {
+    if (await getStartedRepository.isDeviceConnected()) {
+      await copyCurrentToLatest();
+      await resetCurrentStatistics();
+      await getUpdatedPoints();
+      await getCurrentDone();
+      setState(() {
+        isLoaded = true;
+      });
+    } else {
+      setState(() {
+        isConnected = false;
+      });
+    }
   }
 
   Future<void> getUpdatedPoints() async {
@@ -31,7 +51,22 @@ class _GetStartedPageState extends State<GetStartedPage> {
     setState(() {
       points = newPoints;
     });
+  }
 
+  Future<void> getCurrentDone() async {
+    final List<int> done = await getStartedRepository.getAllCurrentDone();
+    setState(() {
+      currentDone = List.from(done);
+    });
+  }
+
+  Future<void> copyCurrentToLatest() async {
+    await getStartedRepository.copyCurrentToLatest();
+  }
+
+  Future<void> resetCurrentStatistics() async {
+    await getStartedRepository.resetAllCurrentToZero();
+    await getStartedRepository.setResetToDo(false);
   }
 
   @override
@@ -44,20 +79,20 @@ class _GetStartedPageState extends State<GetStartedPage> {
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: Text(
-            'EduKid',
-            style: TextStyle(fontSize: 2.5.h),
+          title: const Text('EduKid'),
+          leading: Builder(
+            builder: (context) => IconButton(
+              icon: const Icon(Icons.menu),
+              onPressed: () {
+                // Now Scaffold.of(context) will work correctly
+                Scaffold.of(context).openDrawer();
+              },
+            ),
           ),
-          actions: [
-          IconButton(
-            icon: const Icon(Icons.account_box_rounded),
-            onPressed: () {
-              // Perform action when the icon is pressed
-              Navigator.of(context).pushNamed('profile');
-            },
-          ),
-        ],
           backgroundColor: app_colors.orange,
+        ),
+        drawer: const MenuDrawer(
+          pageNumber: 0,
         ),
         body: BlocListener<AuthBloc, AuthState>(
           listener: (context, state) {
@@ -75,96 +110,222 @@ class _GetStartedPageState extends State<GetStartedPage> {
               Container(
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('images/doodle.png'),
+                    image: AssetImage('assets/images/doodle.png'),
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
-              Center(
-                child: Container(
-                  padding: EdgeInsets.fromLTRB(6.w, 6.w, 6.w, 15.w),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
+              SingleChildScrollView(
+                child: Center(
+                  child: Container(
+                    padding: EdgeInsets.fromLTRB(6.w, 6.w, 6.w, 15.w),
+                    child: Column(
+                      //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
                         Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            'images/coin.png',
-                            height: 6.h,
-                          ),
-                          Text(
-                            '$points',
-                              style: TextStyle(
-                                  fontSize: 3.h, fontWeight: FontWeight.bold)),
-                      ],),
-                          ElevatedButton(
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(
-                                app_colors.orange), // Set the background color
-                          ),
-                          onPressed: () {
-                            showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return getDialog(context);
-                                  });
-                          },
-                          child: Text('How to play'),
-                        ),
-                        ],
-                      ),
-                      Text(
-                              'Hello there! What would you like to try today?',
-                              style: TextStyle(
-                                  fontSize: 3.2.h, fontWeight: FontWeight.bold),
-                              softWrap: true,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        'assets/images/coin.png',
+                                        height: 6.h,
+                                      ),
+                                      isLoaded
+                                          ? Text('$points',
+                                              style: TextStyle(
+                                                  fontSize: 20.sp,
+                                                  fontWeight: FontWeight.bold))
+                                          : const CircularProgressIndicator(
+                                              valueColor:
+                                                  AlwaysStoppedAnimation<Color>(
+                                                      app_colors.orange),
+                                            ),
+                                    ])
+                              ],
                             ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const CardWidget(
-                              text: 'Maths',
-                              imagePath: 'images/numbers.png',
-                              borderColor: app_colors.fucsia,
-                              goTo: 'math'),
-                          SizedBox(width: 10.w),
-                          const CardWidget(
-                              text: 'Geography',
-                              imagePath: 'images/geo.png',
-                              borderColor: app_colors.blue,
-                              goTo: 'geo'),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const CardWidget(
-                              text: 'History',
-                              imagePath: 'images/storia.png',
-                              borderColor: app_colors.green,
-                              goTo: 'storia'),
-                          SizedBox(width: 10.w),
-                          const CardWidget(
-                              text: 'Science',
-                              imagePath: 'images/scienze.png',
-                              borderColor: app_colors.orange,
-                              goTo: 'scienze'),
-                        ],
-                      ),
-                    ],
+                            ElevatedButton(
+                              style: ButtonStyle(
+                                padding: MaterialStateProperty.all<
+                                    EdgeInsetsGeometry>(EdgeInsets.all(2.h)),
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(app_colors
+                                        .orange), // Set the background color
+                              ),
+                              onPressed: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return getDialog(context);
+                                    });
+                              },
+                              child: const Text('How to play'),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 5.h),
+                        Text(
+                          'Hello there! What would you like to try today?',
+                          style: TextStyle(
+                              fontSize: 20.sp, fontWeight: FontWeight.bold),
+                          softWrap: true,
+                        ),
+                        SizedBox(height: 5.h),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Column(
+                              children: [
+                                const CardWidget(
+                                    text: 'Maths',
+                                    imagePath: 'assets/images/numbers.png',
+                                    borderColor: app_colors.fucsia,
+                                    goTo: 'math'),
+                                SizedBox(
+                                  height: 1.h,
+                                ),
+                                isLoaded && currentDone[0] == 0
+                                    ? Row(children: [
+                                        const Icon(
+                                          Icons.circle,
+                                          color: app_colors.red,
+                                        ),
+                                        SizedBox(width: 0.5.w),
+                                        Text(
+                                          'No answers yet!',
+                                          style: TextStyle(
+                                              fontSize: 11.sp,
+                                              color: app_colors.red),
+                                        ),
+                                      ])
+                                    : const SizedBox(),
+                              ],
+                            ),
+                            SizedBox(width: 10.w),
+                            Column(
+                              children: [
+                                const CardWidget(
+                                    text: 'Geography',
+                                    imagePath: 'assets/images/geo.png',
+                                    borderColor: app_colors.blue,
+                                    goTo: 'geo'),
+                                SizedBox(
+                                  height: 1.h,
+                                ),
+                                isLoaded && currentDone[1] == 0
+                                    ? Row(children: [
+                                        const Icon(
+                                          Icons.circle,
+                                          color: app_colors.red,
+                                        ),
+                                        SizedBox(width: 0.5.w),
+                                        Text(
+                                          'No answers yet!',
+                                          style: TextStyle(
+                                              fontSize: 11.sp,
+                                              color: app_colors.red),
+                                        ),
+                                      ])
+                                    : const SizedBox(),
+                              ],
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 5.h),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Column(
+                              children: [
+                                const CardWidget(
+                                    text: 'History',
+                                    imagePath: 'assets/images/storia.png',
+                                    borderColor: app_colors.green,
+                                    goTo: 'storia'),
+                                SizedBox(
+                                  height: 1.h,
+                                ),
+                                isLoaded && currentDone[2] == 0
+                                    ? Row(children: [
+                                        const Icon(
+                                          Icons.circle,
+                                          color: app_colors.red,
+                                        ),
+                                        SizedBox(width: 0.5.w),
+                                        Text(
+                                          'No answers yet!',
+                                          style: TextStyle(
+                                              fontSize: 11.sp,
+                                              color: app_colors.red),
+                                        ),
+                                      ])
+                                    : const SizedBox(),
+                              ],
+                            ),
+                            SizedBox(width: 10.w),
+                            Column(
+                              children: [
+                                const CardWidget(
+                                    text: 'Science',
+                                    imagePath: 'assets/images/scienze.png',
+                                    borderColor: app_colors.orange,
+                                    goTo: 'scienze'),
+                                SizedBox(
+                                  height: 1.h,
+                                ),
+                                isLoaded && currentDone[3] == 0
+                                    ? Row(children: [
+                                        const Icon(
+                                          Icons.circle,
+                                          color: app_colors.red,
+                                        ),
+                                        SizedBox(width: 0.5.w),
+                                        Text(
+                                          'No answers yet!',
+                                          style: TextStyle(
+                                              fontSize: 11.sp,
+                                              color: app_colors.red),
+                                        ),
+                                      ])
+                                    : const SizedBox(),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
+              if (!isConnected)
+                AlertDialog(
+                  actionsPadding: const EdgeInsets.all(20),
+                  title: const Text('Error'),
+                  content: const Text(
+                      'It seems there is no internet connection. Please connect to a wifi or mobile data network.'),
+                  actions: <Widget>[
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: app_colors.orange),
+                        onPressed: () {
+                          Navigator.pushNamed(context, "getStarted");
+                          if (isConnected) {
+                            Navigator.of(context).pop();
+                          }
+                        },
+                        child: const Text('Ok')),
+                  ],
+                ),
             ],
           ),
         ));
   }
 
-  Widget getDialog(BuildContext context){
+  Widget getDialog(BuildContext context) {
     return AlertDialog(
       title: Row(
         children: <Widget>[
@@ -177,13 +338,15 @@ class _GetStartedPageState extends State<GetStartedPage> {
           const Text('Tutorial')
         ],
       ),
-      content: const Text('Have fun and challenge your friends while learning!\nFor each correct answer you will earn 10 coins but be careful! If your answer is wrong you will lose 5.'
-      ),
+      content: const Text(
+          'Have fun and challenge your friends while learning!\nFor each correct answer you will earn 10 coins but be careful! If your answer is wrong you will lose 5.'),
       actionsPadding: const EdgeInsets.all(20),
       actions: <Widget>[
         ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: app_colors.orange),
-            onPressed: () {Navigator.pop(context);},
+            onPressed: () {
+              Navigator.pop(context);
+            },
             child: const Text('Close'))
       ],
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),

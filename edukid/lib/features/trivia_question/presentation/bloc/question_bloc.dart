@@ -19,11 +19,12 @@ class TriviaBloc extends Bloc<TriviaEvent, TriviaState> {
   Future<void> mapEventToState(TriviaEvent event, Emitter<TriviaState> emit) async {
     // load quiz from repo
     if (event is LoadTriviaEvent) {
-      final question = await triviaRepository.getTrivia(event.typeQuestion);
-      question.fold(
-              (failure) => emit(TriviaErrorState(serverFailureMessage)),
-              (question) => emit(TriviaQuestionState(question: question))
-      );
+      try {
+        final question = await triviaRepository.getTrivia(event.typeQuestion);
+        emit(TriviaQuestionState(question: question));
+      } catch (e) {
+        emit(TriviaErrorState(e.toString()));
+      }
     }
     //select Option
     if (event is SelectTriviaOptionEvent) {
@@ -46,14 +47,27 @@ class TriviaBloc extends Bloc<TriviaEvent, TriviaState> {
         if (event.selectedOption == 'null') {
           emit(TriviaErrorState('Please select and option'));
         } else {
-          final correctAnswer = currentState.question.answer;
-          // Check if the submitted answer is correct
-          final isAnswerCorrect = event.selectedOption == correctAnswer;
-          // Emit the result state
-          emit(TriviaResultState(isAnswerCorrect, correctAnswer));
+          try {
 
-          // Update user's "points" field if the answer is correct
-          await triviaRepository.updateUserPoints(isAnswerCorrect);
+            // reset reset statistics if necessary
+            // so if no connection TriviaResultState will not emitted
+            await triviaRepository.copyCurrentToLatest();
+            await triviaRepository.resetAllCurrentToZero();
+            await triviaRepository.setResetToDo(false);
+
+            final correctAnswer = currentState.question.answer;
+            // Check if the submitted answer is correct
+            final isAnswerCorrect = event.selectedOption == correctAnswer;
+            // Emit the result state
+            emit(TriviaResultState(isAnswerCorrect, correctAnswer));
+
+            // Update user's "points" and "statistics"
+            await triviaRepository.updateUserPoints(isAnswerCorrect);
+            await triviaRepository.updateUserStatistics(
+                isAnswerCorrect, event.typeQuestion);
+          } catch (e) {
+            emit(TriviaErrorState(e.toString()));
+      }
         }
       }
     }

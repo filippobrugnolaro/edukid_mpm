@@ -36,24 +36,19 @@ class _SignUpState extends State<SignUpScreen> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: app_colors.orange,
-          title: Text('Signup'),
+          title: const Text('Signup'),
         ),
         body: BlocListener<AuthBloc, AuthState>(listener: (context, state) {
           if (state is Authenticated) {
             // Navigating to the dashboard screen if the user is authenticated
             Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => GetStartedPage()));
-          }
-          if (state is AuthError) {
-            // Showing the error message if the user has entered invalid credentials
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(state.error)));
+                MaterialPageRoute(builder: (context) => const GetStartedPage()));
           }
         }, child: BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
           if (state is Loading) {
             // Showing the loading indicator while the user is signing in
             return const Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(app_colors.orange),)
             );
           }
           if (state is UnAuthenticated) {
@@ -62,47 +57,50 @@ class _SignUpState extends State<SignUpScreen> {
               Container(
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('images/doodle.png'),
+                    image: AssetImage('assets/images/doodle.png'),
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
-              Form(
-                  key: _formKey,
-                  child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      margin: (MediaQuery.of(context).orientation ==
-                              Orientation.portrait
-                          ? (SizerUtil.deviceType == DeviceType.mobile
-                              ? EdgeInsets.fromLTRB(8.0.w, 5.0.h, 8.0.w, 0.0.h)
-                              : EdgeInsets.fromLTRB(
-                                  15.0.w, 5.0.h, 15.0.w, 0.0.h))
-                          : EdgeInsets.fromLTRB(20.0.w, 5.0.h, 20.0.w, 0.0.h)),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Align(
-                            child: Text(
-                              'Create a new account!',
-                              style: TextStyle(fontSize: 15.sp),
+              SingleChildScrollView(
+                physics: const NeverScrollableScrollPhysics(),
+                child: Form(
+                    key: _formKey,
+                    child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                        margin: (MediaQuery.of(context).orientation ==
+                                Orientation.portrait
+                            ? (SizerUtil.deviceType == DeviceType.mobile
+                                ? EdgeInsets.fromLTRB(8.0.w, 5.0.h, 8.0.w, 0.0.h)
+                                : EdgeInsets.fromLTRB(
+                                    15.0.w, 5.0.h, 15.0.w, 0.0.h))
+                            : EdgeInsets.fromLTRB(20.0.w, 5.0.h, 20.0.w, 0.0.h)),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Align(
+                              child: Text(
+                                'Create a new account!',
+                                style: TextStyle(fontSize: 15.sp),
+                              ),
                             ),
-                          ),
-                          SizedBox(height: 2.0.h),
-                          nameField(context),
-                          SizedBox(height: 3.0.h),
-                          surnameField(context),
-                          SizedBox(height: 3.0.h),
-                          emailField(context),
-                          SizedBox(height: 3.0.h),
-                          passwordField(context),
-                          SizedBox(height: 3.0.h),
-                          Align(
-                            child: getSignupButton(),
-                          ),
-                        ],
-                      )))
+                            SizedBox(height: 2.0.h),
+                            nameField(context),
+                            SizedBox(height: 3.0.h),
+                            surnameField(context),
+                            SizedBox(height: 3.0.h),
+                            emailField(context),
+                            SizedBox(height: 3.0.h),
+                            passwordField(context),
+                            SizedBox(height: 3.0.h),
+                            Align(
+                              child: getSignupButton(),
+                            ),
+                          ],
+                        ))),
+              )
             ]);
           }
           return Container();
@@ -118,20 +116,16 @@ class _SignUpState extends State<SignUpScreen> {
     }
   }
 
-/*  void _authenticateWithGoogle(context) {
-    BlocProvider.of<AuthBloc>(context).add(
-      GoogleSignInRequested(),
-    );
-  }*/
-
   Widget getSignupButton() {
     return ElevatedButton(
       style: ButtonStyle(
+        padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                                EdgeInsets.all(2.h)),
         backgroundColor: MaterialStateProperty.all<Color>(
             app_colors.orange), // Set the background color
       ),
       child: Text("Signup",
-          style: TextStyle(fontSize: 8.0.sp, color: app_colors.white)),
+          style: TextStyle(fontSize: 13.0.sp, color: app_colors.white)),
       onPressed: () {
         _createAccountWithEmailAndPassword(context);
       },
@@ -168,6 +162,14 @@ class _SignUpState extends State<SignUpScreen> {
               borderRadius: BorderRadius.all(Radius.circular(8.0)),
             )),
         autovalidateMode: AutovalidateMode.onUserInteraction,
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Please insert your password.';
+          } else if (value.length < 6) {
+            return 'Password must be at least 6 characters.';
+          }
+          return null; // Return null to indicate no error
+        },
       ),
     );
   }
@@ -199,7 +201,7 @@ class _SignUpState extends State<SignUpScreen> {
               fillColor: app_colors.white, // Set your desired background color
               labelText: 'Email',
               errorStyle: TextStyle(
-                fontSize: (8.0.sp),
+                fontSize: (10.0.sp),
               ),
               contentPadding: const EdgeInsets.fromLTRB(10, 3, 10, 6),
               enabledBorder: const OutlineInputBorder(
@@ -224,6 +226,11 @@ class _SignUpState extends State<SignUpScreen> {
           keyboardType: TextInputType.emailAddress,
           controller: _nameController,
           autovalidateMode: AutovalidateMode.onUserInteraction,
+          validator: (value) {
+            return value != null && value.isEmpty
+                ? 'Please insert your name.'
+                : null;
+          },
           decoration: InputDecoration(
               hintText: "Name",
               floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -231,7 +238,7 @@ class _SignUpState extends State<SignUpScreen> {
               fillColor: app_colors.white, // Set your desired background color
               labelText: 'Name',
               errorStyle: TextStyle(
-                fontSize: (8.0.sp),
+                fontSize: (10.0.sp),
               ),
               contentPadding: const EdgeInsets.fromLTRB(10, 3, 10, 6),
               enabledBorder: const OutlineInputBorder(
@@ -255,6 +262,11 @@ class _SignUpState extends State<SignUpScreen> {
         child: TextFormField(
           controller: _surnameController,
           autovalidateMode: AutovalidateMode.onUserInteraction,
+          validator: (value) {
+            return value != null && value.isEmpty
+                ? 'Please insert your surname.'
+                : null;
+          },
           decoration: InputDecoration(
               hintText: "Surname",
               floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -262,7 +274,7 @@ class _SignUpState extends State<SignUpScreen> {
               fillColor: app_colors.white, // Set your desired background color
               labelText: 'Surname',
               errorStyle: TextStyle(
-                fontSize: (8.0.sp),
+                fontSize: (10.0.sp),
               ),
               contentPadding: const EdgeInsets.fromLTRB(10, 3, 10, 6),
               enabledBorder: const OutlineInputBorder(

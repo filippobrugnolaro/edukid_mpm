@@ -27,7 +27,7 @@ class AnswerOption extends StatelessWidget {
         children: [
           Text(
             text,
-            style: TextStyle(color: app_colors.black, fontSize: 2.h),
+            style: const TextStyle(color: app_colors.black),
           ),
         ],
       ),
