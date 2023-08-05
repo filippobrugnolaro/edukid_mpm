@@ -1,3 +1,5 @@
+import 'package:edukid/di_container.dart';
+import 'package:edukid/features/get_started/domain/repositories/get_started_repository.dart';
 import 'package:edukid/features/get_started/presentation/pages/get_started.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
@@ -10,6 +12,7 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnBoardingState extends State<OnboardingScreen> {
+  final getStartedRepository = sl<GetStartedRepository>();
   int currentIndex = 0;
   late PageController _controller;
 
@@ -23,6 +26,10 @@ class _OnBoardingState extends State<OnboardingScreen> {
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  Future<void> setWizardToDisplayToFalse() async {
+    await getStartedRepository.setWizardToDisplay(false);
   }
 
   @override
@@ -78,6 +85,7 @@ class _OnBoardingState extends State<OnboardingScreen> {
         child: ElevatedButton(
           onPressed: () {
             if (currentIndex == content.length - 1) {
+              setWizardToDisplayToFalse();
               Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) => const GetStartedPage()),
                 (route) => false,

@@ -24,6 +24,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
   bool isLoaded = false;
   bool isConnected = true;
   List<int> currentDone = [];
+  bool wizard = false;
 
   @override
   void initState() {
@@ -37,14 +38,20 @@ class _GetStartedPageState extends State<GetStartedPage> {
       await resetCurrentStatistics();
       await getUpdatedPoints();
       await getCurrentDone();
+      final wizardValue = await getWizardToDisplay();
       setState(() {
         isLoaded = true;
+        wizard = wizardValue;
       });
     } else {
       setState(() {
         isConnected = false;
       });
     }
+  }
+
+  Future<bool> getWizardToDisplay() async {
+    return await getStartedRepository.getWizardToDisplay();
   }
 
   Future<void> getUpdatedPoints() async {
@@ -77,7 +84,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
 
   @override
   Widget build(BuildContext context) {
-    return DateTime.now().toLocal().compareTo(getStartedRepository.getLocalTimeStampSignUp().add(const Duration(seconds: 10))) > 0 
+    return wizard == false
     ? Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -324,7 +331,8 @@ class _GetStartedPageState extends State<GetStartedPage> {
             ],
           ),
         )
-        ): OnboardingScreen();
+        ):
+    OnboardingScreen();
   }
 
   Widget getDialog(BuildContext context) {

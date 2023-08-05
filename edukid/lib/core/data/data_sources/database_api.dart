@@ -30,6 +30,7 @@ class DatabaseAPIImpl implements DatabaseAPI {
       'name': name,
       'surname': surname,
       'points': points,
+      'wizard_to_display': true,
       'reset_statistics': {'todo': false, 'timestamp_todo': timestampToDo},
       'statistics': {}
     };

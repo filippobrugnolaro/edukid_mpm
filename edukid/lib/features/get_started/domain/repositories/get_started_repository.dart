@@ -6,4 +6,6 @@ abstract class GetStartedRepository {
   Future<List<int>> getAllCurrentDone();
   Future<bool> isDeviceConnected();
   DateTime getLocalTimeStampSignUp();
+  Future<void> setWizardToDisplay(bool boolean);
+  Future<bool> getWizardToDisplay();
 }

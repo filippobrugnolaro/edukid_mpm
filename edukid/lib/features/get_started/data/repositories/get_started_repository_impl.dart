@@ -62,4 +62,14 @@ class GetStartedRepositoryImpl implements GetStartedRepository {
     return authAPI.getLocalTimeStampSignUp();
   }
 
+  @override
+  Future<void> setWizardToDisplay(bool boolean) async {
+    await getStartedDataSource.setWizardToDisplay(authAPI.getSignedInUserUID(), boolean);
+  }
+
+  @override
+  Future<bool> getWizardToDisplay() async {
+    return await getStartedDataSource.getWizardToDisplay(authAPI.getSignedInUserUID());
+  }
+
 }
