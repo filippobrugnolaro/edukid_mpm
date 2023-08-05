@@ -197,12 +197,13 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget getDialog(BuildContext context) {
     return AlertDialog(
       actionsAlignment: MainAxisAlignment.spaceBetween,
-      title: const Text('Confirm logout'),
-      content: const Text('Are you sure you want to logout?'),
+      title: Text('Confirm logout', style: TextStyle(fontSize: 14.sp)),
+      content: Text('Are you sure you want to logout?', style: TextStyle(fontSize: 13.sp)),
       actionsPadding: const EdgeInsets.all(20),
       actions: <Widget>[
         ElevatedButton(
             style: ElevatedButton.styleFrom(
+              padding: EdgeInsets.fromLTRB(6.w,2.h,6.w,2.h),
               backgroundColor: Colors.white, // Background color
               foregroundColor: Colors.black, // Text color
               side: const BorderSide(color: app_colors.orange, width: 2),
@@ -213,13 +214,15 @@ class _ProfilePageState extends State<ProfilePage> {
               );
               Navigator.of(context).pushReplacementNamed("login");
             },
-            child: const Text('Yes')),
+            child: Text('Yes', style: TextStyle(fontSize: 13.sp))),
         ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: app_colors.orange),
+            style: ElevatedButton.styleFrom(
+              padding: EdgeInsets.fromLTRB(6.w,2.h,6.w,2.h),
+              backgroundColor: app_colors.orange),
             onPressed: () {
               Navigator.pop(context);
             },
-            child: const Text('No')),
+            child: Text('No', style: TextStyle(fontSize: 13.sp))),
       ],
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
     );

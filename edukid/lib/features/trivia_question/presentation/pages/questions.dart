@@ -292,8 +292,8 @@ class QuestionPage extends StatelessWidget {
 
   Widget getDialog(dynamic context) {
     return AlertDialog(
-      title: const Text('Careful!'),
-      content: const Text('You need to select at least one option!'),
+      title: Text('Careful!', style: TextStyle(fontSize: 14.sp)),
+      content: Text('You need to select at least one option!', style: TextStyle(fontSize: 13.sp)),
       actionsPadding: const EdgeInsets.all(20),
       actions: [
         ElevatedButton(
@@ -301,7 +301,7 @@ class QuestionPage extends StatelessWidget {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: const Text('Understood.'),
+          child: Text('Understood.', style: TextStyle(fontSize: 13.sp)),
         ),
       ],
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),

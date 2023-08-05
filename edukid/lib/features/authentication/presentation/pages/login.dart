@@ -46,15 +46,15 @@ class _LoginState extends State<LoginScreen> {
                 builder: (context) {
                   return AlertDialog(
                     actionsPadding: const EdgeInsets.all(20),
-                    title: const Text('Error'),
-                    content: Text(state.error.replaceFirst('Exception: ', '')),
+                    title: Text('Error', style: TextStyle(fontSize: 14.sp)),
+                    content: Text(state.error.replaceFirst('Exception: ', ''), style: TextStyle(fontSize: 13.sp)),
                     actions: <Widget>[
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(backgroundColor: app_colors.orange),
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        child: const Text('Ok')),
+                        child: Text('Ok', style: TextStyle(fontSize: 13.sp))),
                     ],
                   );
                 },

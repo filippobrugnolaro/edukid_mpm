@@ -156,14 +156,9 @@ class _GetStartedPageState extends State<GetStartedPage> {
                                     ])
                               ],
                             ),
-                            ElevatedButton(
-                              style: ButtonStyle(
-                                padding: MaterialStateProperty.all<
-                                    EdgeInsetsGeometry>(EdgeInsets.all(2.h)),
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(app_colors
-                                        .orange), // Set the background color
-                              ),
+                            IconButton(
+                              icon: Icon(Icons.info_outline_rounded, color: app_colors.orange),
+                              iconSize: 6.h,
                               onPressed: () {
                                 showDialog(
                                     context: context,
@@ -171,7 +166,6 @@ class _GetStartedPageState extends State<GetStartedPage> {
                                       return getDialog(context);
                                     });
                               },
-                              child: const Text('How to play'),
                             ),
                           ],
                         ),
@@ -345,11 +339,11 @@ class _GetStartedPageState extends State<GetStartedPage> {
           const SizedBox(
             width: 10,
           ),
-          const Text('Tutorial')
+          Text('Tutorial', style: TextStyle(fontSize: 14.sp))
         ],
       ),
-      content: const Text(
-          'For each correct answer you will earn  5 coins but be careful! If your answer is wrong you will lose 3.'),
+      content: Text(
+          'For each correct answer you will earn  5 coins but be careful! If your answer is wrong you will lose 3.', style: TextStyle(fontSize: 13.sp)),
       actionsPadding: const EdgeInsets.all(20),
       actions: <Widget>[
         ElevatedButton(
@@ -357,7 +351,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
             onPressed: () {
               Navigator.pop(context);
             },
-            child: const Text('Close'))
+            child:  Text('Close', style: TextStyle(fontSize: 13.sp)))
       ],
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
     );

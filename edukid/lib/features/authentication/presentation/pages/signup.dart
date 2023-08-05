@@ -227,9 +227,15 @@ class _SignUpState extends State<SignUpScreen> {
           controller: _nameController,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           validator: (value) {
-            return value != null && value.isEmpty
+            final RegExp nameSurnameRegExp = RegExp(r'^[a-zA-Z ]+$');
+            if(value != null && !nameSurnameRegExp.hasMatch(value)){
+              return 'Name should contain only letters';
+            }
+            else{
+              return value != null && value.isEmpty
                 ? 'Please insert your name.'
                 : null;
+            }
           },
           decoration: InputDecoration(
               hintText: "Name",
@@ -263,9 +269,15 @@ class _SignUpState extends State<SignUpScreen> {
           controller: _surnameController,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           validator: (value) {
-            return value != null && value.isEmpty
+            final RegExp nameSurnameRegExp = RegExp(r'^[a-zA-Z ]+$');
+            if(value != null && !nameSurnameRegExp.hasMatch(value)){
+              return 'Surname should contain only letters';
+            }
+            else{
+              return value != null && value.isEmpty
                 ? 'Please insert your surname.'
                 : null;
+            }
           },
           decoration: InputDecoration(
               hintText: "Surname",
