@@ -34,7 +34,7 @@ class QuestionPage extends StatelessWidget {
             if (state is TriviaInitialState) {
               final bloc = BlocProvider.of<TriviaBloc>(context);
               bloc.add(LoadTriviaEvent(title));
-              // Initial state: Display loading indicator or fetch quiz data
+            } else if (state is TriviaLoadingState) {
               return Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(color),));
             } else if (state is TriviaQuestionState) {
               // Question state: Display the question and options

@@ -20,6 +20,7 @@ class TriviaBloc extends Bloc<TriviaEvent, TriviaState> {
     // load quiz from repo
     if (event is LoadTriviaEvent) {
       try {
+        emit(TriviaLoadingState());
         final question = await triviaRepository.getTrivia(event.typeQuestion);
         emit(TriviaQuestionState(question: question));
       } catch (e) {
@@ -48,7 +49,7 @@ class TriviaBloc extends Bloc<TriviaEvent, TriviaState> {
           emit(TriviaErrorState('Please select and option'));
         } else {
           try {
-
+            emit(TriviaLoadingState());
             // reset reset statistics if necessary
             // so if no connection TriviaResultState will not emitted
             await triviaRepository.copyCurrentToLatest();
