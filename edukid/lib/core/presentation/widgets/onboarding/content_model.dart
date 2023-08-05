@@ -17,7 +17,7 @@ List<OnboardingContent> content = [
       image: 'assets/images/desperate.png',
       title: "Some sneaky pirates took all my coins!!",
       description: 
-      "\nTo get them back you will have to answer their questions: for every correct answer, you'll earn 5 coins.\nBut be cautious because wrong answer will cost you 3 coins!."),
+      "\nTo help me getting them back you will have to answer their questions: for every correct answer, \nyou'll earn 5 coins.\nBut be cautious because wrong answer will cost you 3 coins!"),
   OnboardingContent(
       image: 'assets/images/correct.png',
       title: 'Help me!',

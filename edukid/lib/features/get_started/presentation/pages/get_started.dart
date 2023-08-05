@@ -1,6 +1,6 @@
-import 'package:edukid/core/presentation/onboarding/onboarding.dart';
 import 'package:edukid/core/presentation/widgets/card.dart';
 import 'package:edukid/core/presentation/widgets/menu_drawer.dart';
+import 'package:edukid/core/presentation/widgets/onboarding/onboarding.dart';
 import 'package:edukid/di_container.dart';
 import 'package:edukid/features/authentication/presentation/bloc/auth_bloc.dart';
 import 'package:edukid/features/authentication/presentation/pages/login.dart';
@@ -40,8 +40,8 @@ class _GetStartedPageState extends State<GetStartedPage> {
       await getCurrentDone();
       final wizardValue = await getWizardToDisplay();
       setState(() {
-        isLoaded = true;
         wizard = wizardValue;
+        isLoaded = true;
       });
     } else {
       setState(() {
