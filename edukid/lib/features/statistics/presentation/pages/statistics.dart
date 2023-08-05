@@ -235,8 +235,9 @@ class _StatisticsPageState extends State<StatisticsPage>
             if(!isConnected)
               AlertDialog(
                 actionsPadding: const EdgeInsets.all(20),
-                title: const Text('Error'),
-                content: const Text('It seems there is no internet connection. Please connect to a wifi or mobile data network.'),
+                title: Text('Error', style: TextStyle(fontSize: 14.sp)),
+                content: Text('It seems there is no internet connection. Please connect to a wifi or mobile data network.',
+                    style: TextStyle(fontSize: 13.sp)),
                 actions: <Widget>[
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(backgroundColor: app_colors.orange),
@@ -246,7 +247,7 @@ class _StatisticsPageState extends State<StatisticsPage>
                           Navigator.of(context).pop();
                         }
                       },
-                      child: const Text('Ok')),
+                      child: Text('Ok', style: TextStyle(fontSize: 13.sp))),
                 ],
               ),
           ],

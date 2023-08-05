@@ -184,21 +184,21 @@ class QuestionPage extends StatelessWidget {
                     Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(color),)),
                     AlertDialog(
                       actionsPadding: const EdgeInsets.all(20),
-                      title: const Text('Error'),
-                      content: Text(state.errorMessage),
+                      title: Text('Error', style: TextStyle(fontSize: 14.sp)),
+                      content: Text(state.errorMessage.replaceFirst('Exception: ', ''), style: TextStyle(fontSize: 13.sp)),
                       actions: <Widget>[
                         ElevatedButton(
                             style: ElevatedButton.styleFrom(backgroundColor: app_colors.orange),
                             onPressed: () {
-                              Navigator.pop(context);
+                              Navigator.popAndPushNamed(context, "getStarted");
                             },
-                            child: const Text('Ok')),
+                            child: Text('Ok', style: TextStyle(fontSize: 13.sp))),
                       ],
                     ),
                   ],
               );
             } else {
-              return const Text('Unknown error');
+              return Text('Unknown error', style: TextStyle(fontSize: 13.sp));
             }
           },
         ),
