@@ -42,25 +42,34 @@ class InstructionsPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Text('Help Jack in getting his money back!',
+                style: TextStyle(fontSize: 13.sp), softWrap: true,),
+              SizedBox(height: 3.h),
               Text(
                 '1. The game will consist of multiple choice questions categorized in different subjects.\nOnly one answer is correct.',
                 style: TextStyle(fontSize: 12.5.sp), softWrap: true,),
               SizedBox(height: 2.h),
               Text(
-                '2. Answer the questions correctly to earn 10 points per correct answer.',
+                '2. Answer the questions correctly to earn 5 coins per correct answer.',
                 style: TextStyle(fontSize: 12.5.sp), softWrap: true,),
               SizedBox(height: 2.h),
               Text(
-                '3. If your answer is wrong, you will lose 5 points.',
+                '3. If your answer is wrong, you will lose 3 coins.',
                 style: TextStyle(fontSize: 12.5.sp), softWrap: true,),
               SizedBox(height: 2.h),
               Text(
                 "4. You can keep up with your improvement in the 'Statistics' page.\nTry to beat your score and improve day by day!",
                 style: TextStyle(fontSize: 12.5.sp), softWrap: true,),
               SizedBox(height: 5.h),
-              Center(
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(backgroundColor: app_colors.orange, padding: EdgeInsets.all(2.h)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [ 
+                  Image.asset(
+                    'assets/images/correct.png',
+                    width: 40.w,
+                  ),
+                  ElevatedButton(
+                  style: ElevatedButton.styleFrom(backgroundColor: app_colors.orange, padding: EdgeInsets.fromLTRB(6.w,2.h,6.w,2.h)),
                   onPressed: () {
                     // Navigate to the quiz page when the user taps the "Start Quiz" button
                     Navigator.push(
@@ -70,9 +79,10 @@ class InstructionsPage extends StatelessWidget {
                       ),
                     );
                   },
-                  child: Text('Start to play!', style: TextStyle(fontSize: 13.sp)),
+                  child: Text('Play!', style: TextStyle(fontSize: 13.sp)),
                 ),
-              ),
+              
+                ]),
             ],
           ),
         ),

@@ -134,46 +134,50 @@ class QuestionPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                Center(
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      state.isCorrect
-                          ? getCorrect()
-                          : getWrong(state.correctOption),
-                      ElevatedButton(
-                          style: ButtonStyle(
-                            padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                              EdgeInsets.all(2.h)),
-                            backgroundColor: MaterialStateProperty.all<Color>(
-                                color), // Set the background color
-                          ),
-                          onPressed: () {
-                            BlocProvider.of<TriviaBloc>(context)
-                                .add(LoadTriviaEvent(title));
-                          },
-                          child: Text('Next question', style: TextStyle(fontSize: 13.sp))),
-                      Text('or',style: TextStyle(fontSize: 13.sp),),
-                      ElevatedButton(
-                          style: ButtonStyle(
-                            padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                              EdgeInsets.all(2.h)),
-                            backgroundColor: MaterialStateProperty.all<Color>(
-                                app_colors.white), //
-                            side: MaterialStateProperty.all<BorderSide>(
-                              BorderSide(color: color, width: 2.0),
+                SingleChildScrollView(
+                  child: Center(
+                  child: Column(
+                      children: [
+                        state.isCorrect
+                            ? getCorrect()
+                            : getWrong(state.correctOption),
+                        SizedBox(height: 4.h,),
+                        ElevatedButton(
+                            style: ButtonStyle(
+                              padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                                EdgeInsets.all(2.h)),
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  color), // Set the background color
                             ),
-                          ),
-                          onPressed: () {
-                            Navigator.of(context).pushReplacementNamed('getStarted');
-                          },
-                          child:  Text('Back to the home page',
-                              style: TextStyle(color: app_colors.black, fontSize: 13.sp))),
-                      SizedBox(
-                        height: 8.h,
-                      )
-                    ]),
-              )]);
+                            onPressed: () {
+                              BlocProvider.of<TriviaBloc>(context)
+                                  .add(LoadTriviaEvent(title));
+                            },
+                            child: Text('Next question', style: TextStyle(fontSize: 13.sp))),
+                        SizedBox(height: 2.h,),
+                        Text('or',style: TextStyle(fontSize: 13.sp),),
+                        SizedBox(height: 2.h,),
+                        ElevatedButton(
+                            style: ButtonStyle(
+                              padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                                EdgeInsets.all(2.h)),
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  app_colors.white), //
+                              side: MaterialStateProperty.all<BorderSide>(
+                                BorderSide(color: color, width: 2.0),
+                              ),
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).pushReplacementNamed('getStarted');
+                            },
+                            child:  Text('Back to the home page',
+                                style: TextStyle(color: app_colors.black, fontSize: 13.sp))),
+                        SizedBox(
+                          height: 8.h,
+                        )
+                      ]),
+                              ),
+                )]);
             } else if (state is TriviaErrorState) {
               return Stack(fit: StackFit.expand,
                   children: [
@@ -208,12 +212,13 @@ class QuestionPage extends StatelessWidget {
       child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
       Column(
         children: [
+          SizedBox(height: 2.h,),
           Image.asset(
             'assets/images/coin.png',
             width: 20.w,
           ),
           Text(
-            '+10',
+            '+5',
             style: TextStyle(
                 fontSize: 30.sp,
                 fontWeight: FontWeight.w800,
@@ -222,7 +227,12 @@ class QuestionPage extends StatelessWidget {
         ],
       ),
       Text('Correct!', style: TextStyle(fontSize: 25.sp)),
-      Text('You earned 10 coins!', style: TextStyle(fontSize: 13.sp)),
+      Text('You earned 5 coins!', style: TextStyle(fontSize: 13.sp)),
+      SizedBox(height: 2.h,),
+      Image.asset(
+            'assets/images/correct.png',
+            width: 40.w,
+          ),
     ]));
   }
 
@@ -233,6 +243,7 @@ class QuestionPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            SizedBox(height:2.h),
             Column(
               children: [
                 Image.asset(
@@ -248,7 +259,7 @@ class QuestionPage extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '-5',
+                  '-3',
                   softWrap: true,
                   style: TextStyle(
                     fontSize: 30.sp,
@@ -260,19 +271,19 @@ class QuestionPage extends StatelessWidget {
             ),
             Text(
               'Correct answer was: $correctAnswer.',
-              style: TextStyle(fontSize: 15.sp),
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 15.sp, ),
             ),
-            SizedBox(height: 4.h),
             Text(
-              'Unluckily you lost 5 coins!',
-              style: TextStyle(fontSize: 13.sp),
-            ),
-            SizedBox(height: 2.h),
-            Text(
-              'Try to answer the next question correctly to earn them back! ',
+              'You lost 3 coins!',
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 13.sp),
             ),
+            SizedBox(height: 2.h),
+            Image.asset(
+            'assets/images/wrong.png',
+            width: 40.w,
+          ),
           ],
         ),
       ),

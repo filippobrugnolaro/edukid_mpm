@@ -56,7 +56,7 @@ class TriviaDataSourceImpl implements TriviaDataSource {
           .child("points")
           .once();
     final currentPoints = currentPointsSnapshot.snapshot.value as int;
-    final newPoints = currentPoints + (isAnswerCorrect ? 10 : -5);
+    final newPoints = currentPoints + (isAnswerCorrect ? 5 : -3);
     await userRef
         .child("points")
         .set(newPoints);

@@ -1,3 +1,4 @@
+import 'package:edukid/core/presentation/onboarding/onboarding.dart';
 import 'package:edukid/core/presentation/widgets/card.dart';
 import 'package:edukid/core/presentation/widgets/menu_drawer.dart';
 import 'package:edukid/di_container.dart';
@@ -76,7 +77,8 @@ class _GetStartedPageState extends State<GetStartedPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return DateTime.now().toLocal().compareTo(getStartedRepository.getLocalTimeStampSignUp().add(const Duration(seconds: 10))) > 0 
+    ? Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
           title: const Text('EduKid'),
@@ -104,8 +106,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
               );
             }
           },
-          child: Stack(
-            fit: StackFit.expand,
+          child:Stack(fit: StackFit.expand,
             children: [
               Container(
                 decoration: const BoxDecoration(
@@ -322,7 +323,8 @@ class _GetStartedPageState extends State<GetStartedPage> {
                 ),
             ],
           ),
-        ));
+        )
+        ): OnboardingScreen();
   }
 
   Widget getDialog(BuildContext context) {
@@ -339,7 +341,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
         ],
       ),
       content: const Text(
-          'Have fun and challenge your friends while learning!\nFor each correct answer you will earn 10 coins but be careful! If your answer is wrong you will lose 5.'),
+          'For each correct answer you will earn  5 coins but be careful! If your answer is wrong you will lose 3.'),
       actionsPadding: const EdgeInsets.all(20),
       actions: <Widget>[
         ElevatedButton(
