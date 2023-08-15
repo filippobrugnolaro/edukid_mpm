@@ -41,15 +41,18 @@ class _SignUpState extends State<SignUpScreen> {
         body: BlocListener<AuthBloc, AuthState>(listener: (context, state) {
           if (state is Authenticated) {
             // Navigating to the dashboard screen if the user is authenticated
-            Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => const GetStartedPage()));
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const GetStartedPage()));
           }
         }, child: BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
           if (state is Loading) {
             // Showing the loading indicator while the user is signing in
             return const Center(
-              child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(app_colors.orange),)
-            );
+                child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(app_colors.orange),
+            ));
           }
           if (state is UnAuthenticated) {
             // Showing the sign in form if the user is not authenticated
@@ -73,10 +76,12 @@ class _SignUpState extends State<SignUpScreen> {
                         margin: (MediaQuery.of(context).orientation ==
                                 Orientation.portrait
                             ? (SizerUtil.deviceType == DeviceType.mobile
-                                ? EdgeInsets.fromLTRB(8.0.w, 5.0.h, 8.0.w, 0.0.h)
+                                ? EdgeInsets.fromLTRB(
+                                    8.0.w, 5.0.h, 8.0.w, 0.0.h)
                                 : EdgeInsets.fromLTRB(
                                     15.0.w, 5.0.h, 15.0.w, 0.0.h))
-                            : EdgeInsets.fromLTRB(20.0.w, 5.0.h, 20.0.w, 0.0.h)),
+                            : EdgeInsets.fromLTRB(
+                                20.0.w, 5.0.h, 20.0.w, 0.0.h)),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
@@ -119,8 +124,8 @@ class _SignUpState extends State<SignUpScreen> {
   Widget getSignupButton() {
     return ElevatedButton(
       style: ButtonStyle(
-        padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                                EdgeInsets.all(2.h)),
+        padding: MaterialStateProperty.all(
+            EdgeInsets.fromLTRB(4.w, 1.3.h, 4.w, 1.3.h)),
         backgroundColor: MaterialStateProperty.all<Color>(
             app_colors.orange), // Set the background color
       ),
@@ -228,13 +233,12 @@ class _SignUpState extends State<SignUpScreen> {
           autovalidateMode: AutovalidateMode.onUserInteraction,
           validator: (value) {
             final RegExp nameSurnameRegExp = RegExp(r'^[a-zA-Z ]+$');
-            if(value != null && !nameSurnameRegExp.hasMatch(value)){
+            if (value != null && !nameSurnameRegExp.hasMatch(value)) {
               return 'Name should contain only letters';
-            }
-            else{
+            } else {
               return value != null && value.isEmpty
-                ? 'Please insert your name.'
-                : null;
+                  ? 'Please insert your name.'
+                  : null;
             }
           },
           decoration: InputDecoration(
@@ -270,13 +274,12 @@ class _SignUpState extends State<SignUpScreen> {
           autovalidateMode: AutovalidateMode.onUserInteraction,
           validator: (value) {
             final RegExp nameSurnameRegExp = RegExp(r'^[a-zA-Z ]+$');
-            if(value != null && !nameSurnameRegExp.hasMatch(value)){
+            if (value != null && !nameSurnameRegExp.hasMatch(value)) {
               return 'Surname should contain only letters';
-            }
-            else{
+            } else {
               return value != null && value.isEmpty
-                ? 'Please insert your surname.'
-                : null;
+                  ? 'Please insert your surname.'
+                  : null;
             }
           },
           decoration: InputDecoration(

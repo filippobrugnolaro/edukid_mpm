@@ -85,249 +85,257 @@ class _GetStartedPageState extends State<GetStartedPage> {
   @override
   Widget build(BuildContext context) {
     return wizard == false
-    ? Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          title: const Text('EduKid'),
-          leading: Builder(
-            builder: (context) => IconButton(
-              icon: const Icon(Icons.menu),
-              onPressed: () {
-                // Now Scaffold.of(context) will work correctly
-                Scaffold.of(context).openDrawer();
-              },
-            ),
-          ),
-          backgroundColor: app_colors.orange,
-        ),
-        drawer: const MenuDrawer(
-          pageNumber: 0,
-        ),
-        body: BlocListener<AuthBloc, AuthState>(
-          listener: (context, state) {
-            if (state is UnAuthenticated) {
-              // Navigate to the sign in screen when the user Signs Out
-              Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => const LoginScreen()),
-                (route) => false,
-              );
-            }
-          },
-          child:Stack(fit: StackFit.expand,
-            children: [
-              Container(
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/doodle.png'),
-                    fit: BoxFit.cover,
-                  ),
+        ? Scaffold(
+            appBar: AppBar(
+              automaticallyImplyLeading: false,
+              title: const Text('EduKid'),
+              leading: Builder(
+                builder: (context) => IconButton(
+                  icon: const Icon(Icons.menu),
+                  onPressed: () {
+                    // Now Scaffold.of(context) will work correctly
+                    Scaffold.of(context).openDrawer();
+                  },
                 ),
               ),
-              SingleChildScrollView(
-                child: Center(
-                  child: Container(
-                    padding: EdgeInsets.fromLTRB(6.w, 6.w, 6.w, 15.w),
-                    child: Column(
-                      //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              backgroundColor: app_colors.orange,
+            ),
+            drawer: const MenuDrawer(
+              pageNumber: 0,
+            ),
+            body: BlocListener<AuthBloc, AuthState>(
+              listener: (context, state) {
+                if (state is UnAuthenticated) {
+                  // Navigate to the sign in screen when the user Signs Out
+                  Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(
+                        builder: (context) => const LoginScreen()),
+                    (route) => false,
+                  );
+                }
+              },
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  Container(
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/images/doodle.png'),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  SingleChildScrollView(
+                    child: Center(
+                      child: Container(
+                        padding: EdgeInsets.fromLTRB(6.w, 6.w, 6.w, 15.w),
+                        child: Column(
+                          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Image.asset(
+                                            'assets/images/coin.png',
+                                            height: 6.h,
+                                          ),
+                                          isLoaded
+                                              ? Text('$points',
+                                                  style: TextStyle(
+                                                      fontSize: 20.sp,
+                                                      fontWeight:
+                                                          FontWeight.bold))
+                                              : const CircularProgressIndicator(
+                                                  valueColor:
+                                                      AlwaysStoppedAnimation<
+                                                              Color>(
+                                                          app_colors.orange),
+                                                ),
+                                        ])
+                                  ],
+                                ),
+                                IconButton(
+                                  icon: Icon(Icons.info_outline_rounded,
+                                      color: app_colors.orange),
+                                  iconSize: 6.h,
+                                  onPressed: () {
+                                    showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return getDialog(context);
+                                        });
+                                  },
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 5.h),
+                            Text(
+                              'Hello there! What would you like to try today?',
+                              style: TextStyle(
+                                  fontSize: 20.sp, fontWeight: FontWeight.bold),
+                              softWrap: true,
+                            ),
+                            SizedBox(height: 5.h),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Image.asset(
-                                        'assets/images/coin.png',
-                                        height: 6.h,
-                                      ),
-                                      isLoaded
-                                          ? Text('$points',
-                                              style: TextStyle(
-                                                  fontSize: 20.sp,
-                                                  fontWeight: FontWeight.bold))
-                                          : const CircularProgressIndicator(
-                                              valueColor:
-                                                  AlwaysStoppedAnimation<Color>(
-                                                      app_colors.orange),
+                                Column(
+                                  children: [
+                                    const CardWidget(
+                                        text: 'Maths',
+                                        imagePath: 'assets/images/numbers.png',
+                                        borderColor: app_colors.fucsia,
+                                        goTo: 'math'),
+                                    SizedBox(
+                                      height: 1.h,
+                                    ),
+                                    isLoaded && currentDone[0] == 0
+                                        ? Row(children: [
+                                            const Icon(
+                                              Icons.circle,
+                                              color: app_colors.red,
                                             ),
-                                    ])
+                                            SizedBox(width: 0.5.w),
+                                            Text(
+                                              'No answers yet!',
+                                              style: TextStyle(
+                                                  fontSize: 11.sp,
+                                                  color: app_colors.red),
+                                            ),
+                                          ])
+                                        : const SizedBox(),
+                                  ],
+                                ),
+                                SizedBox(width: 10.w),
+                                Column(
+                                  children: [
+                                    const CardWidget(
+                                        text: 'Geography',
+                                        imagePath: 'assets/images/geo.png',
+                                        borderColor: app_colors.blue,
+                                        goTo: 'geo'),
+                                    SizedBox(
+                                      height: 1.h,
+                                    ),
+                                    isLoaded && currentDone[1] == 0
+                                        ? Row(children: [
+                                            const Icon(
+                                              Icons.circle,
+                                              color: app_colors.red,
+                                            ),
+                                            SizedBox(width: 0.5.w),
+                                            Text(
+                                              'No answers yet!',
+                                              style: TextStyle(
+                                                  fontSize: 11.sp,
+                                                  color: app_colors.red),
+                                            ),
+                                          ])
+                                        : const SizedBox(),
+                                  ],
+                                ),
                               ],
                             ),
-                            IconButton(
-                              icon: Icon(Icons.info_outline_rounded, color: app_colors.orange),
-                              iconSize: 6.h,
-                              onPressed: () {
-                                showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return getDialog(context);
-                                    });
-                              },
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 5.h),
-                        Text(
-                          'Hello there! What would you like to try today?',
-                          style: TextStyle(
-                              fontSize: 20.sp, fontWeight: FontWeight.bold),
-                          softWrap: true,
-                        ),
-                        SizedBox(height: 5.h),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Column(
+                            SizedBox(height: 5.h),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const CardWidget(
-                                    text: 'Maths',
-                                    imagePath: 'assets/images/numbers.png',
-                                    borderColor: app_colors.fucsia,
-                                    goTo: 'math'),
-                                SizedBox(
-                                  height: 1.h,
+                                Column(
+                                  children: [
+                                    const CardWidget(
+                                        text: 'History',
+                                        imagePath: 'assets/images/storia.png',
+                                        borderColor: app_colors.green,
+                                        goTo: 'storia'),
+                                    SizedBox(
+                                      height: 1.h,
+                                    ),
+                                    isLoaded && currentDone[2] == 0
+                                        ? Row(children: [
+                                            const Icon(
+                                              Icons.circle,
+                                              color: app_colors.red,
+                                            ),
+                                            SizedBox(width: 0.5.w),
+                                            Text(
+                                              'No answers yet!',
+                                              style: TextStyle(
+                                                  fontSize: 11.sp,
+                                                  color: app_colors.red),
+                                            ),
+                                          ])
+                                        : const SizedBox(),
+                                  ],
                                 ),
-                                isLoaded && currentDone[0] == 0
-                                    ? Row(children: [
-                                        const Icon(
-                                          Icons.circle,
-                                          color: app_colors.red,
-                                        ),
-                                        SizedBox(width: 0.5.w),
-                                        Text(
-                                          'No answers yet!',
-                                          style: TextStyle(
-                                              fontSize: 11.sp,
-                                              color: app_colors.red),
-                                        ),
-                                      ])
-                                    : const SizedBox(),
-                              ],
-                            ),
-                            SizedBox(width: 10.w),
-                            Column(
-                              children: [
-                                const CardWidget(
-                                    text: 'Geography',
-                                    imagePath: 'assets/images/geo.png',
-                                    borderColor: app_colors.blue,
-                                    goTo: 'geo'),
-                                SizedBox(
-                                  height: 1.h,
+                                SizedBox(width: 10.w),
+                                Column(
+                                  children: [
+                                    const CardWidget(
+                                        text: 'Science',
+                                        imagePath: 'assets/images/scienze.png',
+                                        borderColor: app_colors.orange,
+                                        goTo: 'scienze'),
+                                    SizedBox(
+                                      height: 1.h,
+                                    ),
+                                    isLoaded && currentDone[3] == 0
+                                        ? Row(children: [
+                                            const Icon(
+                                              Icons.circle,
+                                              color: app_colors.red,
+                                            ),
+                                            SizedBox(width: 0.5.w),
+                                            Text(
+                                              'No answers yet!',
+                                              style: TextStyle(
+                                                  fontSize: 11.sp,
+                                                  color: app_colors.red),
+                                            ),
+                                          ])
+                                        : const SizedBox(),
+                                  ],
                                 ),
-                                isLoaded && currentDone[1] == 0
-                                    ? Row(children: [
-                                        const Icon(
-                                          Icons.circle,
-                                          color: app_colors.red,
-                                        ),
-                                        SizedBox(width: 0.5.w),
-                                        Text(
-                                          'No answers yet!',
-                                          style: TextStyle(
-                                              fontSize: 11.sp,
-                                              color: app_colors.red),
-                                        ),
-                                      ])
-                                    : const SizedBox(),
-                              ],
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 5.h),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Column(
-                              children: [
-                                const CardWidget(
-                                    text: 'History',
-                                    imagePath: 'assets/images/storia.png',
-                                    borderColor: app_colors.green,
-                                    goTo: 'storia'),
-                                SizedBox(
-                                  height: 1.h,
-                                ),
-                                isLoaded && currentDone[2] == 0
-                                    ? Row(children: [
-                                        const Icon(
-                                          Icons.circle,
-                                          color: app_colors.red,
-                                        ),
-                                        SizedBox(width: 0.5.w),
-                                        Text(
-                                          'No answers yet!',
-                                          style: TextStyle(
-                                              fontSize: 11.sp,
-                                              color: app_colors.red),
-                                        ),
-                                      ])
-                                    : const SizedBox(),
-                              ],
-                            ),
-                            SizedBox(width: 10.w),
-                            Column(
-                              children: [
-                                const CardWidget(
-                                    text: 'Science',
-                                    imagePath: 'assets/images/scienze.png',
-                                    borderColor: app_colors.orange,
-                                    goTo: 'scienze'),
-                                SizedBox(
-                                  height: 1.h,
-                                ),
-                                isLoaded && currentDone[3] == 0
-                                    ? Row(children: [
-                                        const Icon(
-                                          Icons.circle,
-                                          color: app_colors.red,
-                                        ),
-                                        SizedBox(width: 0.5.w),
-                                        Text(
-                                          'No answers yet!',
-                                          style: TextStyle(
-                                              fontSize: 11.sp,
-                                              color: app_colors.red),
-                                        ),
-                                      ])
-                                    : const SizedBox(),
                               ],
                             ),
                           ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
-                ),
+                  if (!isConnected)
+                    AlertDialog(
+                      actionsPadding: const EdgeInsets.all(20),
+                      title: Text('Error', style: TextStyle(fontSize: 14.sp)),
+                      content: Text(
+                          'It seems there is no internet connection. Please connect to a wifi or mobile data network.',
+                          style: TextStyle(fontSize: 13.sp)),
+                      actions: <Widget>[
+                        ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                padding:
+                                    EdgeInsets.fromLTRB(4.w, 1.3.h, 4.w, 1.3.h),
+                                backgroundColor: app_colors.orange),
+                            onPressed: () {
+                              Navigator.pushNamed(context, "getStarted");
+                              if (isConnected) {
+                                Navigator.of(context).pop();
+                              }
+                            },
+                            child:
+                                Text('Ok', style: TextStyle(fontSize: 13.sp))),
+                      ],
+                    ),
+                ],
               ),
-              if (!isConnected)
-                AlertDialog(
-                  actionsPadding: const EdgeInsets.all(20),
-                  title: Text('Error', style: TextStyle(fontSize: 14.sp)),
-                  content: Text(
-                      'It seems there is no internet connection. Please connect to a wifi or mobile data network.',
-                      style: TextStyle(fontSize: 13.sp)),
-                  actions: <Widget>[
-                    ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: app_colors.orange),
-                        onPressed: () {
-                          Navigator.pushNamed(context, "getStarted");
-                          if (isConnected) {
-                            Navigator.of(context).pop();
-                          }
-                        },
-                        child: Text('Ok', style: TextStyle(fontSize: 13.sp))),
-                  ],
-                ),
-            ],
-          ),
-        )
-        ):
-    OnboardingScreen();
+            ))
+        : OnboardingScreen();
   }
 
   Widget getDialog(BuildContext context) {
@@ -344,15 +352,19 @@ class _GetStartedPageState extends State<GetStartedPage> {
         ],
       ),
       content: Text(
-          'For each correct answer you will earn  5 coins but be careful! If your answer is wrong you will lose 3.', style: TextStyle(fontSize: 13.sp)),
+          'For each correct answer you will earn  5 coins but be careful! If your answer is wrong you will lose 3.',
+          style: TextStyle(fontSize: 13.sp)),
       actionsPadding: const EdgeInsets.all(20),
       actions: <Widget>[
         ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: app_colors.orange),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: app_colors.orange,
+              padding: EdgeInsets.fromLTRB(4.w, 1.3.h, 4.w, 1.3.h),
+            ),
             onPressed: () {
               Navigator.pop(context);
             },
-            child:  Text('Close', style: TextStyle(fontSize: 13.sp)))
+            child: Text('Close', style: TextStyle(fontSize: 13.sp)))
       ],
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
     );

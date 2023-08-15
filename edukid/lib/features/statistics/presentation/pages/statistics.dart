@@ -16,7 +16,8 @@ class StatisticsPage extends StatefulWidget {
 class _StatisticsPageState extends State<StatisticsPage>
     with SingleTickerProviderStateMixin {
   final leaderBoardRepository = sl<LeaderboardRepository>();
-  final personalCategoryStatisticsRepository = sl<PersonalCategoryStatisticsRepository>();
+  final personalCategoryStatisticsRepository =
+      sl<PersonalCategoryStatisticsRepository>();
   List<int> listRanks = [];
   List<String> listNames = [];
   List<String> listSurnames = [];
@@ -55,8 +56,8 @@ class _StatisticsPageState extends State<StatisticsPage>
   }
 
   Future<void> loadData() async {
-    if(await leaderBoardRepository.isDeviceConnected()
-        && await personalCategoryStatisticsRepository.isDeviceConnected()) {
+    if (await leaderBoardRepository.isDeviceConnected() &&
+        await personalCategoryStatisticsRepository.isDeviceConnected()) {
       await getPodium();
       await getPersonalEntry();
       await getPersonalCategoryStatistics();
@@ -119,139 +120,144 @@ class _StatisticsPageState extends State<StatisticsPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          title: const Text(
-            'Statistics',
-          ),
-          leading: Builder(
-            builder: (context) => IconButton(
-              icon: const Icon(Icons.menu),
-              onPressed: () {
-                // Now Scaffold.of(context) will work correctly
-                Scaffold.of(context).openDrawer();
-              },
-            ),
-          ),
-          backgroundColor: app_colors.orange,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: const Text(
+          'Statistics',
         ),
-        drawer: const MenuDrawer(
-          pageNumber: 2,
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: const Icon(Icons.menu),
+            onPressed: () {
+              // Now Scaffold.of(context) will work correctly
+              Scaffold.of(context).openDrawer();
+            },
+          ),
         ),
-        body: isLoaded ?
-        Stack(fit: StackFit.expand, children: [
-          Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/doodle.png'),
-                fit: BoxFit.cover,
+        backgroundColor: app_colors.orange,
+      ),
+      drawer: const MenuDrawer(
+        pageNumber: 2,
+      ),
+      body: isLoaded
+          ? Stack(fit: StackFit.expand, children: [
+              Container(
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/doodle.png'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
-            ),
-          ),
-          SingleChildScrollView(
-              child: Column(children: [
-            Padding(
-              padding: EdgeInsets.all(5.w),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: app_colors.transparent,
-                        border: Border.all(
-                            color: app_colors.orange, width: 3),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('LEADERBOARD',
-                              style: TextStyle(
-                                  fontSize: 15.sp,
-                                  fontWeight: FontWeight.bold)),
-                          for (int index = 0;
-                              index < listRanks.length - 1;
-                              index++)
-                            _buildPodiumEntry(
-                              listRanks[index],
-                              listNames[index],
-                              listSurnames[index],
-                              listPoints[index],
-                            ),
-                          listRanks.last != 1 &&
-                                  listRanks.last != 2 &&
-                                  listRanks.last != 3
-                              ? const Text('. . .')
-                              : const SizedBox(),
-                          listRanks.last != 1 &&
-                                  listRanks.last != 2 &&
-                                  listRanks.last != 3
-                              ? _buildPodiumEntry(
-                                  listRanks.last,
-                                  listNames.last,
-                                  listSurnames.last,
-                                  listPoints.last)
-                              : const SizedBox(),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 2.h),
-                    DefaultTabController(
-                      length: 4,
-                      child: Column(
-                        children: [
-                          customTabBar(context),
-                          SizedBox(
-                            height: 45.h, // Adjust the height as needed
-                            child: TabBarView(
-                              controller: _tabController,
-                              children: [
-                                for (int index = 0;
-                                    index < listCurrentCorrect.length;
-                                    index++)
-                                  buildStatisticsWidget(
-                                    context,
-                                    listCurrentCorrect[index],
-                                    listCurrentDone[index],
-                                    listLatestCorrect[index],
-                                    listLatestDone[index],
-                                    tabIndicatorColors[index],
-                                  ),
-                              ],
-                            ),
+              SingleChildScrollView(
+                  child: Column(children: [
+                Padding(
+                  padding: EdgeInsets.all(5.w),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: app_colors.transparent,
+                            border:
+                                Border.all(color: app_colors.orange, width: 3),
+                            borderRadius: BorderRadius.circular(12),
                           ),
-                        ],
-                      ),
-                    )
-                  ]),
-            )
-          ]))
-        ]) :
-        Stack(
-          fit: StackFit.expand,
-          children: [
-            const Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(app_colors.orange),)),
-            if(!isConnected)
-              AlertDialog(
-                actionsPadding: const EdgeInsets.all(20),
-                title: Text('Error', style: TextStyle(fontSize: 14.sp)),
-                content: Text('It seems there is no internet connection. Please connect to a wifi or mobile data network.',
-                    style: TextStyle(fontSize: 13.sp)),
-                actions: <Widget>[
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(backgroundColor: app_colors.orange),
-                      onPressed: () {
-                        Navigator.pushNamed(context, "statistics");
-                        if(isConnected) {
-                          Navigator.of(context).pop();
-                        }
-                      },
-                      child: Text('Ok', style: TextStyle(fontSize: 13.sp))),
-                ],
-              ),
-          ],
-        ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('LEADERBOARD',
+                                  style: TextStyle(
+                                      fontSize: 15.sp,
+                                      fontWeight: FontWeight.bold)),
+                              for (int index = 0;
+                                  index < listRanks.length - 1;
+                                  index++)
+                                _buildPodiumEntry(
+                                  listRanks[index],
+                                  listNames[index],
+                                  listSurnames[index],
+                                  listPoints[index],
+                                ),
+                              listRanks.last != 1 &&
+                                      listRanks.last != 2 &&
+                                      listRanks.last != 3
+                                  ? const Text('. . .')
+                                  : const SizedBox(),
+                              listRanks.last != 1 &&
+                                      listRanks.last != 2 &&
+                                      listRanks.last != 3
+                                  ? _buildPodiumEntry(
+                                      listRanks.last,
+                                      listNames.last,
+                                      listSurnames.last,
+                                      listPoints.last)
+                                  : const SizedBox(),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 2.h),
+                        DefaultTabController(
+                          length: 4,
+                          child: Column(
+                            children: [
+                              customTabBar(context),
+                              SizedBox(
+                                height: 45.h, // Adjust the height as needed
+                                child: TabBarView(
+                                  controller: _tabController,
+                                  children: [
+                                    for (int index = 0;
+                                        index < listCurrentCorrect.length;
+                                        index++)
+                                      buildStatisticsWidget(
+                                        context,
+                                        listCurrentCorrect[index],
+                                        listCurrentDone[index],
+                                        listLatestCorrect[index],
+                                        listLatestDone[index],
+                                        tabIndicatorColors[index],
+                                      ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      ]),
+                )
+              ]))
+            ])
+          : Stack(
+              fit: StackFit.expand,
+              children: [
+                const Center(
+                    child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(app_colors.orange),
+                )),
+                if (!isConnected)
+                  AlertDialog(
+                    actionsPadding: const EdgeInsets.all(20),
+                    title: Text('Error', style: TextStyle(fontSize: 14.sp)),
+                    content: Text(
+                        'It seems there is no internet connection. Please connect to a wifi or mobile data network.',
+                        style: TextStyle(fontSize: 13.sp)),
+                    actions: <Widget>[
+                      ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: app_colors.orange),
+                          onPressed: () {
+                            Navigator.pushNamed(context, "statistics");
+                            if (isConnected) {
+                              Navigator.of(context).pop();
+                            }
+                          },
+                          child: Text('Ok', style: TextStyle(fontSize: 13.sp))),
+                    ],
+                  ),
+              ],
+            ),
     );
   }
 
@@ -373,7 +379,8 @@ class _StatisticsPageState extends State<StatisticsPage>
 
   Text getText(BuildContext context, int currentCorrect, int currentDone,
       int latestCorrect, int latestDone) {
-    if (currentDone == 0) {//examples :: c: 0/0 -> l: 0/0
+    if (currentDone == 0) {
+      //examples :: c: 0/0 -> l: 0/0
       return Text(
           "You did not answer to any question yet! Let's set today's score!",
           style: TextStyle(
@@ -381,22 +388,26 @@ class _StatisticsPageState extends State<StatisticsPage>
               fontWeight: FontWeight.bold,
               color: app_colors.red));
     }
-    if (latestDone == 0 && currentCorrect > 0) { //examples :: c: 1/1 -> l: 0/0
+    if (latestDone == 0 && currentCorrect > 0) {
+      //examples :: c: 1/1 -> l: 0/0
       return Text("Good job! You are improving, keep it like this!",
           style: TextStyle(
               fontSize: 14.sp,
               fontWeight: FontWeight.bold,
               color: app_colors.green));
     }
-    if (latestDone == 0 && currentCorrect == 0) {//examples :: c: 0/1 -> l: 0/0
-      return Text("You are exercising more, try to do your best to improve the score!",
+    if (latestDone == 0 && currentCorrect == 0) {
+      //examples :: c: 0/1 -> l: 0/0
+      return Text(
+          "You are exercising more, try to do your best to improve the score!",
           style: TextStyle(
               fontSize: 14.sp,
               fontWeight: FontWeight.bold,
               color: app_colors.orange));
     }
     if (currentCorrect / currentDone > latestCorrect / latestDone &&
-        currentDone >= latestDone) { //examples :: c: 2/3 -> l: 1/2 or 2/3 -> l: 1/3
+        currentDone >= latestDone) {
+      //examples :: c: 2/3 -> l: 1/2 or 2/3 -> l: 1/3
       return Text("Good job! You are improving, keep it like this!",
           style: TextStyle(
               fontSize: 14.sp,
@@ -404,7 +415,8 @@ class _StatisticsPageState extends State<StatisticsPage>
               color: app_colors.green));
     }
     if (currentCorrect / currentDone > latestCorrect / latestDone &&
-        currentDone < latestDone) { //examples :: c: 1/2 -> l: 1/3
+        currentDone < latestDone) {
+      //examples :: c: 1/2 -> l: 1/3
       return Text(
           'You are improving, but you need to exercise more. Keep it going!',
           style: TextStyle(
@@ -413,7 +425,8 @@ class _StatisticsPageState extends State<StatisticsPage>
               color: app_colors.orange));
     }
     if (currentCorrect / currentDone == latestCorrect / latestDone &&
-        currentDone > latestDone) { //examples :: c: 2/4 -> l: 1/2
+        currentDone > latestDone) {
+      //examples :: c: 2/4 -> l: 1/2
       return Text(
           "You are not improving, but you are exercising more. Keep going and try to do your best!",
           style: TextStyle(
@@ -422,7 +435,8 @@ class _StatisticsPageState extends State<StatisticsPage>
               color: app_colors.orange));
     }
     if (currentCorrect / currentDone == latestCorrect / latestDone &&
-        currentDone <= latestDone) { //examples :: c: 1/2 -> l: 1/2 or c: 1/2 -> l: 2/4
+        currentDone <= latestDone) {
+      //examples :: c: 1/2 -> l: 1/2 or c: 1/2 -> l: 2/4
       return Text(
           "You are not improving and doing more exercise. Keep going and try to do your best!",
           style: TextStyle(
@@ -431,14 +445,16 @@ class _StatisticsPageState extends State<StatisticsPage>
               color: app_colors.orange));
     }
     if (currentCorrect / currentDone < latestCorrect / latestDone &&
-        currentDone > latestDone) { //examples :: c: 2/6 -> l: 1/2
+        currentDone > latestDone) {
+      //examples :: c: 2/6 -> l: 1/2
       return Text(
           "You are not improving, but you are exercising more. Keep going and try to do your best!",
           style: TextStyle(
               fontSize: 14.sp,
               fontWeight: FontWeight.bold,
               color: app_colors.orange));
-    } else { // 1. < , == ::: 2. < , < :: examples :: c: 1/4 -> l: 2/4 and c: 1/2 -> l: 2/3
+    } else {
+      // 1. < , == ::: 2. < , < :: examples :: c: 1/4 -> l: 2/4 and c: 1/2 -> l: 2/3
       return Text(
           "Try hard, you can do better! Exercise more and take the challenge to beat your last score!",
           style: TextStyle(

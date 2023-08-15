@@ -37,8 +37,10 @@ class _LoginState extends State<LoginScreen> {
         body: BlocListener<AuthBloc, AuthState>(listener: (context, state) {
           if (state is Authenticated) {
             // Navigating to the dashboard screen if the user is authenticated
-            Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => const GetStartedPage()));
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const GetStartedPage()));
           } else if (state is AuthError) {
             Future.microtask(() {
               showDialog(
@@ -47,14 +49,16 @@ class _LoginState extends State<LoginScreen> {
                   return AlertDialog(
                     actionsPadding: const EdgeInsets.all(20),
                     title: Text('Error', style: TextStyle(fontSize: 14.sp)),
-                    content: Text(state.error.replaceFirst('Exception: ', ''), style: TextStyle(fontSize: 13.sp)),
+                    content: Text(state.error.replaceFirst('Exception: ', ''),
+                        style: TextStyle(fontSize: 13.sp)),
                     actions: <Widget>[
                       ElevatedButton(
-                        style: ElevatedButton.styleFrom(backgroundColor: app_colors.orange),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: Text('Ok', style: TextStyle(fontSize: 13.sp))),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: app_colors.orange),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text('Ok', style: TextStyle(fontSize: 13.sp))),
                     ],
                   );
                 },
@@ -118,7 +122,8 @@ class _LoginState extends State<LoginScreen> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => const SignUpScreen()),
+                                        builder: (context) =>
+                                            const SignUpScreen()),
                                   );
                                 },
                                 child: Text(
@@ -230,6 +235,7 @@ class _LoginState extends State<LoginScreen> {
   Widget getLoginButton() {
     return ElevatedButton(
       style: ButtonStyle(
+        padding: MaterialStateProperty.all(EdgeInsets.fromLTRB(4.w,1.3.h,4.w,1.3.h)),
         backgroundColor: MaterialStateProperty.all<Color>(
             app_colors.orange), // Set the background color
       ),

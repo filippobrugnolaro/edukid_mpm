@@ -22,20 +22,22 @@ class QuestionPage extends StatelessWidget {
       create: (_) => sl<TriviaBloc>(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text(
-            title,
-          ),
-          centerTitle: true,
-          backgroundColor: color,
-           automaticallyImplyLeading: false
-        ),
+            title: Text(
+              title,
+            ),
+            centerTitle: true,
+            backgroundColor: color,
+            automaticallyImplyLeading: false),
         body: BlocBuilder<TriviaBloc, TriviaState>(
           builder: (context, state) {
             if (state is TriviaInitialState) {
               final bloc = BlocProvider.of<TriviaBloc>(context);
               bloc.add(LoadTriviaEvent(title));
             } else if (state is TriviaLoadingState) {
-              return Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(color),));
+              return Center(
+                  child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(color),
+              ));
             } else if (state is TriviaQuestionState) {
               // Question state: Display the question and options
               return Stack(fit: StackFit.expand, children: [
@@ -51,7 +53,7 @@ class QuestionPage extends StatelessWidget {
                     padding: EdgeInsets.all(3.w),
                     child: Column(
                       children: [
-                        SizedBox(height:2.h),
+                        SizedBox(height: 2.h),
                         Text(
                           state.question.question,
                           style: TextStyle(fontSize: 18.sp),
@@ -99,8 +101,9 @@ class QuestionPage extends StatelessWidget {
                         SizedBox(height: 5.h),
                         ElevatedButton(
                           style: ButtonStyle(
-                            padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                                EdgeInsets.all(2.h)),
+                            padding:
+                                MaterialStateProperty.all<EdgeInsetsGeometry>(
+                                    EdgeInsets.all(2.h)),
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 color), // Set the background color
                           ),
@@ -113,19 +116,21 @@ class QuestionPage extends StatelessWidget {
                                   });
                             } else {
                               BlocProvider.of<TriviaBloc>(context).add(
-                                  SubmitTriviaAnswerEvent(state.question
-                                      .options[state.selectedOptionIndex], title));
+                                  SubmitTriviaAnswerEvent(
+                                      state.question
+                                          .options[state.selectedOptionIndex],
+                                      title));
                             }
                           },
                           child: Text("Submit",
-                            style: TextStyle(fontSize: 13.0.sp)),
+                              style: TextStyle(fontSize: 13.0.sp)),
                         ),
                       ],
                     ))
               ]);
             }
             if (state is TriviaResultState) {
-               return Stack(fit: StackFit.expand, children: [
+              return Stack(fit: StackFit.expand, children: [
                 Container(
                   decoration: const BoxDecoration(
                     image: DecorationImage(
@@ -136,66 +141,87 @@ class QuestionPage extends StatelessWidget {
                 ),
                 SingleChildScrollView(
                   child: Center(
-                  child: Column(
-                      children: [
-                        state.isCorrect
-                            ? getCorrect()
-                            : getWrong(state.correctOption),
-                        SizedBox(height: 4.h,),
-                        ElevatedButton(
-                            style: ButtonStyle(
-                              padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                                EdgeInsets.all(2.h)),
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  color), // Set the background color
+                    child: Column(children: [
+                      state.isCorrect
+                          ? getCorrect()
+                          : getWrong(state.correctOption),
+                      SizedBox(
+                        height: 4.h,
+                      ),
+                      ElevatedButton(
+                          style: ButtonStyle(
+                            padding:
+                                MaterialStateProperty.all<EdgeInsetsGeometry>(
+                                    EdgeInsets.all(2.h)),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                color), // Set the background color
+                          ),
+                          onPressed: () {
+                            BlocProvider.of<TriviaBloc>(context)
+                                .add(LoadTriviaEvent(title));
+                          },
+                          child: Text('Next question',
+                              style: TextStyle(fontSize: 13.sp))),
+                      SizedBox(
+                        height: 2.h,
+                      ),
+                      Text(
+                        'or',
+                        style: TextStyle(fontSize: 13.sp),
+                      ),
+                      SizedBox(
+                        height: 2.h,
+                      ),
+                      ElevatedButton(
+                          style: ButtonStyle(
+                            padding:
+                                MaterialStateProperty.all<EdgeInsetsGeometry>(
+                                    EdgeInsets.all(2.h)),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                app_colors.white), //
+                            side: MaterialStateProperty.all<BorderSide>(
+                              BorderSide(color: color, width: 2.0),
                             ),
-                            onPressed: () {
-                              BlocProvider.of<TriviaBloc>(context)
-                                  .add(LoadTriviaEvent(title));
-                            },
-                            child: Text('Next question', style: TextStyle(fontSize: 13.sp))),
-                        SizedBox(height: 2.h,),
-                        Text('or',style: TextStyle(fontSize: 13.sp),),
-                        SizedBox(height: 2.h,),
-                        ElevatedButton(
-                            style: ButtonStyle(
-                              padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                                EdgeInsets.all(2.h)),
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  app_colors.white), //
-                              side: MaterialStateProperty.all<BorderSide>(
-                                BorderSide(color: color, width: 2.0),
-                              ),
-                            ),
-                            onPressed: () {
-                              Navigator.of(context).pushReplacementNamed('getStarted');
-                            },
-                            child:  Text('Back to the home page',
-                                style: TextStyle(color: app_colors.black, fontSize: 13.sp))),
-                        SizedBox(
-                          height: 8.h,
-                        )
-                      ]),
-                              ),
-                )]);
+                          ),
+                          onPressed: () {
+                            Navigator.of(context)
+                                .pushReplacementNamed('getStarted');
+                          },
+                          child: Text('Back to the home page',
+                              style: TextStyle(
+                                  color: app_colors.black, fontSize: 13.sp))),
+                      SizedBox(
+                        height: 8.h,
+                      )
+                    ]),
+                  ),
+                )
+              ]);
             } else if (state is TriviaErrorState) {
-              return Stack(fit: StackFit.expand,
-                  children: [
-                    Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(color),)),
-                    AlertDialog(
-                      actionsPadding: const EdgeInsets.all(20),
-                      title: Text('Error', style: TextStyle(fontSize: 14.sp)),
-                      content: Text(state.errorMessage.replaceFirst('Exception: ', ''), style: TextStyle(fontSize: 13.sp)),
-                      actions: <Widget>[
-                        ElevatedButton(
-                            style: ElevatedButton.styleFrom(backgroundColor: app_colors.orange),
-                            onPressed: () {
-                              Navigator.popAndPushNamed(context, "getStarted");
-                            },
-                            child: Text('Ok', style: TextStyle(fontSize: 13.sp))),
-                      ],
-                    ),
-                  ],
+              return Stack(
+                fit: StackFit.expand,
+                children: [
+                  Center(
+                      child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(color),
+                  )),
+                  AlertDialog(
+                    actionsPadding: const EdgeInsets.all(20),
+                    title: Text('Error', style: TextStyle(fontSize: 14.sp)),
+                    content: Text(
+                        state.errorMessage.replaceFirst('Exception: ', ''),
+                        style: TextStyle(fontSize: 13.sp)),
+                    actions: <Widget>[
+                      ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: app_colors.orange),
+                          onPressed: () {
+                            Navigator.popAndPushNamed(context, "getStarted");
+                          },
+                          child: Text('Ok', style: TextStyle(fontSize: 13.sp))),
+                    ],
+                  ),
+                ],
               );
             } else {
               return Text('Unknown error', style: TextStyle(fontSize: 13.sp));
@@ -208,32 +234,36 @@ class QuestionPage extends StatelessWidget {
 
   Widget getCorrect() {
     return SizedBox(
-      width: 85.w,
-      child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-      Column(
-        children: [
-          SizedBox(height: 2.h,),
-          Image.asset(
-            'assets/images/coin.png',
-            width: 20.w,
+        width: 85.w,
+        child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+          Column(
+            children: [
+              SizedBox(
+                height: 2.h,
+              ),
+              Image.asset(
+                'assets/images/coin.png',
+                width: 20.w,
+              ),
+              Text(
+                '+5',
+                style: TextStyle(
+                    fontSize: 30.sp,
+                    fontWeight: FontWeight.w800,
+                    color: app_colors.green),
+              )
+            ],
           ),
-          Text(
-            '+5',
-            style: TextStyle(
-                fontSize: 30.sp,
-                fontWeight: FontWeight.w800,
-                color: app_colors.green),
-          )
-        ],
-      ),
-      Text('Correct!', style: TextStyle(fontSize: 25.sp)),
-      Text('You earned 5 coins!', style: TextStyle(fontSize: 13.sp)),
-      SizedBox(height: 2.h,),
-      Image.asset(
+          Text('Correct!', style: TextStyle(fontSize: 25.sp)),
+          Text('You earned 5 coins!', style: TextStyle(fontSize: 13.sp)),
+          SizedBox(
+            height: 2.h,
+          ),
+          Image.asset(
             'assets/images/correct.png',
             width: 40.w,
           ),
-    ]));
+        ]));
   }
 
   Widget getWrong(String correctAnswer) {
@@ -243,7 +273,7 @@ class QuestionPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height:2.h),
+            SizedBox(height: 2.h),
             Column(
               children: [
                 Image.asset(
@@ -272,7 +302,9 @@ class QuestionPage extends StatelessWidget {
             Text(
               'Correct answer was: $correctAnswer.',
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 15.sp, ),
+              style: TextStyle(
+                fontSize: 15.sp,
+              ),
             ),
             Text(
               'You lost 3 coins!',
@@ -281,9 +313,9 @@ class QuestionPage extends StatelessWidget {
             ),
             SizedBox(height: 2.h),
             Image.asset(
-            'assets/images/wrong.png',
-            width: 40.w,
-          ),
+              'assets/images/wrong.png',
+              width: 40.w,
+            ),
           ],
         ),
       ),
@@ -293,11 +325,15 @@ class QuestionPage extends StatelessWidget {
   Widget getDialog(dynamic context) {
     return AlertDialog(
       title: Text('Careful!', style: TextStyle(fontSize: 14.sp)),
-      content: Text('You need to select at least one option!', style: TextStyle(fontSize: 13.sp)),
+      content: Text('You need to select at least one option!',
+          style: TextStyle(fontSize: 13.sp)),
       actionsPadding: const EdgeInsets.all(20),
       actions: [
         ElevatedButton(
-          style: ElevatedButton.styleFrom(backgroundColor: color),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: color,
+            padding: EdgeInsets.fromLTRB(4.w, 1.3.h, 4.w, 1.3.h),
+          ),
           onPressed: () {
             Navigator.of(context).pop();
           },

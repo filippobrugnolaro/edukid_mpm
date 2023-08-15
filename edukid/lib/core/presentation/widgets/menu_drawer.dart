@@ -136,7 +136,7 @@ class MenuDrawer extends StatelessWidget {
       actions: <Widget>[
         ElevatedButton(
           style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.fromLTRB(6.w,2.h,6.w,2.h),
+            padding: EdgeInsets.fromLTRB(4.w,1.3.h,4.w,1.3.h),
             backgroundColor: Colors.white, // Background color
             foregroundColor: Colors.black, // Text color
             side: const BorderSide(color: app_colors.orange, width: 2),),
@@ -148,7 +148,7 @@ class MenuDrawer extends StatelessWidget {
           },
           child: Text('Yes', style: TextStyle(fontSize: 13.sp))),
         ElevatedButton(
-          style: ElevatedButton.styleFrom(backgroundColor: app_colors.orange,padding: EdgeInsets.fromLTRB(6.w,2.h,6.w,2.h)),
+          style: ElevatedButton.styleFrom(backgroundColor: app_colors.orange,padding: EdgeInsets.fromLTRB(4.w,1.3.h,4.w,1.3.h)),
           onPressed: () {
             Navigator.pop(context);
           },
