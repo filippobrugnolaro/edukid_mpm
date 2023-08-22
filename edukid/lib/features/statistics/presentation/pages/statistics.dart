@@ -246,7 +246,9 @@ class _StatisticsPageState extends State<StatisticsPage>
                     actions: <Widget>[
                       ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: app_colors.orange),
+                                padding:
+                                    EdgeInsets.fromLTRB(4.w, 1.3.h, 4.w, 1.3.h),
+                                backgroundColor: app_colors.orange),
                           onPressed: () {
                             Navigator.pushNamed(context, "statistics");
                             if (isConnected) {
