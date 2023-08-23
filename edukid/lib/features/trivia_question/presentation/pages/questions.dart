@@ -214,6 +214,8 @@ class QuestionPage extends StatelessWidget {
                     actions: <Widget>[
                       ElevatedButton(
                           style: ElevatedButton.styleFrom(
+                              padding:
+                              EdgeInsets.fromLTRB(4.w, 1.3.h, 4.w, 1.3.h),
                               backgroundColor: app_colors.orange),
                           onPressed: () {
                             Navigator.popAndPushNamed(context, "getStarted");

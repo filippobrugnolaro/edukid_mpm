@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:edukid/core/config/themes.dart';
 import 'package:edukid/di_container.dart' as di;
 import 'package:edukid/di_container.dart';
@@ -21,16 +23,40 @@ Future<void> main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  await Firebase.initializeApp(
-    options: const FirebaseOptions(
+  final optionsConfig =
+    (Platform.isAndroid) ?
+    const FirebaseOptions(
       projectId: "edu-kid",
       messagingSenderId: "208548965320",
       apiKey: 'AIzaSyCw6ARVwXQBYF5HibwlTt0DAumF6IOImIU',
       authDomain: 'AIzaSyCw6ARVwXQBYF5HibwlTt0DAumF6IOImIU',
       databaseURL:
-          'https://edu-kid-default-rtdb.europe-west1.firebasedatabase.app',
-      appId: "1:208548965320:web:8d0aa6affc3a866cb8eefd",
-    ),
+      'https://edu-kid-default-rtdb.europe-west1.firebasedatabase.app',
+      appId: "1:208548965320:android:9ca7abd77a1a451cb8eefd",
+    )
+      : (
+      (Platform.isIOS) ?
+      const FirebaseOptions(
+        projectId: "edu-kid",
+        messagingSenderId: "208548965320",
+        apiKey: 'AIzaSyCw6ARVwXQBYF5HibwlTt0DAumF6IOImIU',
+        authDomain: 'AIzaSyCw6ARVwXQBYF5HibwlTt0DAumF6IOImIU',
+        databaseURL:
+        'https://edu-kid-default-rtdb.europe-west1.firebasedatabase.app',
+        appId: "1:208548965320:ios:94f2e67585a0b15bb8eefd",
+      ) :
+      const FirebaseOptions(
+        projectId: "edu-kid",
+        messagingSenderId: "208548965320",
+        apiKey: 'AIzaSyCw6ARVwXQBYF5HibwlTt0DAumF6IOImIU',
+        authDomain: 'AIzaSyCw6ARVwXQBYF5HibwlTt0DAumF6IOImIU',
+        databaseURL:
+        'https://edu-kid-default-rtdb.europe-west1.firebasedatabase.app',
+        appId: "1:208548965320:web:8d0aa6affc3a866cb8eefd",
+      )
+  );
+  await Firebase.initializeApp(
+    options: optionsConfig
   );
   runApp(const MyApp());
 }
