@@ -129,30 +129,35 @@ class MenuDrawer extends StatelessWidget {
 
   Widget getDialog(BuildContext context) {
     return AlertDialog(
-      actionsAlignment: MainAxisAlignment.spaceBetween,
-      title:  Text('Confirm logout', style: TextStyle(fontSize: 14.sp)),
-      content:  Text('Are you sure you want to logout?', style: TextStyle(fontSize: 13.sp)),
+      actionsAlignment: MainAxisAlignment.spaceAround,
+      title: Text('Confirm logout', style: TextStyle(fontSize: 14.sp)),
+      content: Text('Are you sure you want to logout?',
+          style: TextStyle(fontSize: 13.sp)),
       actionsPadding: const EdgeInsets.all(20),
       actions: <Widget>[
         ElevatedButton(
           style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.fromLTRB(4.w,1.3.h,4.w,1.3.h),
-            backgroundColor: Colors.white, // Background color
-            foregroundColor: Colors.black, // Text color
-            side: const BorderSide(color: app_colors.orange, width: 2),),
-          onPressed: () {
-            BlocProvider.of<AuthBloc>(context).add(
-              SignOutRequested(),
-            );
-            Navigator.of(context).pushReplacementNamed("login");
-          },
-          child: Text('Yes', style: TextStyle(fontSize: 13.sp))),
+              padding: EdgeInsets.fromLTRB(4.w, 1.3.h, 4.w, 1.3.h),
+              backgroundColor: Colors.white, // Background color
+              foregroundColor: Colors.black, // Text color
+              side: const BorderSide(color: app_colors.orange, width: 2),
+            ),
+            
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text('No', style: TextStyle(fontSize: 13.sp))),
         ElevatedButton(
-          style: ElevatedButton.styleFrom(backgroundColor: app_colors.orange,padding: EdgeInsets.fromLTRB(4.w,1.3.h,4.w,1.3.h)),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: Text('No', style: TextStyle(fontSize: 13.sp))),
+            style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.fromLTRB(4.w, 1.3.h, 4.w, 1.3.h),
+                backgroundColor: app_colors.orange),
+            onPressed: () {
+              BlocProvider.of<AuthBloc>(context).add(
+                SignOutRequested(),
+              );
+              Navigator.of(context).pushReplacementNamed("login");
+            },
+            child: Text('Yes', style: TextStyle(fontSize: 13.sp))),
       ],
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
     );

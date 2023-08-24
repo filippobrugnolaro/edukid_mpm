@@ -204,19 +204,28 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget getDialog(BuildContext context) {
     return AlertDialog(
-      actionsAlignment: MainAxisAlignment.spaceBetween,
+      actionsAlignment: MainAxisAlignment.spaceAround,
       title: Text('Confirm logout', style: TextStyle(fontSize: 14.sp)),
       content: Text('Are you sure you want to logout?',
           style: TextStyle(fontSize: 13.sp)),
       actionsPadding: const EdgeInsets.all(20),
       actions: <Widget>[
         ElevatedButton(
-            style: ElevatedButton.styleFrom(
+          style: ElevatedButton.styleFrom(
               padding: EdgeInsets.fromLTRB(4.w, 1.3.h, 4.w, 1.3.h),
               backgroundColor: Colors.white, // Background color
               foregroundColor: Colors.black, // Text color
               side: const BorderSide(color: app_colors.orange, width: 2),
             ),
+            
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text('No', style: TextStyle(fontSize: 13.sp))),
+        ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.fromLTRB(4.w, 1.3.h, 4.w, 1.3.h),
+                backgroundColor: app_colors.orange),
             onPressed: () {
               BlocProvider.of<AuthBloc>(context).add(
                 SignOutRequested(),
@@ -224,14 +233,6 @@ class _ProfilePageState extends State<ProfilePage> {
               Navigator.of(context).pushReplacementNamed("login");
             },
             child: Text('Yes', style: TextStyle(fontSize: 13.sp))),
-        ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.fromLTRB(4.w, 1.3.h, 4.w, 1.3.h),
-                backgroundColor: app_colors.orange),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: Text('No', style: TextStyle(fontSize: 13.sp))),
       ],
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
     );

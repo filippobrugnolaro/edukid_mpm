@@ -27,7 +27,11 @@ class QuestionPage extends StatelessWidget {
             ),
             centerTitle: true,
             backgroundColor: color,
-            automaticallyImplyLeading: false),
+            automaticallyImplyLeading: false,
+            leading: BackButton(
+              onPressed: () => Navigator.of(context)
+                                .pushReplacementNamed('getStarted'),
+            ),),
         body: BlocBuilder<TriviaBloc, TriviaState>(
           builder: (context, state) {
             if (state is TriviaInitialState) {
@@ -101,9 +105,9 @@ class QuestionPage extends StatelessWidget {
                         SizedBox(height: 5.h),
                         ElevatedButton(
                           style: ButtonStyle(
-                            padding:
-                                MaterialStateProperty.all<EdgeInsetsGeometry>(
-                                    EdgeInsets.all(2.h)),
+                            padding: MaterialStateProperty.all<
+                                    EdgeInsetsGeometry>(
+                                EdgeInsets.fromLTRB(4.w, 1.3.h, 4.w, 1.3.h)),
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 color), // Set the background color
                           ),
@@ -152,7 +156,7 @@ class QuestionPage extends StatelessWidget {
                           style: ButtonStyle(
                             padding:
                                 MaterialStateProperty.all<EdgeInsetsGeometry>(
-                                    EdgeInsets.all(2.h)),
+                                    EdgeInsets.fromLTRB(4.w, 1.3.h, 4.w, 1.3.h)),
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 color), // Set the background color
                           ),
@@ -174,9 +178,9 @@ class QuestionPage extends StatelessWidget {
                       ),
                       ElevatedButton(
                           style: ButtonStyle(
-                            padding:
-                                MaterialStateProperty.all<EdgeInsetsGeometry>(
-                                    EdgeInsets.all(2.h)),
+                            padding: MaterialStateProperty.all<
+                                    EdgeInsetsGeometry>(
+                                EdgeInsets.fromLTRB(4.w, 1.3.h, 4.w, 1.3.h)),
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 app_colors.white), //
                             side: MaterialStateProperty.all<BorderSide>(
@@ -215,7 +219,7 @@ class QuestionPage extends StatelessWidget {
                       ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               padding:
-                              EdgeInsets.fromLTRB(4.w, 1.3.h, 4.w, 1.3.h),
+                                  EdgeInsets.fromLTRB(4.w, 1.3.h, 4.w, 1.3.h),
                               backgroundColor: app_colors.orange),
                           onPressed: () {
                             Navigator.popAndPushNamed(context, "getStarted");
@@ -302,7 +306,7 @@ class QuestionPage extends StatelessWidget {
               ],
             ),
             Text(
-              'Correct answer was: $correctAnswer.',
+              'Correct answer was: \n$correctAnswer',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 15.sp,
