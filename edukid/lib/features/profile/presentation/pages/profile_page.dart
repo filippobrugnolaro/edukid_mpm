@@ -10,7 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
 // final or const?
-const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'];
+const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j','k','l'];
 
 final random = Random();
 final randomIndex = random.nextInt(letters.length);
@@ -92,10 +92,21 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Image.asset(
-                        'assets/images/avatars/$randomLetter.png',
-                        width: 35.w,
-                        height: 35.h,
+                      Container(
+                        width: 40.w,
+                        height: 40.h,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white,
+                          border: Border.all(color: app_colors.orange, width: 3.0),
+                        ),
+                        child: ClipOval(
+                          child: Image.asset(
+                            'assets/images/avatars/$randomLetter.png',
+                            width: 40.w,
+                            height: 40.h,
+                          ),
+                        ),
                       ),
                       Text(
                         '$name $surname',
@@ -105,7 +116,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             fontFamily: 'Poppins',
                             fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(height: 3.h),
+                      SizedBox(height: 2.5.h),
                       RichText(
                         text: TextSpan(
                           children: <TextSpan>[
