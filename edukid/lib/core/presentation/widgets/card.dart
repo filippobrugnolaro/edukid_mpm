@@ -48,10 +48,21 @@ class CardWidget extends StatelessWidget {
                 width: 25.w,
                 height: 12.h,
               ),
-              Text(
-                text,
-                style: TextStyle(color: app_colors.black, fontSize: 12.5.sp),
-              ),
+              Builder(
+                builder: (BuildContext context) {
+                  // Create a MediaQuery with a custom textScaleFactor
+                  final customMediaQuery = MediaQuery.of(context).copyWith(
+                    textScaleFactor: 1.0, // Adjust the text scale factor as needed
+                  );
+                  return MediaQuery(
+                    data: customMediaQuery,
+                    child: Text(
+                      text,
+                      style: TextStyle(color: app_colors.black, fontSize: 12.5.sp),
+                    ),
+                  );
+                },
+              )
             ],
           ),
         ));

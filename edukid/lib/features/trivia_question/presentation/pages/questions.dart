@@ -28,10 +28,17 @@ class QuestionPage extends StatelessWidget {
             centerTitle: true,
             backgroundColor: color,
             automaticallyImplyLeading: false,
-            leading: BackButton(
-              onPressed: () => Navigator.of(context)
-                                .pushReplacementNamed('getStarted'),
-            ),),
+            leading: BlocBuilder<TriviaBloc, TriviaState>(
+              builder: (context, state) {
+              if (state is TriviaQuestionState) {
+                return BackButton(
+                  onPressed: () => Navigator.of(context).pushReplacementNamed('getStarted'),
+                );
+              }
+              return const SizedBox();
+              },
+            ),
+        ),
         body: BlocBuilder<TriviaBloc, TriviaState>(
           builder: (context, state) {
             if (state is TriviaInitialState) {

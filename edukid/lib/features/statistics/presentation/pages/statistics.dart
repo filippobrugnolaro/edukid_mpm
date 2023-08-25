@@ -282,8 +282,8 @@ class _StatisticsPageState extends State<StatisticsPage>
               '$rank.',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.sp),
             ),
-            SizedBox(width: 2.w),
-            Text('$firstName $lastName', style: TextStyle(fontSize: 13.sp)),
+            SizedBox(width: 1.5.w),
+            Text('$firstName $lastName', style: TextStyle(fontSize: 13.sp, overflow: TextOverflow.ellipsis)),
           ]),
           Expanded(
             // Use Expanded to align the icon and points to the right
@@ -295,7 +295,7 @@ class _StatisticsPageState extends State<StatisticsPage>
                   style:
                       TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(width: 2.w),
+                SizedBox(width: 1.5.w),
                 Image.asset(
                   'assets/images/coin.png',
                   height: 3.5.h,

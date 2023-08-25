@@ -175,14 +175,14 @@ class _GetStartedPageState extends State<GetStartedPage> {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 5.h),
+                            SizedBox(height: 1.5.h),
                             Text(
                               'Hello there! What would you like to try today?',
                               style: TextStyle(
                                   fontSize: 20.sp, fontWeight: FontWeight.bold),
                               softWrap: true,
                             ),
-                            SizedBox(height: 5.h),
+                            SizedBox(height: 2.h),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -204,7 +204,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
                                             ),
                                             SizedBox(width: 0.5.w),
                                             Text(
-                                              'No answers yet!',
+                                              'No answer!',
                                               style: TextStyle(
                                                   fontSize: 11.sp,
                                                   color: app_colors.red),
@@ -232,7 +232,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
                                             ),
                                             SizedBox(width: 0.5.w),
                                             Text(
-                                              'No answers yet!',
+                                              'No answer!',
                                               style: TextStyle(
                                                   fontSize: 11.sp,
                                                   color: app_colors.red),
@@ -265,7 +265,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
                                             ),
                                             SizedBox(width: 0.5.w),
                                             Text(
-                                              'No answers yet!',
+                                              'No answer!',
                                               style: TextStyle(
                                                   fontSize: 11.sp,
                                                   color: app_colors.red),
@@ -293,7 +293,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
                                             ),
                                             SizedBox(width: 0.5.w),
                                             Text(
-                                              'No answers yet!',
+                                              'No answer!',
                                               style: TextStyle(
                                                   fontSize: 11.sp,
                                                   color: app_colors.red),
