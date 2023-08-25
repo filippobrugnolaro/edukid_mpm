@@ -56,10 +56,12 @@ class CardWidget extends StatelessWidget {
                   );
                   return MediaQuery(
                     data: customMediaQuery,
-                    child: Text(
-                      text,
-                      style: TextStyle(color: app_colors.black, fontSize: 12.5.sp),
-                    ),
+                    child: Expanded(
+                      child: Text(
+                        text,
+                        style: TextStyle(color: app_colors.black, fontSize: 12.5.sp),
+                      ),
+                    )
                   );
                 },
               )

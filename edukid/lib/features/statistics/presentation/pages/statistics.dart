@@ -277,17 +277,15 @@ class _StatisticsPageState extends State<StatisticsPage>
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(children: [
-            Text(
-              '$rank.',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.sp),
-            ),
-            SizedBox(width: 1.5.w),
-            Text('$firstName $lastName', style: TextStyle(fontSize: 13.sp, overflow: TextOverflow.ellipsis)),
-          ]),
+          Text(
+            '$rank.',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.sp),
+          ),
+          SizedBox(width: 1.5.w),
           Expanded(
-            // Use Expanded to align the icon and points to the right
-            child: Row(
+            child: Text('$firstName $lastName', style: TextStyle(fontSize: 13.sp, overflow: TextOverflow.ellipsis)),
+          ),
+          Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Text(
@@ -302,7 +300,6 @@ class _StatisticsPageState extends State<StatisticsPage>
                 ),
               ],
             ),
-          ),
         ],
       ),
     );
