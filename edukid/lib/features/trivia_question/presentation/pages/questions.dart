@@ -60,7 +60,9 @@ class QuestionPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                Container(
+                SingleChildScrollView(
+                child: Center(
+                child: Container(
                     padding: EdgeInsets.all(3.w),
                     child: Column(
                       children: [
@@ -138,6 +140,8 @@ class QuestionPage extends StatelessWidget {
                         ),
                       ],
                     ))
+                  )
+                )
               ]);
             }
             if (state is TriviaResultState) {
@@ -199,6 +203,7 @@ class QuestionPage extends StatelessWidget {
                                 .pushReplacementNamed('getStarted');
                           },
                           child: Text('Back to the home page',
+                              textAlign: TextAlign.center,
                               style: TextStyle(
                                   color: app_colors.black, fontSize: 13.sp))),
                       SizedBox(

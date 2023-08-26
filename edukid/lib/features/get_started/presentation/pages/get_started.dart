@@ -203,12 +203,21 @@ class _GetStartedPageState extends State<GetStartedPage> {
                                               color: app_colors.red,
                                             ),
                                             SizedBox(width: 0.5.w),
-                                            Text(
-                                              'No answer!',
-                                              style: TextStyle(
-                                                  fontSize: 11.sp,
-                                                  color: app_colors.red),
-                                            ),
+                                            Builder(
+                                              builder: (BuildContext context) {
+                                                // Create a MediaQuery with a custom textScaleFactor
+                                                final customMediaQuery = MediaQuery.of(context).copyWith(
+                                                  textScaleFactor: 1.0, // Adjust the text scale factor as needed
+                                                );
+                                                return MediaQuery(
+                                                  data: customMediaQuery,
+                                                  child: Text(
+                                                    'No answer!',
+                                                    style: TextStyle(color: app_colors.red, fontSize: 11.sp),
+                                                  ),
+                                                );
+                                              },
+                                            )
                                           ])
                                         : const SizedBox(),
                                   ],
@@ -231,12 +240,21 @@ class _GetStartedPageState extends State<GetStartedPage> {
                                               color: app_colors.red,
                                             ),
                                             SizedBox(width: 0.5.w),
-                                            Text(
-                                              'No answer!',
-                                              style: TextStyle(
-                                                  fontSize: 11.sp,
-                                                  color: app_colors.red),
-                                            ),
+                                            Builder(
+                                              builder: (BuildContext context) {
+                                                // Create a MediaQuery with a custom textScaleFactor
+                                                final customMediaQuery = MediaQuery.of(context).copyWith(
+                                                  textScaleFactor: 1.0, // Adjust the text scale factor as needed
+                                                );
+                                                return MediaQuery(
+                                                  data: customMediaQuery,
+                                                  child: Text(
+                                                    'No answer!',
+                                                    style: TextStyle(color: app_colors.red, fontSize: 11.sp),
+                                                  ),
+                                                );
+                                              },
+                                            )
                                           ])
                                         : const SizedBox(),
                                   ],
@@ -264,12 +282,21 @@ class _GetStartedPageState extends State<GetStartedPage> {
                                               color: app_colors.red,
                                             ),
                                             SizedBox(width: 0.5.w),
-                                            Text(
-                                              'No answer!',
-                                              style: TextStyle(
-                                                  fontSize: 11.sp,
-                                                  color: app_colors.red),
-                                            ),
+                                            Builder(
+                                              builder: (BuildContext context) {
+                                                // Create a MediaQuery with a custom textScaleFactor
+                                                final customMediaQuery = MediaQuery.of(context).copyWith(
+                                                  textScaleFactor: 1.0, // Adjust the text scale factor as needed
+                                                );
+                                                return MediaQuery(
+                                                  data: customMediaQuery,
+                                                  child: Text(
+                                                    'No answer!',
+                                                    style: TextStyle(color: app_colors.red, fontSize: 11.sp),
+                                                  ),
+                                                );
+                                              },
+                                            )
                                           ])
                                         : const SizedBox(),
                                   ],
@@ -292,12 +319,21 @@ class _GetStartedPageState extends State<GetStartedPage> {
                                               color: app_colors.red,
                                             ),
                                             SizedBox(width: 0.5.w),
-                                            Text(
-                                              'No answer!',
-                                              style: TextStyle(
-                                                  fontSize: 11.sp,
-                                                  color: app_colors.red),
-                                            ),
+                                            Builder(
+                                              builder: (BuildContext context) {
+                                                // Create a MediaQuery with a custom textScaleFactor
+                                                final customMediaQuery = MediaQuery.of(context).copyWith(
+                                                  textScaleFactor: 1.0, // Adjust the text scale factor as needed
+                                                );
+                                                return MediaQuery(
+                                                    data: customMediaQuery,
+                                                    child: Text(
+                                                      'No answer!',
+                                                      style: TextStyle(color: app_colors.red, fontSize: 11.sp),
+                                                    ),
+                                                );
+                                              },
+                                            )
                                           ])
                                         : const SizedBox(),
                                   ],

@@ -75,8 +75,8 @@ class _ProfilePageState extends State<ProfilePage> {
       drawer: const MenuDrawer(
         pageNumber: 1,
       ),
-      body: isLoaded
-          ? Stack(
+      body: isLoaded ?
+            Stack(
               fit: StackFit.expand,
               children: [
                 Container(
@@ -89,97 +89,100 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(height: 2.h,),
-                      CircleAvatar(
-                        backgroundColor: app_colors.orange,
-                        radius: 100,
-                        child: CircleAvatar(
-                          radius: 95,
-                          backgroundColor: app_colors.white,
-                          backgroundImage: AssetImage('assets/images/avatars/$randomLetter.png'),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(height: 2.h,),
+                        CircleAvatar(
+                          backgroundColor: app_colors.orange,
+                          radius: 90,
+                          child: CircleAvatar(
+                            radius: 85,
+                            backgroundColor: app_colors.white,
+                            backgroundImage: AssetImage('assets/images/avatars/$randomLetter.png'),
+                          ),
                         ),
-                      ),
-                      SizedBox(height: 4.5.h,),
-                      Text(
-                        '$name $surname',
-                        style: TextStyle(
-                            color: app_colors.black,
-                            fontSize: 20.sp,
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.center,
-                      ),
-                      SizedBox(height: 2.5.h),
-                      RichText(
-                        text: TextSpan(
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: 'Email: ',
-                              style: TextStyle(
-                                  fontSize: 13.sp,
-                                  fontFamily: 'Poppins',
-                                  color: app_colors.black),
-                            ),
-                            TextSpan(
-                              text: email,
-                              style: TextStyle(
-                                  color: app_colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14.sp,
-                                  fontFamily: 'Poppins'),
-                            ),
-                          ],
+                        SizedBox(height: 4.5.h,),
+                        Text(
+                          '$name $surname',
+                          style: TextStyle(
+                              color: app_colors.black,
+                              fontSize: 20.sp,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
                         ),
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(height: 3.h),
-                      RichText(
-                        text: TextSpan(
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: 'Points: ',
-                              style: TextStyle(
-                                  color: app_colors.black,
-                                  fontSize: 13.sp,
-                                  fontFamily: 'Poppins'),
-                            ),
-                            TextSpan(
-                              text: '$points',
-                              style: TextStyle(
-                                  color: app_colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14.sp,
-                                  fontFamily: 'Poppins'),
-                            ),
-                          ],
+                        SizedBox(height: 2.5.h),
+                        RichText(
+                          text: TextSpan(
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: 'Email: ',
+                                style: TextStyle(
+                                    fontSize: 13.sp,
+                                    fontFamily: 'Poppins',
+                                    color: app_colors.black),
+                              ),
+                              TextSpan(
+                                text: email,
+                                style: TextStyle(
+                                    color: app_colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14.sp,
+                                    fontFamily: 'Poppins'),
+                              ),
+                            ],
+                          ),
+                          textAlign: TextAlign.center,
+                          textScaleFactor: MediaQuery.of(context).textScaleFactor,
                         ),
-                      ),
-                      Spacer(),
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: app_colors.orange,
-                                padding: EdgeInsets.fromLTRB(4.w,1.3.h,4.w,1.3.h)),
-                            onPressed: () {
-                              showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return getDialog(context);
-                                  });
-                            },
-                            child: Text('Log out',
-                                style: TextStyle(fontSize: 13.sp))),
-                      ),
-                      SizedBox(height: 5.h,),
-                    ],
-                  ),
-                )
-              ],
-            )
+                        SizedBox(height: 3.h),
+                        RichText(
+                          text: TextSpan(
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: 'Points: ',
+                                style: TextStyle(
+                                    color: app_colors.black,
+                                    fontSize: 13.sp,
+                                    fontFamily: 'Poppins'),
+                              ),
+                              TextSpan(
+                                text: '$points',
+                                style: TextStyle(
+                                    color: app_colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14.sp,
+                                    fontFamily: 'Poppins'),
+                              ),
+                            ],
+                          ),
+                          textAlign: TextAlign.center,
+                          textScaleFactor: MediaQuery.of(context).textScaleFactor,
+                        ),
+                        SizedBox(height: 4.5.h),
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: app_colors.orange,
+                                  padding: EdgeInsets.fromLTRB(4.w,1.3.h,4.w,1.3.h)),
+                              onPressed: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return getDialog(context);
+                                    });
+                              },
+                              child: Text('Log out',
+                                  style: TextStyle(fontSize: 13.sp))),
+                        ),
+                      ],
+                    ),
+                  )
+                )],
+          )
           : Stack(
               fit: StackFit.expand,
               children: [
