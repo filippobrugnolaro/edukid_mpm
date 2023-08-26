@@ -92,22 +92,17 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Container(
-                        width: 40.w,
-                        height: 40.h,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.white,
-                          border: Border.all(color: app_colors.orange, width: 3.0),
-                        ),
-                        child: ClipOval(
-                          child: Image.asset(
-                            'assets/images/avatars/$randomLetter.png',
-                            width: 40.w,
-                            height: 40.h,
-                          ),
+                      SizedBox(height: 2.h,),
+                      CircleAvatar(
+                        backgroundColor: app_colors.orange,
+                        radius: 100,
+                        child: CircleAvatar(
+                          radius: 95,
+                          backgroundColor: app_colors.white,
+                          backgroundImage: AssetImage('assets/images/avatars/$randomLetter.png'),
                         ),
                       ),
+                      SizedBox(height: 4.5.h,),
                       Text(
                         '$name $surname',
                         style: TextStyle(
@@ -115,6 +110,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             fontSize: 20.sp,
                             fontFamily: 'Poppins',
                             fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center,
                       ),
                       SizedBox(height: 2.5.h),
                       RichText(
@@ -137,6 +133,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                           ],
                         ),
+                        textAlign: TextAlign.center,
                       ),
                       SizedBox(height: 3.h),
                       RichText(
@@ -160,20 +157,24 @@ class _ProfilePageState extends State<ProfilePage> {
                           ],
                         ),
                       ),
-                      SizedBox(height: 3.h),
-                      ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: app_colors.orange,
-                              padding: EdgeInsets.fromLTRB(4.w,1.3.h,4.w,1.3.h)),
-                          onPressed: () {
-                            showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return getDialog(context);
-                                });
-                          },
-                          child: Text('Log out',
-                              style: TextStyle(fontSize: 13.sp)))
+                      Spacer(),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: app_colors.orange,
+                                padding: EdgeInsets.fromLTRB(4.w,1.3.h,4.w,1.3.h)),
+                            onPressed: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return getDialog(context);
+                                  });
+                            },
+                            child: Text('Log out',
+                                style: TextStyle(fontSize: 13.sp))),
+                      ),
+                      SizedBox(height: 5.h,),
                     ],
                   ),
                 )
