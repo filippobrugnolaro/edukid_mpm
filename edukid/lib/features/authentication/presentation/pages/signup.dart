@@ -73,15 +73,7 @@ class _SignUpState extends State<SignUpScreen> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20.0),
                         ),
-                        margin: (MediaQuery.of(context).orientation ==
-                                Orientation.portrait
-                            ? (SizerUtil.deviceType == DeviceType.mobile
-                                ? EdgeInsets.fromLTRB(
-                                    8.0.w, 5.0.h, 8.0.w, 0.0.h)
-                                : EdgeInsets.fromLTRB(
-                                    15.0.w, 5.0.h, 15.0.w, 0.0.h))
-                            : EdgeInsets.fromLTRB(
-                                20.0.w, 5.0.h, 20.0.w, 0.0.h)),
+                        margin: EdgeInsets.fromLTRB(15.0.w, 5.h, 15.w, 0.h),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
