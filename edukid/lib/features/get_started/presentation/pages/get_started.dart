@@ -162,7 +162,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
                                   ],
                                 ),
                                 IconButton(
-                                  icon: Icon(Icons.info_outline_rounded,
+                                  icon: const Icon(Icons.info_outline_rounded,
                                       color: app_colors.orange),
                                   iconSize: 6.h,
                                   onPressed: () {

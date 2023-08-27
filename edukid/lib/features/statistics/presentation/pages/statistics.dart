@@ -117,6 +117,10 @@ class _StatisticsPageState extends State<StatisticsPage>
     });
   }
 
+  double userTextScaleFactor(BuildContext context) {
+    return MediaQuery.of(context).textScaleFactor;
+  } 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -204,7 +208,7 @@ class _StatisticsPageState extends State<StatisticsPage>
                             children: [
                               customTabBar(context),
                               SizedBox(
-                                height: 45.h, // Adjust the height as needed
+                                height: userTextScaleFactor(context) >= 2.0 ? 80.h : 45.h, // Adjust the height as needed
                                 child: TabBarView(
                                   controller: _tabController,
                                   children: [
@@ -309,6 +313,7 @@ class _StatisticsPageState extends State<StatisticsPage>
       int currentDone, int latestCorrect, int latestDone, Color color) {
     return Center(
       child: Column(
+        mainAxisSize: MainAxisSize.max,
         children: [
           SizedBox(height: 2.h),
           getText(
