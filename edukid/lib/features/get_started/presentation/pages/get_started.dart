@@ -349,9 +349,10 @@ class _GetStartedPageState extends State<GetStartedPage> {
                     AlertDialog(
                       actionsPadding: const EdgeInsets.all(20),
                       title: Text('Error', style: TextStyle(fontSize: 14.sp)),
-                      content: Text(
-                          'It seems there is no internet connection. Please connect to a wifi or mobile data network.',
-                          style: TextStyle(fontSize: 13.sp)),
+                      content: SingleChildScrollView(
+                        child: Text(
+                            'It seems there is no internet connection. Please connect to a wifi or mobile data network.',
+                            style: TextStyle(fontSize: 13.sp)),),
                       actions: <Widget>[
                         ElevatedButton(
                             style: ElevatedButton.styleFrom(

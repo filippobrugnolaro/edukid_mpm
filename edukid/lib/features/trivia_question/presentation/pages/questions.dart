@@ -224,9 +224,10 @@ class QuestionPage extends StatelessWidget {
                   AlertDialog(
                     actionsPadding: const EdgeInsets.all(20),
                     title: Text('Error', style: TextStyle(fontSize: 14.sp)),
-                    content: Text(
+                    content: SingleChildScrollView(
+                        child: Text(
                         state.errorMessage.replaceFirst('Exception: ', ''),
-                        style: TextStyle(fontSize: 13.sp)),
+                        style: TextStyle(fontSize: 13.sp)),),
                     actions: <Widget>[
                       ElevatedButton(
                           style: ElevatedButton.styleFrom(

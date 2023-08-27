@@ -49,8 +49,9 @@ class _LoginState extends State<LoginScreen> {
                   return AlertDialog(
                     actionsPadding: const EdgeInsets.all(20),
                     title: Text('Error', style: TextStyle(fontSize: 14.sp)),
-                    content: Text(state.error.replaceFirst('Exception: ', ''),
-                        style: TextStyle(fontSize: 13.sp)),
+                    content: SingleChildScrollView(
+                      child: Text(state.error.replaceFirst('Exception: ', ''),
+                        style: TextStyle(fontSize: 13.sp)),),
                     actions: <Widget>[
                       ElevatedButton(
                           style: ElevatedButton.styleFrom(
