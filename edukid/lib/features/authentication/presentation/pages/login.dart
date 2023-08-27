@@ -78,69 +78,72 @@ class _LoginState extends State<LoginScreen> {
           if (state is UnAuthenticated) {
             // Showing the sign in form if the user is not authenticated
             return Stack(fit: StackFit.expand, children: [
-              Container(
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/doodle.png'),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              Form(
-                  key: _formKey,
-                  child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20.0),
+                  Container(
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/images/doodle.png'),
+                        fit: BoxFit.cover,
                       ),
-                      margin: EdgeInsets.fromLTRB(15.0.w, 5.h, 15.w, 0.h),
-                      child: SingleChildScrollView(
-                        physics: const NeverScrollableScrollPhysics(),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Align(
-                              child: Text(
-                                'Login to your existing account',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(fontSize: 15.sp),
-                              ),
-                            ),
-                            SizedBox(height: 2.0.h),
-                            emailField(context),
-                            SizedBox(height: 3.0.h),
-                            passwordField(context),
-                            SizedBox(height: 3.0.h),
-                            Align(
-                              child: getLoginButton(),
-                            ),
-                            SizedBox(height: 3.0.h),
-                            const Divider(
-                              color: app_colors.grey,
-                            ),
-                            SizedBox(height: 3.0.h),
-                            Align(
-                              child: GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const SignUpScreen()),
-                                  );
-                                },
-                                child: Text(
-                                  'Do not have an account yet?\nSignup now!',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    decoration: TextDecoration.underline,
-                                    fontSize: 13.sp,
+                    ),
+                  ),
+              SingleChildScrollView(
+                  child: Form(
+                      key: _formKey,
+                      child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          margin: EdgeInsets.fromLTRB(15.0.w, 5.h, 15.w, 0.h),
+                          child: SingleChildScrollView(
+                            physics: const NeverScrollableScrollPhysics(),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Align(
+                                  child: Text(
+                                    'Login to your existing account',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(fontSize: 15.sp),
                                   ),
                                 ),
-                              ),
+                                SizedBox(height: 2.0.h),
+                                emailField(context),
+                                SizedBox(height: 3.0.h),
+                                passwordField(context),
+                                SizedBox(height: 3.0.h),
+                                Align(
+                                  child: getLoginButton(),
+                                ),
+                                SizedBox(height: 3.0.h),
+                                const Divider(
+                                  color: app_colors.grey,
+                                ),
+                                SizedBox(height: 3.0.h),
+                                Align(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                            const SignUpScreen()),
+                                      );
+                                    },
+                                    child: Text(
+                                      'Do not have an account yet?\nSignup now!',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        decoration: TextDecoration.underline,
+                                        fontSize: 13.sp,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                      )))
+                          ))),
+              )
+
             ]);
           }
           return const Center(

@@ -387,9 +387,10 @@ class _GetStartedPageState extends State<GetStartedPage> {
           Text('Tutorial', style: TextStyle(fontSize: 14.sp))
         ],
       ),
-      content: Text(
+      content: SingleChildScrollView
+        (child: Text(
           'For each correct answer you will earn  5 coins but be careful! If your answer is wrong you will lose 3.',
-          style: TextStyle(fontSize: 13.sp)),
+          style: TextStyle(fontSize: 13.sp)),),
       actionsPadding: const EdgeInsets.all(20),
       actions: <Widget>[
         ElevatedButton(

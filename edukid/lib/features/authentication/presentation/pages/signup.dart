@@ -66,7 +66,6 @@ class _SignUpState extends State<SignUpScreen> {
                 ),
               ),
               SingleChildScrollView(
-                physics: const NeverScrollableScrollPhysics(),
                 child: Form(
                     key: _formKey,
                     child: Container(
