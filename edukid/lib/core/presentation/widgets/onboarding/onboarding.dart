@@ -35,7 +35,8 @@ class _OnBoardingState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Column(children: [
+        body: SafeArea( child:
+        Column(children: [
       Expanded(
         child: PageView.builder(
           controller: _controller,
@@ -110,7 +111,7 @@ class _OnBoardingState extends State<OnboardingScreen> {
               style: TextStyle(fontSize: 13.0.sp, color: app_colors.white)),
         ),
       )
-    ]));
+    ])));
   }
 
   Widget buildDot(BuildContext context, int index) {
