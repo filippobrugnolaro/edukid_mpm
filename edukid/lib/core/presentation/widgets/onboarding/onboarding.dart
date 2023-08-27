@@ -48,22 +48,25 @@ class _OnBoardingState extends State<OnboardingScreen> {
           itemBuilder: (_, i) {
             return Container(
               margin: EdgeInsets.all(3.h),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(content[i].title,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 15.sp,),),
-                  SizedBox(height: 2.h),
-                  Text(content[i].description,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 13.sp,height: 2,),),
-                  SizedBox(height: 4.h),
-                  Image.asset(
-                    content[i].image,
-                    width: 50.w,
-                  ),
-                ],
+              child:
+                  SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(content[i].title,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 15.sp,),),
+                        SizedBox(height: 2.h),
+                        Text(content[i].description,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 13.sp,height: 2,),),
+                        SizedBox(height: 4.h),
+                        Image.asset(
+                          content[i].image,
+                          width: 50.w,
+                        ),
+                      ],
+                    )
               ),
             );
           },
