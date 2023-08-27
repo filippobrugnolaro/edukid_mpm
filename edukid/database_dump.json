@@ -1,0 +1,1410 @@
+{
+  "subject": {
+    "Geography": {
+      "question1": {
+        "answer": "Paris",
+        "options": {
+          "option1": "Paris",
+          "option2": "London",
+          "option3": "Madrid",
+          "option4": "Rome"
+        },
+        "question_text": "What is the capital of France?"
+      },
+      "question10": {
+        "answer": "Rocky Mountains",
+        "options": {
+          "option1": "Andes",
+          "option2": "Himalayas",
+          "option3": "Rocky Mountains",
+          "option4": "Alps"
+        },
+        "question_text": "Which mountain range is located in North America?"
+      },
+      "question11": {
+        "answer": "Mumbai",
+        "options": {
+          "option1": "Mumbai",
+          "option2": "Dubai",
+          "option3": "Sydney",
+          "option4": "Tokyo"
+        },
+        "question_text": "Which city is located in India?"
+      },
+      "question12": {
+        "answer": "Nile River",
+        "options": {
+          "option1": "Amazon River",
+          "option2": "Nile River",
+          "option3": "Mississippi River",
+          "option4": "Yangtze River"
+        },
+        "question_text": "Which river is the longest river in Africa?"
+      },
+      "question13": {
+        "answer": "Vatican City",
+        "options": {
+          "option1": "Russia",
+          "option2": "China",
+          "option3": "Vatican City",
+          "option4": "Canada"
+        },
+        "question_text": "Which country is the smallest in the world?"
+      },
+      "question14": {
+        "answer": "Indian Ocean",
+        "options": {
+          "option1": "Indian Ocean",
+          "option2": "Atlantic Ocean",
+          "option3": "Pacific Ocean",
+          "option4": "Arctic Ocean"
+        },
+        "question_text": "Which ocean is located between Africa and Australia?"
+      },
+      "question15": {
+        "answer": "Norway",
+        "options": {
+          "option1": "Sweden",
+          "option2": "Finland",
+          "option3": "Denmark",
+          "option4": "Norway"
+        },
+        "question_text": "Which country is known as the 'Land of the Midnight Sun'?"
+      },
+      "question16": {
+        "answer": "Caspian Sea",
+        "options": {
+          "option1": "Lake Superior",
+          "option2": "Caspian Sea",
+          "option3": "Lake Victoria",
+          "option4": "Lake Baikal"
+        },
+        "question_text": "What is the largest lake in the world by surface area?"
+      },
+      "question17": {
+        "answer": "Iceland",
+        "options": {
+          "option1": "Greenland",
+          "option2": "Russia",
+          "option3": "Iceland",
+          "option4": "Sweden"
+        },
+        "question_text": "Which country is known as the 'Land of Fire and Ice'?"
+      },
+      "question18": {
+        "answer": "Spain",
+        "options": {
+          "option1": "Spain",
+          "option2": "Italy",
+          "option3": "Greece",
+          "option4": "France"
+        },
+        "question_text": "Which country is located on the Iberian Peninsula?"
+      },
+      "question19": {
+        "answer": "Thailand",
+        "options": {
+          "option1": "Brazil",
+          "option2": "Thailand",
+          "option3": "India",
+          "option4": "Mexico"
+        },
+        "question_text": "Which country is known as the 'Land of Smiles'?"
+      },
+      "question2": {
+        "answer": "South America",
+        "options": {
+          "option1": "Africa",
+          "option2": "Asia",
+          "option3": "Europe",
+          "option4": "South America"
+        },
+        "question_text": "Which continent is Brazil located in?"
+      },
+      "question20": {
+        "answer": "Mount Everest",
+        "options": {
+          "option1": "Mount Kilimanjaro",
+          "option2": "Mount McKinley",
+          "option3": "Mount Fuji",
+          "option4": "Mount Everest"
+        },
+        "question_text": "Which mountain is the highest in the world?"
+      },
+      "question3": {
+        "answer": "Japan",
+        "options": {
+          "option1": "China",
+          "option2": "Japan",
+          "option3": "India",
+          "option4": "Thailand"
+        },
+        "question_text": "Which country is known as the 'Land of the Rising Sun'?"
+      },
+      "question4": {
+        "answer": "Pacific Ocean",
+        "options": {
+          "option1": "Atlantic Ocean",
+          "option2": "Indian Ocean",
+          "option3": "Pacific Ocean",
+          "option4": "Arctic Ocean"
+        },
+        "question_text": "What is the largest ocean in the world?"
+      },
+      "question5": {
+        "answer": "Egypt",
+        "options": {
+          "option1": "Greece",
+          "option2": "Egypt",
+          "option3": "Mexico",
+          "option4": "Italy"
+        },
+        "question_text": "Which country is home to the Great Pyramid of Giza?"
+      },
+      "question6": {
+        "answer": "London",
+        "options": {
+          "option1": "Paris",
+          "option2": "Rome",
+          "option3": "London",
+          "option4": "Madrid"
+        },
+        "question_text": "Which city is located on the banks of the River Thames?"
+      },
+      "question7": {
+        "answer": "Brazil",
+        "options": {
+          "option1": "Brazil",
+          "option2": "Argentina",
+          "option3": "Chile",
+          "option4": "Colombia"
+        },
+        "question_text": "What is the largest country in South America?"
+      },
+      "question8": {
+        "answer": "Sahara Desert",
+        "options": {
+          "option1": "Mojave Desert",
+          "option2": "Gobi Desert",
+          "option3": "Kalahari Desert",
+          "option4": "Sahara Desert"
+        },
+        "question_text": "Which desert is the largest hot desert in the world?"
+      },
+      "question9": {
+        "answer": "Australia",
+        "options": {
+          "option1": "Canada",
+          "option2": "Australia",
+          "option3": "New Zealand",
+          "option4": "United States"
+        },
+        "question_text": "Which country is known as the 'Land Down Under'?"
+      }
+    },
+    "History": {
+      "question1": {
+        "answer": "Augustus",
+        "options": {
+          "option1": "Julius Caesar",
+          "option2": "Augustus",
+          "option3": "Tiberius",
+          "option4": "Nero"
+        },
+        "question_text": "Who was the first emperor of Rome?"
+      },
+      "question10": {
+        "answer": "Augustus",
+        "options": {
+          "option1": "Julius Caesar",
+          "option2": "Augustus",
+          "option3": "Tiberius",
+          "option4": "Nero"
+        },
+        "question_text": "Who was the Roman general who defeated Mark Antony and Cleopatra in the Battle of Actium?"
+      },
+      "question11": {
+        "answer": "Nero",
+        "options": {
+          "option1": "Nero",
+          "option2": "Caligula",
+          "option3": "Tiberius",
+          "option4": "Domitian"
+        },
+        "question_text": "Which Roman emperor famously persecuted Christians and ordered the construction of the Colosseum?"
+      },
+      "question12": {
+        "answer": "Julius Caesar",
+        "options": {
+          "option1": "Julius Caesar",
+          "option2": "Augustus",
+          "option3": "Mark Antony",
+          "option4": "Cicero"
+        },
+        "question_text": "Which Roman general led the conquest of Gaul and wrote 'The Gallic Wars'?"
+      },
+      "question13": {
+        "answer": "476 CE",
+        "options": {
+          "option1": "476 CE",
+          "option2": "482 CE",
+          "option3": "489 CE",
+          "option4": "494 CE"
+        },
+        "question_text": "In which year did the Western Roman Empire officially fall?"
+      },
+      "question14": {
+        "answer": "68 CE",
+        "options": {
+          "option1": "68 CE",
+          "option2": "70 CE",
+          "option3": "72 CE",
+          "option4": "74 CE"
+        },
+        "question_text": "In which year did the Roman Emperor Nero commit suicide?"
+      },
+      "question15": {
+        "answer": "Augustus",
+        "options": {
+          "option1": "Julius Caesar",
+          "option2": "Augustus",
+          "option3": "Mark Antony",
+          "option4": "Cicero"
+        },
+        "question_text": "Who was the Roman general and statesman known for his role in the transformation of the Roman Republic into the Roman Empire?"
+      },
+      "question16": {
+        "answer": "Vespasian",
+        "options": {
+          "option1": "Nero",
+          "option2": "Caligula",
+          "option3": "Tiberius",
+          "option4": "Vespasian"
+        },
+        "question_text": "Which Roman emperor is known for his massive building projects, including the construction of the Colosseum?"
+      },
+      "question17": {
+        "answer": "Pompey",
+        "options": {
+          "option1": "Augustus",
+          "option2": "Pompey",
+          "option3": "Cicero",
+          "option4": "Mark Antony"
+        },
+        "question_text": "Who was the Roman general and politician who formed the First Triumvirate with Julius Caesar and Crassus?"
+      },
+      "question18": {
+        "answer": "330 CE",
+        "options": {
+          "option1": "330 CE",
+          "option2": "335 CE",
+          "option3": "340 CE",
+          "option4": "345 CE"
+        },
+        "question_text": "In which year did the Roman Emperor Constantine move the capital of the Roman Empire to Constantinople?"
+      },
+      "question19": {
+        "answer": "41 CE",
+        "options": {
+          "option1": "41 CE",
+          "option2": "43 CE",
+          "option3": "45 CE",
+          "option4": "47 CE"
+        },
+        "question_text": "In which year did the Roman Emperor Caligula assassinated?"
+      },
+      "question2": {
+        "answer": "Julius Caesar",
+        "options": {
+          "option1": "Julius Caesar",
+          "option2": "Pompey",
+          "option3": "Cicero",
+          "option4": "Mark Antony"
+        },
+        "question_text": "Which Roman general famously crossed the Rubicon river, leading to the Roman Civil War?"
+      },
+      "question20": {
+        "answer": "286 CE",
+        "options": {
+          "option1": "286 CE",
+          "option2": "293 CE",
+          "option3": "302 CE",
+          "option4": "311 CE"
+        },
+        "question_text": "In which year did the Roman Empire split into the Western Roman Empire and the Eastern Roman Empire?"
+      },
+      "question3": {
+        "answer": "Colosseum",
+        "options": {
+          "option1": "Colosseum",
+          "option2": "Pantheon",
+          "option3": "Roman Forum",
+          "option4": "Circus Maximus"
+        },
+        "question_text": "Which ancient Roman structure is known as the 'Flavian Amphitheater'?"
+      },
+      "question4": {
+        "answer": "Scipio Africanus",
+        "options": {
+          "option1": "Scipio Africanus",
+          "option2": "Gaius Marius",
+          "option3": "Lucius Sulla",
+          "option4": "Pompey the Great"
+        },
+        "question_text": "Who was the Roman general who defeated the Carthaginian general Hannibal in the Second Punic War?"
+      },
+      "question5": {
+        "answer": "Nero",
+        "options": {
+          "option1": "Nero",
+          "option2": "Caligula",
+          "option3": "Tiberius",
+          "option4": "Domitian"
+        },
+        "question_text": "Which Roman emperor is known for his persecution of Christians?"
+      },
+      "question6": {
+        "answer": "49 BCE",
+        "options": {
+          "option1": "49 BCE",
+          "option2": "44 BCE",
+          "option3": "45 BCE",
+          "option4": "48 BCE"
+        },
+        "question_text": "In which year did Julius Caesar cross the Rubicon river, leading to the Roman Civil War?"
+      },
+      "question7": {
+        "answer": "70 CE",
+        "options": {
+          "option1": "70 CE",
+          "option2": "72 CE",
+          "option3": "74 CE",
+          "option4": "76 CE"
+        },
+        "question_text": "In which year did the construction of the Colosseum in Rome begin?"
+      },
+      "question8": {
+        "answer": "410 CE",
+        "options": {
+          "option1": "410 CE",
+          "option2": "420 CE",
+          "option3": "430 CE",
+          "option4": "440 CE"
+        },
+        "question_text": "In which year did the Visigoths sack Rome?"
+      },
+      "question9": {
+        "answer": "Hadrian",
+        "options": {
+          "option1": "Augustus",
+          "option2": "Nero",
+          "option3": "Trajan",
+          "option4": "Hadrian"
+        },
+        "question_text": "Which Roman emperor is known for his architectural projects, including the rebuilding of the Pantheon?"
+      }
+    },
+    "Mathematics": {
+      "question1": {
+        "answer": "1",
+        "options": {
+          "option1": "2",
+          "option2": "1",
+          "option3": "4",
+          "option4": "3"
+        },
+        "question_text": "What is the result of 1 x 1?"
+      },
+      "question10": {
+        "answer": "16",
+        "options": {
+          "option1": "16",
+          "option2": "20",
+          "option3": "18",
+          "option4": "10"
+        },
+        "question_text": "What is the result of 2 x 8?"
+      },
+      "question11": {
+        "answer": "20",
+        "options": {
+          "option1": "30",
+          "option2": "21",
+          "option3": "12",
+          "option4": "20"
+        },
+        "question_text": "What is the result of 2 x 10?"
+      },
+      "question12": {
+        "answer": "6",
+        "options": {
+          "option1": "6",
+          "option2": "7",
+          "option3": "5",
+          "option4": "8"
+        },
+        "question_text": "What is the result of 3 x 2?"
+      },
+      "question13": {
+        "answer": "9",
+        "options": {
+          "option1": "12",
+          "option2": "18",
+          "option3": "9",
+          "option4": "11"
+        },
+        "question_text": "What is the result of 3 x 3?"
+      },
+      "question14": {
+        "answer": "15",
+        "options": {
+          "option1": "20",
+          "option2": "15",
+          "option3": "17",
+          "option4": "8"
+        },
+        "question_text": "What is the result of 3 x 5?"
+      },
+      "question15": {
+        "answer": "21",
+        "options": {
+          "option1": "14",
+          "option2": "21",
+          "option3": "28",
+          "option4": "10"
+        },
+        "question_text": "What is the result of 3 x 7?"
+      },
+      "question16": {
+        "answer": "27",
+        "options": {
+          "option1": "30",
+          "option2": "12",
+          "option3": "29",
+          "option4": "27"
+        },
+        "question_text": "What is the result of 3 x 9?"
+      },
+      "question17": {
+        "answer": "4",
+        "options": {
+          "option1": "4",
+          "option2": "12",
+          "option3": "5",
+          "option4": "8"
+        },
+        "question_text": "What is the result of 4 x 1?"
+      },
+      "question18": {
+        "answer": "12",
+        "options": {
+          "option1": "11",
+          "option2": "8",
+          "option3": "12",
+          "option4": "7"
+        },
+        "question_text": "What is the result of 4 x 3?"
+      },
+      "question19": {
+        "answer": "16",
+        "options": {
+          "option1": "12",
+          "option2": "16",
+          "option3": "18",
+          "option4": "8"
+        },
+        "question_text": "What is the result of 4 x 4?"
+      },
+      "question2": {
+        "answer": "3",
+        "options": {
+          "option1": "3",
+          "option2": "4",
+          "option3": "5",
+          "option4": "6"
+        },
+        "question_text": "What is the result of 1 x 3?"
+      },
+      "question20": {
+        "answer": "24",
+        "options": {
+          "option1": "24",
+          "option2": "22",
+          "option3": "10",
+          "option4": "12"
+        },
+        "question_text": "What is the result of 4 x 6?"
+      },
+      "question21": {
+        "answer": "32",
+        "options": {
+          "option1": "12",
+          "option2": "32",
+          "option3": "24",
+          "option4": "22"
+        },
+        "question_text": "What is the result of 4 x 8?"
+      },
+      "question22": {
+        "answer": "40",
+        "options": {
+          "option1": "20",
+          "option2": "14",
+          "option3": "40",
+          "option4": "45"
+        },
+        "question_text": "What is the result of 4 x 10?"
+      },
+      "question23": {
+        "answer": "10",
+        "options": {
+          "option1": "10",
+          "option2": "8",
+          "option3": "12",
+          "option4": "7"
+        },
+        "question_text": "What is the result of 5 x 2?"
+      },
+      "question24": {
+        "answer": "20",
+        "options": {
+          "option1": "9",
+          "option2": "30",
+          "option3": "15",
+          "option4": "20"
+        },
+        "question_text": "What is the result of 5 x 4?"
+      },
+      "question25": {
+        "answer": "25",
+        "options": {
+          "option1": "30",
+          "option2": "26",
+          "option3": "25",
+          "option4": "10"
+        },
+        "question_text": "What is the result of 5 x 5?"
+      },
+      "question26": {
+        "answer": "35",
+        "options": {
+          "option1": "12",
+          "option2": "35",
+          "option3": "37",
+          "option4": "30"
+        },
+        "question_text": "What is the result of 5 x 7?"
+      },
+      "question27": {
+        "answer": "45",
+        "options": {
+          "option1": "45",
+          "option2": "25",
+          "option3": "14",
+          "option4": "5"
+        },
+        "question_text": "What is the result of 5 x 9?"
+      },
+      "question28": {
+        "answer": "6",
+        "options": {
+          "option1": "6",
+          "option2": "8",
+          "option3": "7",
+          "option4": "9"
+        },
+        "question_text": "What is the result of 6 x 1?"
+      },
+      "question29": {
+        "answer": "18",
+        "options": {
+          "option1": "9",
+          "option2": "19",
+          "option3": "12",
+          "option4": "18"
+        },
+        "question_text": "What is the result of 6 x 3?"
+      },
+      "question3": {
+        "answer": "5",
+        "options": {
+          "option1": "1",
+          "option2": "6",
+          "option3": "5",
+          "option4": "8"
+        },
+        "question_text": "What is the result of 1 x 5?"
+      },
+      "question30": {
+        "answer": "30",
+        "options": {
+          "option1": "36",
+          "option2": "30",
+          "option3": "24",
+          "option4": "11"
+        },
+        "question_text": "What is the result of 6 x 5?"
+      },
+      "question31": {
+        "answer": "36",
+        "options": {
+          "option1": "42",
+          "option2": "12",
+          "option3": "36",
+          "option4": "39"
+        },
+        "question_text": "What is the result of 6 x 6?"
+      },
+      "question32": {
+        "answer": "48",
+        "options": {
+          "option1": "14",
+          "option2": "49",
+          "option3": "42",
+          "option4": "48"
+        },
+        "question_text": "What is the result of 6 x 8?"
+      },
+      "question33": {
+        "answer": "60",
+        "options": {
+          "option1": "60",
+          "option2": "80",
+          "option3": "16",
+          "option4": "45"
+        },
+        "question_text": "What is the result of 6 x 10?"
+      },
+      "question34": {
+        "answer": "14",
+        "options": {
+          "option1": "9",
+          "option2": "14",
+          "option3": "18",
+          "option4": "21"
+        },
+        "question_text": "What is the result of 7 x 2?"
+      },
+      "question35": {
+        "answer": "28",
+        "options": {
+          "option1": "18",
+          "option2": "24",
+          "option3": "28",
+          "option4": "11"
+        },
+        "question_text": "What is the result of 7 x 4?"
+      },
+      "question36": {
+        "answer": "42",
+        "options": {
+          "option1": "13",
+          "option2": "43",
+          "option3": "21",
+          "option4": "42"
+        },
+        "question_text": "What is the result of 7 x 6?"
+      },
+      "question37": {
+        "answer": "49",
+        "options": {
+          "option1": "49",
+          "option2": "14",
+          "option3": "51",
+          "option4": "23"
+        },
+        "question_text": "What is the result of 7 x 7?"
+      },
+      "question38": {
+        "answer": "63",
+        "options": {
+          "option1": "70",
+          "option2": "63",
+          "option3": "42",
+          "option4": "16"
+        },
+        "question_text": "What is the result of 7 x 9?"
+      },
+      "question39": {
+        "answer": "8",
+        "options": {
+          "option1": "11",
+          "option2": "9",
+          "option3": "10",
+          "option4": "8"
+        },
+        "question_text": "What is the result of 8 x 1?"
+      },
+      "question4": {
+        "answer": "7",
+        "options": {
+          "option1": "8",
+          "option2": "7",
+          "option3": "14",
+          "option4": "10"
+        },
+        "question_text": "What is the result of 1 x 7?"
+      },
+      "question40": {
+        "answer": "24",
+        "options": {
+          "option1": "24",
+          "option2": "16",
+          "option3": "11",
+          "option4": "32"
+        },
+        "question_text": "What is the result of 8 x 3?"
+      },
+      "question41": {
+        "answer": "40",
+        "options": {
+          "option1": "13",
+          "option2": "25",
+          "option3": "40",
+          "option4": "32"
+        },
+        "question_text": "What is the result of 8 x 5?"
+      },
+      "question42": {
+        "answer": "56",
+        "options": {
+          "option1": "63",
+          "option2": "57",
+          "option3": "52",
+          "option4": "56"
+        },
+        "question_text": "What is the result of 8 x 7?"
+      },
+      "question43": {
+        "answer": "64",
+        "options": {
+          "option1": "78",
+          "option2": "64",
+          "option3": "16",
+          "option4": "68"
+        },
+        "question_text": "What is the result of 8 x 8?"
+      },
+      "question44": {
+        "answer": "80",
+        "options": {
+          "option1": "90",
+          "option2": "81",
+          "option3": "80",
+          "option4": "18"
+        },
+        "question_text": "What is the result of 8 x 10?"
+      },
+      "question45": {
+        "answer": "18",
+        "options": {
+          "option1": "18",
+          "option2": "12",
+          "option3": "20",
+          "option4": "11"
+        },
+        "question_text": "What is the result of 9 x 2?"
+      },
+      "question46": {
+        "answer": "36",
+        "options": {
+          "option1": "32",
+          "option2": "36",
+          "option3": "13",
+          "option4": "39"
+        },
+        "question_text": "What is the result of 9 x 4?"
+      },
+      "question47": {
+        "answer": "54",
+        "options": {
+          "option1": "36",
+          "option2": "63",
+          "option3": "54",
+          "option4": "15"
+        },
+        "question_text": "What is the result of 9 x 6?"
+      },
+      "question48": {
+        "answer": "72",
+        "options": {
+          "option1": "72",
+          "option2": "17",
+          "option3": "74",
+          "option4": "32"
+        },
+        "question_text": "What is the result of 9 x 8?"
+      },
+      "question49": {
+        "answer": "81",
+        "options": {
+          "option1": "69",
+          "option2": "81",
+          "option3": "18",
+          "option4": "90"
+        },
+        "question_text": "What is the result of 9 x 9?"
+      },
+      "question5": {
+        "answer": "9",
+        "options": {
+          "option1": "18",
+          "option2": "10",
+          "option3": "1",
+          "option4": "9"
+        },
+        "question_text": "What is the result of 1 x 9?"
+      },
+      "question50": {
+        "answer": "10",
+        "options": {
+          "option1": "12",
+          "option2": "11",
+          "option3": "10",
+          "option4": "13"
+        },
+        "question_text": "What is the result of 10 x 1?"
+      },
+      "question51": {
+        "answer": "30",
+        "options": {
+          "option1": "23",
+          "option2": "13",
+          "option3": "33",
+          "option4": "30"
+        },
+        "question_text": "What is the result of 10 x 3?"
+      },
+      "question52": {
+        "answer": "50",
+        "options": {
+          "option1": "50",
+          "option2": "15",
+          "option3": "52",
+          "option4": "40"
+        },
+        "question_text": "What is the result of 10 x 5?"
+      },
+      "question53": {
+        "answer": "70",
+        "options": {
+          "option1": "65",
+          "option2": "17",
+          "option3": "7",
+          "option4": "70"
+        },
+        "question_text": "What is the result of 10 x 7?"
+      },
+      "question54": {
+        "answer": "90",
+        "options": {
+          "option1": "19",
+          "option2": "90",
+          "option3": "100",
+          "option4": "45"
+        },
+        "question_text": "What is the result of 10 x 9?"
+      },
+      "question55": {
+        "answer": "100",
+        "options": {
+          "option1": "100",
+          "option2": "20",
+          "option3": "50",
+          "option4": "40"
+        },
+        "question_text": "What is the result of 10 x 10?"
+      },
+      "question6": {
+        "answer": "2",
+        "options": {
+          "option1": "2",
+          "option2": "4",
+          "option3": "3",
+          "option4": "1"
+        },
+        "question_text": "What is the result of 2 x 1?"
+      },
+      "question7": {
+        "answer": "4",
+        "options": {
+          "option1": "8",
+          "option2": "5",
+          "option3": "6",
+          "option4": "4"
+        },
+        "question_text": "What is the result of 2 x 2?"
+      },
+      "question8": {
+        "answer": "8",
+        "options": {
+          "option1": "4",
+          "option2": "6",
+          "option3": "8",
+          "option4": "12"
+        },
+        "question_text": "What is the result of 2 x 4?"
+      },
+      "question9": {
+        "answer": "12",
+        "options": {
+          "option1": "16",
+          "option2": "8",
+          "option3": "14",
+          "option4": "12"
+        },
+        "question_text": "What is the result of 2 x 6?"
+      }
+    },
+    "Science": {
+      "question1": {
+        "answer": "Jupiter",
+        "options": {
+          "option1": "Earth",
+          "option2": "Mars",
+          "option3": "Jupiter",
+          "option4": "Saturn"
+        },
+        "question_text": "What is the largest planet in our solar system?"
+      },
+      "question10": {
+        "answer": "Eye",
+        "options": {
+          "option1": "Nose",
+          "option2": "Ear",
+          "option3": "Eye",
+          "option4": "Mouth"
+        },
+        "question_text": "Which body part allows us to see?"
+      },
+      "question11": {
+        "answer": "Gravity",
+        "options": {
+          "option1": "Magnetism",
+          "option2": "Gravity",
+          "option3": "Friction",
+          "option4": "Inertia"
+        },
+        "question_text": "Which force pulls objects towards the center of the Earth?"
+      },
+      "question12": {
+        "answer": "Turtle",
+        "options": {
+          "option1": "Kangaroo",
+          "option2": "Lion",
+          "option3": "Elephant",
+          "option4": "Turtle"
+        },
+        "question_text": "Which animal can live both on land and in water?"
+      },
+      "question13": {
+        "answer": "Rotation",
+        "options": {
+          "option1": "Rotation",
+          "option2": "Revolution",
+          "option3": "Orbit",
+          "option4": "Eclipse"
+        },
+        "question_text": "What is the process of the Earth spinning on its axis called?"
+      },
+      "question14": {
+        "answer": "Earthquake",
+        "options": {
+          "option1": "Tornado",
+          "option2": "Hurricane",
+          "option3": "Earthquake",
+          "option4": "Flood"
+        },
+        "question_text": "Which natural disaster is caused by the shaking of the Earth's surface?"
+      },
+      "question15": {
+        "answer": "Solid",
+        "options": {
+          "option1": "Solid",
+          "option2": "Liquid",
+          "option3": "Gas",
+          "option4": "Plasma"
+        },
+        "question_text": "What is the state of matter that has a definite shape and volume?"
+      },
+      "question16": {
+        "answer": "Albert Einstein",
+        "options": {
+          "option1": "Isaac Newton",
+          "option2": "Albert Einstein",
+          "option3": "Charles Darwin",
+          "option4": "Marie Curie"
+        },
+        "question_text": "Which scientist is known for the theory of relativity?"
+      },
+      "question17": {
+        "answer": "Skin",
+        "options": {
+          "option1": "Brain",
+          "option2": "Skin",
+          "option3": "Liver",
+          "option4": "Heart"
+        },
+        "question_text": "What is the largest organ in the human body?"
+      },
+      "question18": {
+        "answer": "Oxygen",
+        "options": {
+          "option1": "Carbon dioxide",
+          "option2": "Oxygen",
+          "option3": "Nitrogen",
+          "option4": "Helium"
+        },
+        "question_text": "Which gas do humans need to breathe in order to survive?"
+      },
+      "question19": {
+        "answer": "Condensation",
+        "options": {
+          "option1": "Melting",
+          "option2": "Freezing",
+          "option3": "Evaporation",
+          "option4": "Condensation"
+        },
+        "question_text": "What is the process of changing from a gas to a liquid called?"
+      },
+      "question2": {
+        "answer": "Photosynthesis",
+        "options": {
+          "option1": "Photosynthesis",
+          "option2": "Respiration",
+          "option3": "Digestion",
+          "option4": "Circulation"
+        },
+        "question_text": "What is the process by which plants make their own food?"
+      },
+      "question20": {
+        "answer": "Solar",
+        "options": {
+          "option1": "Wind",
+          "option2": "Heat",
+          "option3": "Solar",
+          "option4": "Electric"
+        },
+        "question_text": "What is the energy that comes from the Sun called?"
+      },
+      "question3": {
+        "answer": "Bird",
+        "options": {
+          "option1": "Dog",
+          "option2": "Cat",
+          "option3": "Bird",
+          "option4": "Dolphin"
+        },
+        "question_text": "Which animal lays eggs?"
+      },
+      "question4": {
+        "answer": "Heart",
+        "options": {
+          "option1": "Liver",
+          "option2": "Heart",
+          "option3": "Lungs",
+          "option4": "Stomach"
+        },
+        "question_text": "Which organ is responsible for pumping blood in our body?"
+      },
+      "question5": {
+        "answer": "Evaporation",
+        "options": {
+          "option1": "Melting",
+          "option2": "Freezing",
+          "option3": "Evaporation",
+          "option4": "Condensation"
+        },
+        "question_text": "What is the process of changing from a liquid to a gas called?"
+      },
+      "question6": {
+        "answer": "Atom",
+        "options": {
+          "option1": "Atom",
+          "option2": "Cell",
+          "option3": "Molecule",
+          "option4": "Element"
+        },
+        "question_text": "What is the smallest unit of matter?"
+      },
+      "question7": {
+        "answer": "Mars",
+        "options": {
+          "option1": "Venus",
+          "option2": "Mercury",
+          "option3": "Mars",
+          "option4": "Neptune"
+        },
+        "question_text": "Which planet is known as the Red Planet?"
+      },
+      "question8": {
+        "answer": "Biology",
+        "options": {
+          "option1": "Geology",
+          "option2": "Chemistry",
+          "option3": "Biology",
+          "option4": "Physics"
+        },
+        "question_text": "What is the study of living organisms called?"
+      },
+      "question9": {
+        "answer": "Carbon dioxide",
+        "options": {
+          "option1": "Carbon dioxide",
+          "option2": "Oxygen",
+          "option3": "Nitrogen",
+          "option4": "Hydrogen"
+        },
+        "question_text": "Which gas do plants use to make food?"
+      }
+    }
+  },
+  "users": {
+    "BqC08zlY2XXXsSTfZwKDKriihyg1": {
+      "email": "filippo.brugnolaro.1@studenti.unipd.it",
+      "name": "Filippo",
+      "points": 5,
+      "reset_statistics": {
+        "timestamp_todo": 1693149545,
+        "todo": false
+      },
+      "statistics": {
+        "Geography": {
+          "current": {
+            "correct": 0,
+            "done": 0,
+            "timestamp": 0
+          },
+          "latest": {
+            "correct": 0,
+            "done": 0,
+            "timestamp": 0
+          },
+          "total": {
+            "correct": 0,
+            "done": 0
+          }
+        },
+        "Global": {
+          "correct": 1,
+          "done": 1,
+          "timestamp": 1693149554
+        },
+        "History": {
+          "current": {
+            "correct": 0,
+            "done": 0,
+            "timestamp": 0
+          },
+          "latest": {
+            "correct": 0,
+            "done": 0,
+            "timestamp": 0
+          },
+          "total": {
+            "correct": 0,
+            "done": 0
+          }
+        },
+        "Mathematics": {
+          "current": {
+            "correct": 1,
+            "done": 1,
+            "timestamp": 1693149554
+          },
+          "latest": {
+            "correct": 0,
+            "done": 0,
+            "timestamp": 0
+          },
+          "total": {
+            "correct": 1,
+            "done": 1
+          }
+        },
+        "Science": {
+          "current": {
+            "correct": 0,
+            "done": 0,
+            "timestamp": 0
+          },
+          "latest": {
+            "correct": 0,
+            "done": 0,
+            "timestamp": 0
+          },
+          "total": {
+            "correct": 0,
+            "done": 0
+          }
+        }
+      },
+      "surname": "Brugnolaro",
+      "wizard_to_display": false
+    },
+    "uDM06tngrOaiPSLl9ZsknPC7wX13": {
+      "email": "marta.greggio@studenti.unipd.it",
+      "name": "Marta",
+      "points": 10,
+      "reset_statistics": {
+        "timestamp_todo": 1693149416,
+        "todo": false
+      },
+      "statistics": {
+        "Geography": {
+          "current": {
+            "correct": 0,
+            "done": 0,
+            "timestamp": 0
+          },
+          "latest": {
+            "correct": 0,
+            "done": 0,
+            "timestamp": 0
+          },
+          "total": {
+            "correct": 0,
+            "done": 0
+          }
+        },
+        "Global": {
+          "correct": 2,
+          "done": 2,
+          "timestamp": 1693149473
+        },
+        "History": {
+          "current": {
+            "correct": 0,
+            "done": 0,
+            "timestamp": 0
+          },
+          "latest": {
+            "correct": 0,
+            "done": 0,
+            "timestamp": 0
+          },
+          "total": {
+            "correct": 0,
+            "done": 0
+          }
+        },
+        "Mathematics": {
+          "current": {
+            "correct": 2,
+            "done": 2,
+            "timestamp": 1693149473
+          },
+          "latest": {
+            "correct": 0,
+            "done": 0,
+            "timestamp": 0
+          },
+          "total": {
+            "correct": 2,
+            "done": 2
+          }
+        },
+        "Science": {
+          "current": {
+            "correct": 0,
+            "done": 0,
+            "timestamp": 0
+          },
+          "latest": {
+            "correct": 0,
+            "done": 0,
+            "timestamp": 0
+          },
+          "total": {
+            "correct": 0,
+            "done": 0
+          }
+        }
+      },
+      "surname": "Greggio",
+      "wizard_to_display": false
+    },
+    "yOOsHJnoDlTA3IC7J3jxa5N2XPy1": {
+      "email": "user@user.com",
+      "name": "User",
+      "points": 15,
+      "reset_statistics": {
+        "timestamp_todo": 1693149287,
+        "todo": false
+      },
+      "statistics": {
+        "Geography": {
+          "current": {
+            "correct": 0,
+            "done": 0,
+            "timestamp": 0
+          },
+          "latest": {
+            "correct": 0,
+            "done": 0,
+            "timestamp": 0
+          },
+          "total": {
+            "correct": 0,
+            "done": 0
+          }
+        },
+        "Global": {
+          "correct": 3,
+          "done": 3,
+          "timestamp": 1693149349
+        },
+        "History": {
+          "current": {
+            "correct": 0,
+            "done": 0,
+            "timestamp": 0
+          },
+          "latest": {
+            "correct": 0,
+            "done": 0,
+            "timestamp": 0
+          },
+          "total": {
+            "correct": 0,
+            "done": 0
+          }
+        },
+        "Mathematics": {
+          "current": {
+            "correct": 3,
+            "done": 3,
+            "timestamp": 1693149349
+          },
+          "latest": {
+            "correct": 0,
+            "done": 0,
+            "timestamp": 0
+          },
+          "total": {
+            "correct": 3,
+            "done": 3
+          }
+        },
+        "Science": {
+          "current": {
+            "correct": 0,
+            "done": 0,
+            "timestamp": 0
+          },
+          "latest": {
+            "correct": 0,
+            "done": 0,
+            "timestamp": 0
+          },
+          "total": {
+            "correct": 0,
+            "done": 0
+          }
+        }
+      },
+      "surname": "User",
+      "wizard_to_display": false
+    }
+  }
+}
