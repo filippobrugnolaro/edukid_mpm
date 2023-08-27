@@ -185,6 +185,7 @@ class _LoginState extends State<LoginScreen> {
             errorStyle: TextStyle(
               fontSize: (10.0.sp),
             ),
+            errorMaxLines: 10,
             contentPadding: const EdgeInsets.fromLTRB(10, 3, 10, 6),
             enabledBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: app_colors.orange),
@@ -229,6 +230,7 @@ class _LoginState extends State<LoginScreen> {
               errorStyle: TextStyle(
                 fontSize: (10.0.sp),
               ),
+              errorMaxLines: 10,
               contentPadding: const EdgeInsets.fromLTRB(10, 3, 10, 6),
               enabledBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: app_colors.orange),

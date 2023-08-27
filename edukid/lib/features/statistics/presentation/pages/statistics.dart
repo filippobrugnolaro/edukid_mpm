@@ -208,7 +208,14 @@ class _StatisticsPageState extends State<StatisticsPage>
                             children: [
                               customTabBar(context),
                               SizedBox(
-                                height: userTextScaleFactor(context) >= 2.0 ? 80.h : 45.h, // Adjust the height as needed
+                                height: userTextScaleFactor(context) >= 1.5 ?
+                                  (userTextScaleFactor(context) >= 2.5 ?
+                                    1.5 * MediaQuery.of(context).size.height
+                                      :
+                                    MediaQuery.of(context).size.height
+                                  )
+                                    :
+                                0.5 * MediaQuery.of(context).size.height, // Adjust the height as needed
                                 child: TabBarView(
                                   controller: _tabController,
                                   children: [
