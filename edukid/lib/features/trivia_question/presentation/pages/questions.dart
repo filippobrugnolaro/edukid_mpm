@@ -22,22 +22,23 @@ class QuestionPage extends StatelessWidget {
       create: (_) => sl<TriviaBloc>(),
       child: Scaffold(
         appBar: AppBar(
-            title: Text(
-              title,
-            ),
-            centerTitle: true,
-            backgroundColor: color,
-            automaticallyImplyLeading: false,
-            leading: BlocBuilder<TriviaBloc, TriviaState>(
-              builder: (context, state) {
+          title: Text(
+            getTranslatedTitle(title),
+          ),
+          centerTitle: true,
+          backgroundColor: color,
+          automaticallyImplyLeading: false,
+          leading: BlocBuilder<TriviaBloc, TriviaState>(
+            builder: (context, state) {
               if (state is TriviaQuestionState) {
                 return BackButton(
-                  onPressed: () => Navigator.of(context).pushReplacementNamed('getStarted'),
+                  onPressed: () =>
+                      Navigator.of(context).pushReplacementNamed('getStarted'),
                 );
               }
               return const SizedBox();
-              },
-            ),
+            },
+          ),
         ),
         body: BlocBuilder<TriviaBloc, TriviaState>(
           builder: (context, state) {
@@ -61,87 +62,90 @@ class QuestionPage extends StatelessWidget {
                   ),
                 ),
                 SingleChildScrollView(
-                child: Center(
-                child: Container(
-                    padding: EdgeInsets.all(3.w),
-                    child: Column(
-                      children: [
-                        SizedBox(height: 2.h),
-                        Text(
-                          state.question.question,
-                          style: TextStyle(fontSize: 18.sp),
-                          textAlign: TextAlign.center,
-                        ),
-                        SizedBox(
-                          height: 3.h,
-                        ),
-                        ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: state.question.options.length,
-                          itemBuilder: (context, index) {
-                            final option = state.question.options[index];
-                            final isSelected =
-                                index == state.selectedOptionIndex;
-                            final backColor =
-                                isSelected ? color : app_colors.white;
-
-                            return Container(
-                              margin: EdgeInsets.all(3.w),
-                              width: 30.w,
-                              decoration: BoxDecoration(
-                                color: backColor,
-                                border:
-                                    Border.all(color: Colors.grey, width: 1.0),
-                                borderRadius: BorderRadius.circular(15.0),
-                              ),
-                              child: ListTile(
-                                title: Text(
-                                  option,
-                                  style: TextStyle(
-                                      color: isSelected
-                                          ? app_colors.white
-                                          : Colors.black),
+                    child: Center(
+                        child: Container(
+                            padding: EdgeInsets.all(3.w),
+                            child: Column(
+                              children: [
+                                SizedBox(height: 2.h),
+                                Text(
+                                  state.question.question,
+                                  style: TextStyle(fontSize: 18.sp),
+                                  textAlign: TextAlign.center,
                                 ),
-                                onTap: () {
-                                  BlocProvider.of<TriviaBloc>(context).add(
-                                    SelectTriviaOptionEvent(option),
-                                  );
-                                },
-                              ),
-                            );
-                          },
-                        ),
-                        SizedBox(height: 5.h),
-                        ElevatedButton(
-                          style: ButtonStyle(
-                            padding: MaterialStateProperty.all<
-                                    EdgeInsetsGeometry>(
-                                EdgeInsets.fromLTRB(4.w, 1.3.h, 4.w, 1.3.h)),
-                            backgroundColor: MaterialStateProperty.all<Color>(
-                                color), // Set the background color
-                          ),
-                          onPressed: () {
-                            if (state.selectedOptionIndex == -1) {
-                              showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return getDialog(context);
-                                  });
-                            } else {
-                              BlocProvider.of<TriviaBloc>(context).add(
-                                  SubmitTriviaAnswerEvent(
-                                      state.question
-                                          .options[state.selectedOptionIndex],
-                                      title));
-                            }
-                          },
-                          child: Text("Conferma",
-                              style: TextStyle(fontSize: 13.0.sp)),
-                        ),
-                      ],
-                    ))
-                  )
-                )
+                                SizedBox(
+                                  height: 3.h,
+                                ),
+                                ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: state.question.options.length,
+                                  itemBuilder: (context, index) {
+                                    final option =
+                                        state.question.options[index];
+                                    final isSelected =
+                                        index == state.selectedOptionIndex;
+                                    final backColor =
+                                        isSelected ? color : app_colors.white;
+
+                                    return Container(
+                                      margin: EdgeInsets.all(3.w),
+                                      width: 30.w,
+                                      decoration: BoxDecoration(
+                                        color: backColor,
+                                        border: Border.all(
+                                            color: Colors.grey, width: 1.0),
+                                        borderRadius:
+                                            BorderRadius.circular(15.0),
+                                      ),
+                                      child: ListTile(
+                                        title: Text(
+                                          option,
+                                          style: TextStyle(
+                                              color: isSelected
+                                                  ? app_colors.white
+                                                  : Colors.black),
+                                        ),
+                                        onTap: () {
+                                          BlocProvider.of<TriviaBloc>(context)
+                                              .add(
+                                            SelectTriviaOptionEvent(option),
+                                          );
+                                        },
+                                      ),
+                                    );
+                                  },
+                                ),
+                                SizedBox(height: 5.h),
+                                ElevatedButton(
+                                  style: ButtonStyle(
+                                    padding: MaterialStateProperty.all<
+                                            EdgeInsetsGeometry>(
+                                        EdgeInsets.fromLTRB(
+                                            4.w, 1.3.h, 4.w, 1.3.h)),
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            color), // Set the background color
+                                  ),
+                                  onPressed: () {
+                                    if (state.selectedOptionIndex == -1) {
+                                      showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return getDialog(context);
+                                          });
+                                    } else {
+                                      BlocProvider.of<TriviaBloc>(context).add(
+                                          SubmitTriviaAnswerEvent(
+                                              state.question.options[
+                                                  state.selectedOptionIndex],
+                                              title));
+                                    }
+                                  },
+                                  child: Text("Conferma",
+                                      style: TextStyle(fontSize: 13.0.sp)),
+                                ),
+                              ],
+                            ))))
               ]);
             }
             if (state is TriviaResultState) {
@@ -165,9 +169,9 @@ class QuestionPage extends StatelessWidget {
                       ),
                       ElevatedButton(
                           style: ButtonStyle(
-                            padding:
-                                MaterialStateProperty.all<EdgeInsetsGeometry>(
-                                    EdgeInsets.fromLTRB(4.w, 1.3.h, 4.w, 1.3.h)),
+                            padding: MaterialStateProperty.all<
+                                    EdgeInsetsGeometry>(
+                                EdgeInsets.fromLTRB(4.w, 1.3.h, 4.w, 1.3.h)),
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 color), // Set the background color
                           ),
@@ -225,9 +229,10 @@ class QuestionPage extends StatelessWidget {
                     actionsPadding: const EdgeInsets.all(20),
                     title: Text('Errore', style: TextStyle(fontSize: 14.sp)),
                     content: SingleChildScrollView(
-                        child: Text(
-                        state.errorMessage.replaceFirst('Exception: ', ''),
-                        style: TextStyle(fontSize: 13.sp)),),
+                      child: Text(
+                          state.errorMessage.replaceFirst('Exception: ', ''),
+                          style: TextStyle(fontSize: 13.sp)),
+                    ),
                     actions: <Widget>[
                       ElevatedButton(
                           style: ElevatedButton.styleFrom(
@@ -243,7 +248,8 @@ class QuestionPage extends StatelessWidget {
                 ],
               );
             } else {
-              return Text('Errore sconosciuto', style: TextStyle(fontSize: 13.sp));
+              return Text('Errore sconosciuto',
+                  style: TextStyle(fontSize: 13.sp));
             }
           },
         ),
@@ -274,7 +280,7 @@ class QuestionPage extends StatelessWidget {
             ],
           ),
           Text('Corretto!', style: TextStyle(fontSize: 25.sp)),
-          Text('hai guadagnato 5 monete!', style: TextStyle(fontSize: 13.sp)),
+          Text('Hai guadagnato 5 monete!', style: TextStyle(fontSize: 13.sp)),
           SizedBox(
             height: 2.h,
           ),
@@ -326,7 +332,7 @@ class QuestionPage extends StatelessWidget {
               ),
             ),
             Text(
-              'hai perso 3 monete!',
+              'Hai perso 3 monete!',
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 13.sp),
             ),
@@ -361,5 +367,18 @@ class QuestionPage extends StatelessWidget {
       ],
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
     );
+  }
+
+  String getTranslatedTitle(String title) {
+    switch (title) {
+      case 'Geography':
+        return 'Geografia';
+      case 'Mathematics':
+        return 'Matematica';
+      case 'History':
+        return 'Storia';
+      default:
+        return 'Scienze';
+    }
   }
 }

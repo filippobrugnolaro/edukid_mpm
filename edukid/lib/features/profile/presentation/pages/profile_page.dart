@@ -148,7 +148,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             text: TextSpan(
                               children: <TextSpan>[
                                 TextSpan(
-                                  text: 'Points: ',
+                                  text: 'Monete: ',
                                   style: TextStyle(
                                       color: app_colors.black,
                                       fontSize: 13.sp,

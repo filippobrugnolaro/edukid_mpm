@@ -362,7 +362,7 @@ class _StatisticsPageState extends State<StatisticsPage>
           Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                "ultime statistiche",
+                "Ultime statistiche",
                 style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
               )),
           Container(
