@@ -29,7 +29,7 @@ class TriviaDataSourceImpl implements TriviaDataSource {
         return TriviaModel.fromJson(
             jsonDecode(jsonEncode(selectedQuestion.value)));
       } else {
-        throw Exception("Unknown error");
+        throw Exception("Errore sconosciuto");
       }
     } catch (e) {
       throw Exception(e.toString());

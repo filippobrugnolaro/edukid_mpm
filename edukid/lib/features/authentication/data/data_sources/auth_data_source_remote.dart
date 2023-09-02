@@ -38,11 +38,9 @@ class AuthDataSourceRemoteImpl implements AuthDataSourceRemote {
         }
     } on FirebaseAuthException catch (e) {
       if (e.message!.contains('weak-password')) {
-        throw Exception('Password should be at least 6 characters!');
-      }
       if (e.message!.contains('email-already-in-use')) {
         throw Exception(
-            'This email address is already in use by another account.');
+            'Questo indirizzo email è già in uso da un altro account.');
       } else {
         throw Exception(e.toString().replaceFirst('[firebase_auth/email-already-in-use] ',''));
       }
@@ -63,12 +61,12 @@ class AuthDataSourceRemoteImpl implements AuthDataSourceRemote {
       if (e.message!.contains('user-not-found') ||
           e.message!.contains('no user record')) {
         throw Exception(
-            'User not found. Please check your email or create a new account.');
+            'Utente non trovato. Perfavore controlla la tua email o crea un nuovo account.');
       }
       if (e.message!.contains('wrong-password') ||
           e.message!.contains('password is invalid')) {
         throw Exception(
-            'The password is invalid. Please check your password and try again');
+            'La password inserita non è corretta. Perfavore controlla la tua password e riprova.');
       }
     }
   }
