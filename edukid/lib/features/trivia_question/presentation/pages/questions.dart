@@ -135,7 +135,7 @@ class QuestionPage extends StatelessWidget {
                                       title));
                             }
                           },
-                          child: Text("Submit",
+                          child: Text("Conferma",
                               style: TextStyle(fontSize: 13.0.sp)),
                         ),
                       ],
@@ -175,13 +175,13 @@ class QuestionPage extends StatelessWidget {
                             BlocProvider.of<TriviaBloc>(context)
                                 .add(LoadTriviaEvent(title));
                           },
-                          child: Text('Next question',
+                          child: Text('Prossima domanda',
                               style: TextStyle(fontSize: 13.sp))),
                       SizedBox(
                         height: 2.h,
                       ),
                       Text(
-                        'or',
+                        'oppure',
                         style: TextStyle(fontSize: 13.sp),
                       ),
                       SizedBox(
@@ -202,7 +202,7 @@ class QuestionPage extends StatelessWidget {
                             Navigator.of(context)
                                 .pushReplacementNamed('getStarted');
                           },
-                          child: Text('Back to the home page',
+                          child: Text('Torna alla home',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   color: app_colors.black, fontSize: 13.sp))),
@@ -223,7 +223,7 @@ class QuestionPage extends StatelessWidget {
                   )),
                   AlertDialog(
                     actionsPadding: const EdgeInsets.all(20),
-                    title: Text('Error', style: TextStyle(fontSize: 14.sp)),
+                    title: Text('Errore', style: TextStyle(fontSize: 14.sp)),
                     content: SingleChildScrollView(
                         child: Text(
                         state.errorMessage.replaceFirst('Exception: ', ''),
@@ -243,7 +243,7 @@ class QuestionPage extends StatelessWidget {
                 ],
               );
             } else {
-              return Text('Unknown error', style: TextStyle(fontSize: 13.sp));
+              return Text('Errore sconosciuto', style: TextStyle(fontSize: 13.sp));
             }
           },
         ),
@@ -273,8 +273,8 @@ class QuestionPage extends StatelessWidget {
               )
             ],
           ),
-          Text('Correct!', style: TextStyle(fontSize: 25.sp)),
-          Text('You earned 5 coins!', style: TextStyle(fontSize: 13.sp)),
+          Text('Corretto!', style: TextStyle(fontSize: 25.sp)),
+          Text('hai guadagnato 5 monete!', style: TextStyle(fontSize: 13.sp)),
           SizedBox(
             height: 2.h,
           ),
@@ -319,14 +319,14 @@ class QuestionPage extends StatelessWidget {
               ],
             ),
             Text(
-              'Correct answer was: \n$correctAnswer',
+              'La risposta corretta era: \n$correctAnswer',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 15.sp,
               ),
             ),
             Text(
-              'You lost 3 coins!',
+              'hai perso 3 monete!',
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 13.sp),
             ),
@@ -343,8 +343,8 @@ class QuestionPage extends StatelessWidget {
 
   Widget getDialog(dynamic context) {
     return AlertDialog(
-      title: Text('Careful!', style: TextStyle(fontSize: 14.sp)),
-      content: Text('You need to select at least one option!',
+      title: Text('Attenzione!', style: TextStyle(fontSize: 14.sp)),
+      content: Text("Devi selezionare almeno un'opzione!",
           style: TextStyle(fontSize: 13.sp)),
       actionsPadding: const EdgeInsets.all(20),
       actions: [
@@ -356,7 +356,7 @@ class QuestionPage extends StatelessWidget {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: Text('Understood.', style: TextStyle(fontSize: 13.sp)),
+          child: Text('Capito.', style: TextStyle(fontSize: 13.sp)),
         ),
       ],
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),

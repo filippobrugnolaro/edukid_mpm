@@ -36,7 +36,7 @@ class _SignUpState extends State<SignUpScreen> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: app_colors.orange,
-          title: const Text('Signup'),
+          title: const Text('Registrati'),
         ),
         body: BlocListener<AuthBloc, AuthState>(listener: (context, state) {
           if (state is Authenticated) {
@@ -78,7 +78,7 @@ class _SignUpState extends State<SignUpScreen> {
                           children: <Widget>[
                             Align(
                               child: Text(
-                                'Create a new account!',
+                                'Crea un nuovo account!',
                                 style: TextStyle(fontSize: 15.sp),
                               ),
                             ),
@@ -120,7 +120,7 @@ class _SignUpState extends State<SignUpScreen> {
         backgroundColor: MaterialStateProperty.all<Color>(
             app_colors.orange), // Set the background color
       ),
-      child: Text("Signup",
+      child: Text("Registrati",
           style: TextStyle(fontSize: 13.0.sp, color: app_colors.white)),
       onPressed: () {
         _createAccountWithEmailAndPassword(context);
@@ -161,9 +161,9 @@ class _SignUpState extends State<SignUpScreen> {
         autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return 'Please insert your password.';
+            return 'Perfavore inserisci la password';
           } else if (value.length < 6) {
-            return 'Password must be at least 6 characters.';
+            return 'La password deve avere almeno 6 caratteri';
           }
           return null; // Return null to indicate no error
         },
@@ -183,12 +183,13 @@ class _SignUpState extends State<SignUpScreen> {
           ),
         ),
         child: TextFormField(
+          textCapitalization: TextCapitalization.words,
           keyboardType: TextInputType.emailAddress,
           controller: _emailController,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           validator: (value) {
             return value != null && !EmailValidator.validate(value)
-                ? 'Please insert a valid email!'
+                ? 'Perfavore inserisci un email valida'
                 : null;
           },
           decoration: InputDecoration(
@@ -221,25 +222,26 @@ class _SignUpState extends State<SignUpScreen> {
           ),
         ),
         child: TextFormField(
+          textCapitalization: TextCapitalization.words,
           keyboardType: TextInputType.emailAddress,
           controller: _nameController,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           validator: (value) {
             final RegExp nameSurnameRegExp = RegExp(r'^[a-zA-Z ]+$');
             if (value != null && !nameSurnameRegExp.hasMatch(value)) {
-              return 'Name should contain only letters';
+              return 'Il nome dovrebbe contenere solo lettere';
             } else {
               return value != null && value.isEmpty
-                  ? 'Please insert your name.'
+                  ? 'Campo obbligatorio!'
                   : null;
             }
           },
           decoration: InputDecoration(
-              hintText: "Name",
+              hintText: "Nome",
               floatingLabelBehavior: FloatingLabelBehavior.never,
               filled: true,
               fillColor: app_colors.white, // Set your desired background color
-              labelText: 'Name',
+              labelText: 'Nome',
               errorStyle: TextStyle(
                 fontSize: (10.0.sp),
               ),
@@ -264,24 +266,25 @@ class _SignUpState extends State<SignUpScreen> {
           ),
         ),
         child: TextFormField(
+          textCapitalization: TextCapitalization.words,
           controller: _surnameController,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           validator: (value) {
             final RegExp nameSurnameRegExp = RegExp(r'^[a-zA-Z ]+$');
             if (value != null && !nameSurnameRegExp.hasMatch(value)) {
-              return 'Surname should contain only letters';
+              return 'Il cognome dovrebbe contenere solo lettere';
             } else {
               return value != null && value.isEmpty
-                  ? 'Please insert your surname.'
+                  ? 'Campo obbligatorio!'
                   : null;
             }
           },
           decoration: InputDecoration(
-              hintText: "Surname",
+              hintText: "Cognome",
               floatingLabelBehavior: FloatingLabelBehavior.never,
               filled: true,
               fillColor: app_colors.white, // Set your desired background color
-              labelText: 'Surname',
+              labelText: 'Cognome',
               errorStyle: TextStyle(
                 fontSize: (10.0.sp),
               ),

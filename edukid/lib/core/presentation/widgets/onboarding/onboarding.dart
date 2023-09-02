@@ -85,31 +85,50 @@ class _OnBoardingState extends State<OnboardingScreen> {
       Container(
         width: double.infinity,
         margin: EdgeInsets.all(6.h),
-        color: app_colors.orange,
-        child: ElevatedButton(
-          onPressed: () {
-            if (currentIndex == content.length - 1) {
-              setWizardToDisplayToFalse();
-              Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => const GetStartedPage()),
-                (route) => false,
-              );
-            } else {
-              _controller.nextPage(
-                  duration: const Duration(milliseconds: 100),
-                  curve: Curves.bounceIn);
-            }
-          },
-          style: ButtonStyle(
-            padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                EdgeInsets.all(2.h)),
-            backgroundColor: MaterialStateProperty.all<Color>(
-                app_colors.orange), // Set the background color
-          ),
-          child: Text(
-              currentIndex == content.length - 1 ? "Yes I am ready!" : "Next",
-              style: TextStyle(fontSize: 13.0.sp, color: app_colors.white)),
-        ),
+        child: Column(
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                if (currentIndex == content.length - 1) {
+                  setWizardToDisplayToFalse();
+                  Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => const GetStartedPage()),
+                    (route) => false,
+                  );
+                } else {
+                  _controller.nextPage(
+                      duration: const Duration(milliseconds: 100),
+                      curve: Curves.bounceIn);
+                }
+              },
+              style: ButtonStyle(
+                padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                    EdgeInsets.all(2.h)),
+                backgroundColor: MaterialStateProperty.all<Color>(
+                    app_colors.orange), // Set the background color
+              ),
+              child: Text(
+                  currentIndex == content.length - 1 ? "Si sono pronto!" : "Prossima",
+                  style: TextStyle(fontSize: 13.0.sp, color: app_colors.white)),
+            ),
+            SizedBox(height:1.5.h),
+            InkWell(
+              onTap: () {
+                // Handle the "Skip" action
+                setWizardToDisplayToFalse();
+                Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => const GetStartedPage()),
+                  (route) => false,
+                );
+              },
+              child: Text(
+                "Salta",
+                style: TextStyle(
+                  color: app_colors.orange,
+                  fontSize: 13.sp
+                ),
+              ),
+            ),])
       )
     ])));
   }

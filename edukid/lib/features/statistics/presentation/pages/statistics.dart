@@ -35,7 +35,7 @@ class _StatisticsPageState extends State<StatisticsPage>
     app_colors.green,
     app_colors.orange
   ];
-  List<String> tabTitles = ['Maths', 'Geography', 'History', 'Science'];
+  List<String> tabTitles = ['Mate', 'Geografia', 'Storia', 'Scienze'];
   bool isLoaded = false;
 
   @override
@@ -119,7 +119,7 @@ class _StatisticsPageState extends State<StatisticsPage>
 
   double userTextScaleFactor(BuildContext context) {
     return MediaQuery.of(context).textScaleFactor;
-  } 
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -127,7 +127,7 @@ class _StatisticsPageState extends State<StatisticsPage>
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: const Text(
-          'Statistics',
+          'Le mie statistiche',
         ),
         leading: Builder(
           builder: (context) => IconButton(
@@ -171,7 +171,7 @@ class _StatisticsPageState extends State<StatisticsPage>
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('LEADERBOARD',
+                              Text('CLASSIFICA',
                                   style: TextStyle(
                                       fontSize: 15.sp,
                                       fontWeight: FontWeight.bold)),
@@ -208,14 +208,15 @@ class _StatisticsPageState extends State<StatisticsPage>
                             children: [
                               customTabBar(context),
                               SizedBox(
-                                height: userTextScaleFactor(context) >= 1.5 ?
-                                  (userTextScaleFactor(context) >= 2.5 ?
-                                    1.5 * MediaQuery.of(context).size.height
-                                      :
-                                    MediaQuery.of(context).size.height
-                                  )
-                                    :
-                                0.5 * MediaQuery.of(context).size.height, // Adjust the height as needed
+                                height: userTextScaleFactor(context) >= 1.5
+                                    ? (userTextScaleFactor(context) >= 2.5
+                                        ? 1.5 *
+                                            MediaQuery.of(context).size.height
+                                        : MediaQuery.of(context).size.height)
+                                    : 0.5 *
+                                        MediaQuery.of(context)
+                                            .size
+                                            .height, // Adjust the height as needed
                                 child: TabBarView(
                                   controller: _tabController,
                                   children: [
@@ -250,17 +251,18 @@ class _StatisticsPageState extends State<StatisticsPage>
                 if (!isConnected)
                   AlertDialog(
                     actionsPadding: const EdgeInsets.all(20),
-                    title: Text('Error', style: TextStyle(fontSize: 14.sp)),
+                    title: Text('Errore', style: TextStyle(fontSize: 14.sp)),
                     content: SingleChildScrollView(
                       child: Text(
-                          'It seems there is no internet connection. Please connect to a wifi or mobile data network.',
-                          style: TextStyle(fontSize: 13.sp)),),
+                          'Sembra non ci sia connessione ad interent. Connettiti ad una rete wifi o usa i dati mobili',
+                          style: TextStyle(fontSize: 13.sp)),
+                    ),
                     actions: <Widget>[
                       ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                                padding:
-                                    EdgeInsets.fromLTRB(4.w, 1.3.h, 4.w, 1.3.h),
-                                backgroundColor: app_colors.orange),
+                              padding:
+                                  EdgeInsets.fromLTRB(4.w, 1.3.h, 4.w, 1.3.h),
+                              backgroundColor: app_colors.orange),
                           onPressed: () {
                             Navigator.pushNamed(context, "statistics");
                             if (isConnected) {
@@ -295,23 +297,24 @@ class _StatisticsPageState extends State<StatisticsPage>
           ),
           SizedBox(width: 1.5.w),
           Expanded(
-            child: Text('$firstName $lastName', style: TextStyle(fontSize: 13.sp, overflow: TextOverflow.ellipsis)),
+            child: Text('$firstName $lastName',
+                style: TextStyle(
+                    fontSize: 13.sp, overflow: TextOverflow.ellipsis)),
           ),
           Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text(
-                  '$points',
-                  style:
-                      TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(width: 1.5.w),
-                Image.asset(
-                  'assets/images/coin.png',
-                  height: 3.5.h,
-                ),
-              ],
-            ),
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Text(
+                '$points',
+                style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(width: 1.5.w),
+              Image.asset(
+                'assets/images/coin.png',
+                height: 3.5.h,
+              ),
+            ],
+          ),
         ],
       ),
     );
@@ -330,7 +333,7 @@ class _StatisticsPageState extends State<StatisticsPage>
           Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                "Today stats",
+                'Statistiche di oggi',
                 style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
               )),
           Container(
@@ -354,12 +357,12 @@ class _StatisticsPageState extends State<StatisticsPage>
                   valueColor: AlwaysStoppedAnimation<Color>(color),
                 ),
               )),
-          Text('Score: $currentCorrect/$currentDone'),
+          Text('Punteggio: $currentCorrect/$currentDone'),
           SizedBox(height: 2.h),
           Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                "Latest stats",
+                "ultime statistiche",
                 style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
               )),
           Container(
@@ -383,7 +386,7 @@ class _StatisticsPageState extends State<StatisticsPage>
                   valueColor: AlwaysStoppedAnimation<Color>(color),
                 ),
               )),
-          Text('Score: $latestCorrect/$latestDone'),
+          Text('Punteggio: $latestCorrect/$latestDone'),
         ],
       ),
     );
@@ -394,7 +397,7 @@ class _StatisticsPageState extends State<StatisticsPage>
     if (currentDone == 0) {
       //examples :: c: 0/0 -> l: 0/0
       return Text(
-          "You did not answer to any question yet! Let's set today's score!",
+          "Non hai ancora risposto a nessuna domanda!",
           style: TextStyle(
               fontSize: 14.sp,
               fontWeight: FontWeight.bold,
@@ -402,7 +405,7 @@ class _StatisticsPageState extends State<StatisticsPage>
     }
     if (latestDone == 0 && currentCorrect > 0) {
       //examples :: c: 1/1 -> l: 0/0
-      return Text("Good job! You are improving, keep it like this!",
+      return Text("Bel lavoro! Stai migliorando, continua così!",
           style: TextStyle(
               fontSize: 14.sp,
               fontWeight: FontWeight.bold,
@@ -411,7 +414,7 @@ class _StatisticsPageState extends State<StatisticsPage>
     if (latestDone == 0 && currentCorrect == 0) {
       //examples :: c: 0/1 -> l: 0/0
       return Text(
-          "You are exercising more, try to do your best to improve the score!",
+          "Ti stai esercitando di più, fai del tuo meglio per migliorare il tuo punteggio!",
           style: TextStyle(
               fontSize: 14.sp,
               fontWeight: FontWeight.bold,
@@ -420,7 +423,7 @@ class _StatisticsPageState extends State<StatisticsPage>
     if (currentCorrect / currentDone > latestCorrect / latestDone &&
         currentDone >= latestDone) {
       //examples :: c: 2/3 -> l: 1/2 or 2/3 -> l: 1/3
-      return Text("Good job! You are improving, keep it like this!",
+      return Text("Bel lavoro! Stai migliorando, continua così!",
           style: TextStyle(
               fontSize: 14.sp,
               fontWeight: FontWeight.bold,
@@ -430,7 +433,7 @@ class _StatisticsPageState extends State<StatisticsPage>
         currentDone < latestDone) {
       //examples :: c: 1/2 -> l: 1/3
       return Text(
-          'You are improving, but you need to exercise more. Keep it going!',
+          'Stai migliorando ma serve ancora un po di allenamento. Continua così!',
           style: TextStyle(
               fontSize: 14.sp,
               fontWeight: FontWeight.bold,
@@ -440,7 +443,7 @@ class _StatisticsPageState extends State<StatisticsPage>
         currentDone > latestDone) {
       //examples :: c: 2/4 -> l: 1/2
       return Text(
-          "You are not improving, but you are exercising more. Keep going and try to do your best!",
+          "Non stai migliorando ma ti stai esercitando di più! Continua così e fai del tuo meglio!",
           style: TextStyle(
               fontSize: 14.sp,
               fontWeight: FontWeight.bold,
@@ -450,7 +453,7 @@ class _StatisticsPageState extends State<StatisticsPage>
         currentDone <= latestDone) {
       //examples :: c: 1/2 -> l: 1/2 or c: 1/2 -> l: 2/4
       return Text(
-          "You are not improving and doing more exercise. Keep going and try to do your best!",
+          "Non stai migliorando e ti serve più allenamento! Fai del tuo meglio!",
           style: TextStyle(
               fontSize: 14.sp,
               fontWeight: FontWeight.bold,
@@ -460,7 +463,7 @@ class _StatisticsPageState extends State<StatisticsPage>
         currentDone > latestDone) {
       //examples :: c: 2/6 -> l: 1/2
       return Text(
-          "You are not improving, but you are exercising more. Keep going and try to do your best!",
+          "Non stai migliorando ma ti stai esercitando di più! Continua così e fai del tuo meglio!",
           style: TextStyle(
               fontSize: 14.sp,
               fontWeight: FontWeight.bold,
@@ -468,7 +471,7 @@ class _StatisticsPageState extends State<StatisticsPage>
     } else {
       // 1. < , == ::: 2. < , < :: examples :: c: 1/4 -> l: 2/4 and c: 1/2 -> l: 2/3
       return Text(
-          "Try hard, you can do better! Exercise more and take the challenge to beat your last score!",
+          "Prova ancora, puoi fare di meglio! Esercitati di più e prova a battere il tuo punteggio precedente!",
           style: TextStyle(
               fontSize: 14.sp,
               fontWeight: FontWeight.bold,

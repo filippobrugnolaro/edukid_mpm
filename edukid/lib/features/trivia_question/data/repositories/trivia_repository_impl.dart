@@ -5,41 +5,45 @@ import 'package:edukid/features/trivia_question/data/data_sources/trivia_data_so
 import 'package:edukid/features/trivia_question/domain/entities/trivia.dart';
 import 'package:edukid/features/trivia_question/domain/repositories/trivia_repository.dart';
 
-
-
 class TriviaRepositoryImpl implements TriviaRepository {
   final TriviaDataSource triviaDataSource;
   final AuthAPI authAPI;
   final DatabaseAPI databaseAPI;
   final NetworkInfo networkInfo;
 
-  TriviaRepositoryImpl({required this.triviaDataSource, required this.authAPI, required this.databaseAPI, required this.networkInfo});
+  TriviaRepositoryImpl(
+      {required this.triviaDataSource,
+      required this.authAPI,
+      required this.databaseAPI,
+      required this.networkInfo});
 
   @override
-  Future<Trivia> getTrivia(
-      String typeQuestion) async {
+  Future<Trivia> getTrivia(String typeQuestion) async {
     try {
-      if(await networkInfo.isConnected) {
-        final remoteTrivia =
-        await triviaDataSource.getTrivia(typeQuestion);
+      if (await networkInfo.isConnected) {
+        final remoteTrivia = await triviaDataSource.getTrivia(typeQuestion);
         return remoteTrivia;
       } else {
-        throw Exception('It seems there is no internet connection. Please connect to a wifi or mobile data network.');
+        throw Exception(
+            'Sembra non ci sia connessione ad interent. Connettiti ad una rete wifi o usa i dati mobili');
       }
-    } catch(e) {
+    } catch (e) {
       throw Exception(e.toString().replaceFirst('Exception: ', ''));
     }
   }
 
   @override
-  Future<void> updateUserStatistics(bool isAnswerCorrect, String typeQuestion) async {
+  Future<void> updateUserStatistics(
+      bool isAnswerCorrect, String typeQuestion) async {
     try {
-      if(await networkInfo.isConnected) {
-        await triviaDataSource.updateUserStatistics(isAnswerCorrect, authAPI.getSignedInUserUID(), typeQuestion);
+      if (await networkInfo.isConnected) {
+        await triviaDataSource.updateUserStatistics(
+            isAnswerCorrect, authAPI.getSignedInUserUID(), typeQuestion);
       } else {
-        throw Exception('It seems there is no internet connection. Please connect to a wifi or mobile data network.');
+        throw Exception(
+            'Sembra non ci sia connessione ad interent. Connettiti ad una rete wifi o usa i dati mobili');
       }
-    } catch(e) {
+    } catch (e) {
       throw Exception(e.toString().replaceFirst('Exception: ', ''));
     }
   }
@@ -47,12 +51,14 @@ class TriviaRepositoryImpl implements TriviaRepository {
   @override
   Future<void> updateUserPoints(bool isAnswerCorrect) async {
     try {
-      if(await networkInfo.isConnected) {
-        await triviaDataSource.updateUserPoints(isAnswerCorrect, authAPI.getSignedInUserUID());
+      if (await networkInfo.isConnected) {
+        await triviaDataSource.updateUserPoints(
+            isAnswerCorrect, authAPI.getSignedInUserUID());
       } else {
-        throw Exception('It seems there is no internet connection. Please connect to a wifi or mobile data network.');
+        throw Exception(
+            'Sembra non ci sia connessione ad interent. Connettiti ad una rete wifi o usa i dati mobili');
       }
-    } catch(e) {
+    } catch (e) {
       throw Exception(e.toString().replaceFirst('Exception: ', ''));
     }
   }
@@ -67,9 +73,9 @@ class TriviaRepositoryImpl implements TriviaRepository {
         }
       } else {
         throw Exception(
-            'It seems there is no internet connection. Please connect to a wifi or mobile data network.');
+            'Sembra non ci sia connessione ad interent. Connettiti ad una rete wifi o usa i dati mobili');
       }
-    } catch(e) {
+    } catch (e) {
       throw Exception(e.toString().replaceFirst('Exception: ', ''));
     }
   }
@@ -84,9 +90,9 @@ class TriviaRepositoryImpl implements TriviaRepository {
         }
       } else {
         throw Exception(
-            'It seems there is no internet connection. Please connect to a wifi or mobile data network.');
+            'Sembra non ci sia connessione ad interent. Connettiti ad una rete wifi o usa i dati mobili');
       }
-    } catch(e) {
+    } catch (e) {
       throw Exception(e.toString().replaceFirst('Exception: ', ''));
     }
   }
@@ -99,12 +105,11 @@ class TriviaRepositoryImpl implements TriviaRepository {
         if (await databaseAPI.isResetToDo(userUID)) {
           await databaseAPI.setResetToDo(userUID, boolean);
         }
-      }
-      else {
+      } else {
         throw Exception(
-            'It seems there is no internet connection. Please connect to a wifi or mobile data network.');
+            'Sembra non ci sia connessione ad interent. Connettiti ad una rete wifi o usa i dati mobili');
       }
-    } catch(e) {
+    } catch (e) {
       throw Exception(e.toString().replaceFirst('Exception: ', ''));
     }
   }

@@ -9,7 +9,10 @@ class AuthRepositoryImpl implements AuthRepository {
   final DatabaseAPI databaseAPI;
   final NetworkInfo networkInfo;
 
-  AuthRepositoryImpl({required this.authDataSourceRemote, required this.databaseAPI, required this.networkInfo});
+  AuthRepositoryImpl(
+      {required this.authDataSourceRemote,
+      required this.databaseAPI,
+      required this.networkInfo});
 
   @override
   Future<void> signUp({
@@ -21,29 +24,19 @@ class AuthRepositoryImpl implements AuthRepository {
   }) async {
     try {
       if (await sl<NetworkInfo>().isConnected) {
-        await authDataSourceRemote.signUp(
-            email: email,
-            password: password
-        );
+        await authDataSourceRemote.signUp(email: email, password: password);
 
         if (!authDataSourceRemote.isSignedUpUserNull()) {
           final userUID = authDataSourceRemote.getSignedUpUserUID();
-          databaseAPI.setUserData(
-              userUID,
-              email,
-              name,
-              surname,
-              points
-          );
+          databaseAPI.setUserData(userUID, email, name, surname, points);
           databaseAPI.setInitialUserStatistics(userUID);
         }
       } else {
         throw Exception(
-            'It seems there is no internet connection. Please connect to a wifi or mobile data network.');
+            'Sembra non ci sia connessione ad interent. Connettiti ad una rete wifi o usa i dati mobili');
       }
     } catch (e) {
-      throw Exception(
-          e.toString().replaceFirst('Exception: ', ''));
+      throw Exception(e.toString().replaceFirst('Exception: ', ''));
     }
   }
 
@@ -51,20 +44,16 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<void> signIn({
     required String email,
     required String password,
-  })async {
+  }) async {
     try {
       if (await sl<NetworkInfo>().isConnected) {
-        await authDataSourceRemote.signIn(
-            email: email,
-            password: password
-        );
+        await authDataSourceRemote.signIn(email: email, password: password);
       } else {
         throw Exception(
-            'It seems there is no internet connection. Please connect to a wifi or mobile data network.');
+            'Sembra non ci sia connessione ad interent. Connettiti ad una rete wifi o usa i dati mobili');
       }
     } catch (e) {
-      throw Exception(
-          e.toString().replaceFirst('Exception: ', ''));
+      throw Exception(e.toString().replaceFirst('Exception: ', ''));
     }
   }
 

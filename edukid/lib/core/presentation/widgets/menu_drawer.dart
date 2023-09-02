@@ -33,7 +33,7 @@ class MenuDrawer extends StatelessWidget {
                       isAlreadyIn: pageNumber == 0 ? true : false,
                     ),
                     _buildMenuItem(
-                      text: 'My profile',
+                      text: 'Il mio profilo',
                       icon: Icons.account_box,
                       onClicked: () {
                         _selectedItem(context, 1);
@@ -41,7 +41,7 @@ class MenuDrawer extends StatelessWidget {
                       isAlreadyIn: pageNumber == 1 ? true : false,
                     ),
                     _buildMenuItem(
-                      text: 'Statistics',
+                      text: 'Statistiche',
                       icon: Icons.graphic_eq_rounded,
                       onClicked: () {
                         _selectedItem(context, 2);
@@ -49,7 +49,7 @@ class MenuDrawer extends StatelessWidget {
                       isAlreadyIn: pageNumber == 2 ? true : false,
                     ),
                     _buildMenuItem(
-                      text: 'How to play',
+                      text: 'Come giocare',
                       icon: Icons.question_mark_outlined,
                       onClicked: () {
                         _selectedItem(context, 3);
@@ -57,7 +57,7 @@ class MenuDrawer extends StatelessWidget {
                       isAlreadyIn: pageNumber == 3 ? true : false,
                     ),
                     _buildMenuItem(
-                      text: 'Logout',
+                      text: 'Esci',
                       icon: Icons.directions_run_sharp,
                       onClicked: () {
                         _selectedItem(context, 4);
@@ -130,8 +130,8 @@ class MenuDrawer extends StatelessWidget {
   Widget getDialog(BuildContext context) {
     return AlertDialog(
       actionsAlignment: MainAxisAlignment.spaceAround,
-      title: Text('Confirm logout', style: TextStyle(fontSize: 14.sp)),
-      content: Text('Are you sure you want to logout?',
+      title: Text('Conferma', style: TextStyle(fontSize: 14.sp)),
+      content: Text('Sicuro di voler uscire?',
           style: TextStyle(fontSize: 13.sp)),
       actionsPadding: const EdgeInsets.all(20),
       actions: <Widget>[
@@ -157,7 +157,7 @@ class MenuDrawer extends StatelessWidget {
               );
               Navigator.of(context).pushReplacementNamed("login");
             },
-            child: Text('Yes', style: TextStyle(fontSize: 13.sp))),
+            child: Text('Si', style: TextStyle(fontSize: 13.sp))),
       ],
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
     );

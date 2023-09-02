@@ -48,15 +48,16 @@ class _LoginState extends State<LoginScreen> {
                 builder: (context) {
                   return AlertDialog(
                     actionsPadding: const EdgeInsets.all(20),
-                    title: Text('Error', style: TextStyle(fontSize: 14.sp)),
+                    title: Text('Errore', style: TextStyle(fontSize: 14.sp)),
                     content: SingleChildScrollView(
                       child: Text(state.error.replaceFirst('Exception: ', ''),
-                        style: TextStyle(fontSize: 13.sp)),),
+                          style: TextStyle(fontSize: 13.sp)),
+                    ),
                     actions: <Widget>[
                       ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               padding:
-                              EdgeInsets.fromLTRB(4.w, 1.3.h, 4.w, 1.3.h),
+                                  EdgeInsets.fromLTRB(4.w, 1.3.h, 4.w, 1.3.h),
                               backgroundColor: app_colors.orange),
                           onPressed: () {
                             Navigator.pop(context);
@@ -79,76 +80,75 @@ class _LoginState extends State<LoginScreen> {
           if (state is UnAuthenticated) {
             // Showing the sign in form if the user is not authenticated
             return Stack(fit: StackFit.expand, children: [
-                  Container(
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/images/doodle.png'),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+              Container(
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/doodle.png'),
+                    fit: BoxFit.cover,
                   ),
+                ),
+              ),
               SingleChildScrollView(
-                  child: Form(
-                      key: _formKey,
-                      child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20.0),
-                          ),
-                          margin: EdgeInsets.fromLTRB(15.0.w, 5.h, 15.w, 0.h),
-                          child: SingleChildScrollView(
-                            physics: const NeverScrollableScrollPhysics(),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Align(
+                child: Form(
+                    key: _formKey,
+                    child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                        margin: EdgeInsets.fromLTRB(15.0.w, 5.h, 15.w, 0.h),
+                        child: SingleChildScrollView(
+                          physics: const NeverScrollableScrollPhysics(),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Align(
+                                child: Text(
+                                  'Accedi al tuo account',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(fontSize: 15.sp),
+                                ),
+                              ),
+                              SizedBox(height: 2.0.h),
+                              emailField(context),
+                              SizedBox(height: 3.0.h),
+                              passwordField(context),
+                              SizedBox(height: 3.0.h),
+                              Align(
+                                child: getLoginButton(),
+                              ),
+                              SizedBox(height: 3.0.h),
+                              const Divider(
+                                color: app_colors.grey,
+                              ),
+                              SizedBox(height: 3.0.h),
+                              Align(
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const SignUpScreen()),
+                                    );
+                                  },
                                   child: Text(
-                                    'Login to your existing account',
+                                    'Non hai un account?\nRegistrati adesso!',
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(fontSize: 15.sp),
-                                  ),
-                                ),
-                                SizedBox(height: 2.0.h),
-                                emailField(context),
-                                SizedBox(height: 3.0.h),
-                                passwordField(context),
-                                SizedBox(height: 3.0.h),
-                                Align(
-                                  child: getLoginButton(),
-                                ),
-                                SizedBox(height: 3.0.h),
-                                const Divider(
-                                  color: app_colors.grey,
-                                ),
-                                SizedBox(height: 3.0.h),
-                                Align(
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                            const SignUpScreen()),
-                                      );
-                                    },
-                                    child: Text(
-                                      'Do not have an account yet?\nSignup now!',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        decoration: TextDecoration.underline,
-                                        fontSize: 13.sp,
-                                      ),
+                                    style: TextStyle(
+                                      decoration: TextDecoration.underline,
+                                      fontSize: 13.sp,
                                     ),
                                   ),
                                 ),
-                              ],
-                            ),
-                          ))),
+                              ),
+                            ],
+                          ),
+                        ))),
               )
-
             ]);
           }
           return const Center(
-            child: Text('An error occurred, try again!'),
+            child: Text('Si è verificato un errore! Riprova!'),
           );
         })));
   }
@@ -195,7 +195,7 @@ class _LoginState extends State<LoginScreen> {
         autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: (value) {
           return value != null && value.isEmpty
-              ? 'Please insert your password.'
+              ? 'Perfavore inserisci la password.'
               : null;
         },
       ),
@@ -214,12 +214,13 @@ class _LoginState extends State<LoginScreen> {
           ),
         ),
         child: TextFormField(
+          textCapitalization: TextCapitalization.words,
           keyboardType: TextInputType.emailAddress,
           controller: _emailController,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           validator: (value) {
             return value != null && !EmailValidator.validate(value)
-                ? 'Please insert a valid email address.'
+                ? 'Perfavore inserisci un email valida'
                 : null;
           },
           decoration: InputDecoration(
@@ -243,11 +244,12 @@ class _LoginState extends State<LoginScreen> {
   Widget getLoginButton() {
     return ElevatedButton(
       style: ButtonStyle(
-        padding: MaterialStateProperty.all(EdgeInsets.fromLTRB(4.w,1.3.h,4.w,1.3.h)),
+        padding: MaterialStateProperty.all(
+            EdgeInsets.fromLTRB(4.w, 1.3.h, 4.w, 1.3.h)),
         backgroundColor: MaterialStateProperty.all<Color>(
             app_colors.orange), // Set the background color
       ),
-      child: Text("Login",
+      child: Text("Accedi",
           style: TextStyle(fontSize: 13.0.sp, color: app_colors.white)),
       onPressed: () {
         _authenticateWithEmailAndPassword(context);

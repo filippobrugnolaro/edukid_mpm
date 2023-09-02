@@ -10,7 +10,7 @@ class InstructionsPage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: const Text('Instructions'),
+          title: const Text('Istruzioni'),
           leading: Builder(
             builder: (context) => IconButton(
               icon: const Icon(Icons.menu),
@@ -41,31 +41,31 @@ class InstructionsPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Help Jack in getting his money back!',
+                    'Aiuta Jack a ri-ottenere le sue monete!',
                     style: TextStyle(fontSize: 13.sp),
                     softWrap: true,
                   ),
                   SizedBox(height: 3.h),
                   Text(
-                    '1. The game will consist of multiple choice questions categorized in different subjects.\nOnly one answer is correct.',
+                    '1. Questo gioco consiste in domande a risposta multipla, divise per materie.\nSolo una risposta è corretta.',
                     style: TextStyle(fontSize: 12.5.sp),
                     softWrap: true,
                   ),
                   SizedBox(height: 2.h),
                   Text(
-                    '2. Answer the questions correctly to earn 5 coins per correct answer.',
+                    '2. Rispondi correttamente alla domanda per ottenere 5 monete.',
                     style: TextStyle(fontSize: 12.5.sp),
                     softWrap: true,
                   ),
                   SizedBox(height: 2.h),
                   Text(
-                    '3. If your answer is wrong, you will lose 3 coins.',
+                    '3. Se la tua risposta è errata, ne perderai 3!',
                     style: TextStyle(fontSize: 12.5.sp),
                     softWrap: true,
                   ),
                   SizedBox(height: 2.h),
                   Text(
-                    "4. You can keep up with your improvement in the 'Statistics' page.\nTry to beat your score and improve day by day!",
+                    "4. Puoi monitorare il tuo progresso nella sezione 'Statistiche'.\nProva a battere il tuo punteggio!",
                     style: TextStyle(fontSize: 12.5.sp),
                     softWrap: true,
                   ),
@@ -92,7 +92,7 @@ class InstructionsPage extends StatelessWidget {
                             );
                           },
                           child:
-                              Text('Play!', style: TextStyle(fontSize: 13.sp)),
+                              Text('Gioca!', style: TextStyle(fontSize: 13.sp)),
                         ),
                       ]),
                 ],

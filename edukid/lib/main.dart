@@ -15,8 +15,6 @@ import 'package:sizer/sizer.dart';
 
 import 'core/config/app_router.dart';
 import 'features/authentication/presentation/pages/login.dart';
-
-import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {

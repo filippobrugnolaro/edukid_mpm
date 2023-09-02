@@ -177,7 +177,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
                             ),
                             SizedBox(height: 1.5.h),
                             Text(
-                              'Hello there! What would you like to try today?',
+                              'Ciao! Cosa vuoi imparare oggi?',
                               style: TextStyle(
                                   fontSize: 20.sp, fontWeight: FontWeight.bold),
                               softWrap: true,
@@ -189,7 +189,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
                                 Column(
                                   children: [
                                     const CardWidget(
-                                        text: 'Maths',
+                                        text: 'Matematica',
                                         imagePath: 'assets/images/numbers.png',
                                         borderColor: app_colors.fucsia,
                                         goTo: 'math'),
@@ -200,20 +200,25 @@ class _GetStartedPageState extends State<GetStartedPage> {
                                         ? Row(children: [
                                             const Icon(
                                               Icons.circle,
-                                              color: app_colors.red,
+                                              color: app_colors.black,
                                             ),
                                             SizedBox(width: 0.5.w),
                                             Builder(
                                               builder: (BuildContext context) {
                                                 // Create a MediaQuery with a custom textScaleFactor
-                                                final customMediaQuery = MediaQuery.of(context).copyWith(
-                                                  textScaleFactor: 1.0, // Adjust the text scale factor as needed
+                                                final customMediaQuery =
+                                                    MediaQuery.of(context)
+                                                        .copyWith(
+                                                  textScaleFactor:
+                                                      1.0, // Adjust the text scale factor as needed
                                                 );
                                                 return MediaQuery(
                                                   data: customMediaQuery,
                                                   child: Text(
-                                                    'No answer!',
-                                                    style: TextStyle(color: app_colors.red, fontSize: 11.sp),
+                                                    'Nessuna risposta',
+                                                    style: TextStyle(
+                                                        color: app_colors.black,
+                                                        fontSize: 11.sp),
                                                   ),
                                                 );
                                               },
@@ -226,7 +231,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
                                 Column(
                                   children: [
                                     const CardWidget(
-                                        text: 'Geography',
+                                        text: 'Geografia',
                                         imagePath: 'assets/images/geo.png',
                                         borderColor: app_colors.blue,
                                         goTo: 'geo'),
@@ -237,20 +242,25 @@ class _GetStartedPageState extends State<GetStartedPage> {
                                         ? Row(children: [
                                             const Icon(
                                               Icons.circle,
-                                              color: app_colors.red,
+                                              color: app_colors.black,
                                             ),
                                             SizedBox(width: 0.5.w),
                                             Builder(
                                               builder: (BuildContext context) {
                                                 // Create a MediaQuery with a custom textScaleFactor
-                                                final customMediaQuery = MediaQuery.of(context).copyWith(
-                                                  textScaleFactor: 1.0, // Adjust the text scale factor as needed
+                                                final customMediaQuery =
+                                                    MediaQuery.of(context)
+                                                        .copyWith(
+                                                  textScaleFactor:
+                                                      1.0, // Adjust the text scale factor as needed
                                                 );
                                                 return MediaQuery(
                                                   data: customMediaQuery,
                                                   child: Text(
-                                                    'No answer!',
-                                                    style: TextStyle(color: app_colors.red, fontSize: 11.sp),
+                                                    'Nessuna risposta',
+                                                    style: TextStyle(
+                                                        color: app_colors.black,
+                                                        fontSize: 11.sp),
                                                   ),
                                                 );
                                               },
@@ -268,7 +278,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
                                 Column(
                                   children: [
                                     const CardWidget(
-                                        text: 'History',
+                                        text: 'Storia',
                                         imagePath: 'assets/images/storia.png',
                                         borderColor: app_colors.green,
                                         goTo: 'storia'),
@@ -279,20 +289,25 @@ class _GetStartedPageState extends State<GetStartedPage> {
                                         ? Row(children: [
                                             const Icon(
                                               Icons.circle,
-                                              color: app_colors.red,
+                                              color: app_colors.black,
                                             ),
                                             SizedBox(width: 0.5.w),
                                             Builder(
                                               builder: (BuildContext context) {
                                                 // Create a MediaQuery with a custom textScaleFactor
-                                                final customMediaQuery = MediaQuery.of(context).copyWith(
-                                                  textScaleFactor: 1.0, // Adjust the text scale factor as needed
+                                                final customMediaQuery =
+                                                    MediaQuery.of(context)
+                                                        .copyWith(
+                                                  textScaleFactor:
+                                                      1.0, // Adjust the text scale factor as needed
                                                 );
                                                 return MediaQuery(
                                                   data: customMediaQuery,
                                                   child: Text(
-                                                    'No answer!',
-                                                    style: TextStyle(color: app_colors.red, fontSize: 11.sp),
+                                                    'Nessuna risposta',
+                                                    style: TextStyle(
+                                                        color: app_colors.black,
+                                                        fontSize: 11.sp),
                                                   ),
                                                 );
                                               },
@@ -305,7 +320,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
                                 Column(
                                   children: [
                                     const CardWidget(
-                                        text: 'Science',
+                                        text: 'Scienze',
                                         imagePath: 'assets/images/scienze.png',
                                         borderColor: app_colors.orange,
                                         goTo: 'scienze'),
@@ -316,21 +331,26 @@ class _GetStartedPageState extends State<GetStartedPage> {
                                         ? Row(children: [
                                             const Icon(
                                               Icons.circle,
-                                              color: app_colors.red,
+                                              color: app_colors.black,
                                             ),
                                             SizedBox(width: 0.5.w),
                                             Builder(
                                               builder: (BuildContext context) {
                                                 // Create a MediaQuery with a custom textScaleFactor
-                                                final customMediaQuery = MediaQuery.of(context).copyWith(
-                                                  textScaleFactor: 1.0, // Adjust the text scale factor as needed
+                                                final customMediaQuery =
+                                                    MediaQuery.of(context)
+                                                        .copyWith(
+                                                  textScaleFactor:
+                                                      1.0, // Adjust the text scale factor as needed
                                                 );
                                                 return MediaQuery(
-                                                    data: customMediaQuery,
-                                                    child: Text(
-                                                      'No answer!',
-                                                      style: TextStyle(color: app_colors.red, fontSize: 11.sp),
-                                                    ),
+                                                  data: customMediaQuery,
+                                                  child: Text(
+                                                    'Nessuna risposta',
+                                                    style: TextStyle(
+                                                        color: app_colors.black,
+                                                        fontSize: 11.sp),
+                                                  ),
                                                 );
                                               },
                                             )
@@ -351,8 +371,9 @@ class _GetStartedPageState extends State<GetStartedPage> {
                       title: Text('Error', style: TextStyle(fontSize: 14.sp)),
                       content: SingleChildScrollView(
                         child: Text(
-                            'It seems there is no internet connection. Please connect to a wifi or mobile data network.',
-                            style: TextStyle(fontSize: 13.sp)),),
+                            'Sembra non ci sia connessione ad interent. Connettiti ad una rete wifi o usa i dati mobili',
+                            style: TextStyle(fontSize: 13.sp)),
+                      ),
                       actions: <Widget>[
                         ElevatedButton(
                             style: ElevatedButton.styleFrom(
@@ -388,10 +409,11 @@ class _GetStartedPageState extends State<GetStartedPage> {
           Text('Tutorial', style: TextStyle(fontSize: 14.sp))
         ],
       ),
-      content: SingleChildScrollView
-        (child: Text(
-          'For each correct answer you will earn  5 coins but be careful! If your answer is wrong you will lose 3.',
-          style: TextStyle(fontSize: 13.sp)),),
+      content: SingleChildScrollView(
+        child: Text(
+            'Per ogni risposta corretta guadagnerai 5 monete, ma attenzione! Se sbagli ne perderai 3.',
+            style: TextStyle(fontSize: 13.sp)),
+      ),
       actionsPadding: const EdgeInsets.all(20),
       actions: <Widget>[
         ElevatedButton(
@@ -402,7 +424,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
             onPressed: () {
               Navigator.pop(context);
             },
-            child: Text('Close', style: TextStyle(fontSize: 13.sp)))
+            child: Text('Chiudi', style: TextStyle(fontSize: 13.sp)))
       ],
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
     );

@@ -10,16 +10,16 @@ class OnboardingContent {
 List<OnboardingContent> content = [
   OnboardingContent(
       image: 'assets/images/hello.png',
-      title: 'Ahoy there!',
-      description: " I am Jack, the parrot!\nAre you ready for an adventure?"
+      title: 'Ahoy!',
+      description: "Io sono Jack, il pappagallo!\nSei pronto per un'avventura?"
       ),
   OnboardingContent(
       image: 'assets/images/desperate.png',
-      title: "Some sneaky pirates took all my coins!!",
+      title: "Alcuni pirati hanno rubato tutte le mie monete!",
       description: 
-      "\nTo help me getting them back you will have to answer their questions: for every correct answer, \nyou'll earn 5 coins.\nBut be cautious because wrong answer will cost you 3 coins!"),
+      "\nPer aiutarmi a riprenderle dovrai rispondere alle loro domande: per ogni risposta giusta otterrai 5 monete.\nMa stai attento perchè una risposta sbagliata ti costerà 3 monete!"),
   OnboardingContent(
       image: 'assets/images/correct.png',
-      title: 'Help me!',
-      description: "You seem to be the perfect person for this job and I really need your help to get my money back!\nAre you ready for this challenge?")
+      title: 'Aiutami!',
+      description: "Sembri essere la persona perfetta!\nHo davvero bisogno del tuo aiuto per riprendermi le monete!\nSei pronto per questa sfida?")
 ];
