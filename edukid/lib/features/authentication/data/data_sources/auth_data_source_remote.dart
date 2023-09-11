@@ -26,23 +26,26 @@ class AuthDataSourceRemoteImpl implements AuthDataSourceRemote {
   @override
   Future<void> signUp({required String email, required String password}) async {
     try {
-        final UserCredential userCredential =
-        await _firebaseAuth.createUserWithEmailAndPassword(
-          email: email,
-          password: password,
-        );
+      final UserCredential userCredential =
+          await _firebaseAuth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
 
-        final User? user = userCredential.user;
-        if (user != null) {
-          signedUpUser = user;
-        }
+      final User? user = userCredential.user;
+      if (user != null) {
+        signedUpUser = user;
+      }
     } on FirebaseAuthException catch (e) {
       if (e.message!.contains('weak-password')) {
-      if (e.message!.contains('email-already-in-use')) {
-        throw Exception(
-            'Questo indirizzo email è già in uso da un altro account.');
-      } else {
-        throw Exception(e.toString().replaceFirst('[firebase_auth/email-already-in-use] ',''));
+        if (e.message!.contains('email-already-in-use')) {
+          throw Exception(
+              'Questo indirizzo email è già in uso da un altro account.');
+        } else {
+          throw Exception(e
+              .toString()
+              .replaceFirst('[firebase_auth/email-already-in-use] ', ''));
+        }
       }
     }
   }
@@ -53,10 +56,10 @@ class AuthDataSourceRemoteImpl implements AuthDataSourceRemote {
     required String password,
   }) async {
     try {
-        await _firebaseAuth.signInWithEmailAndPassword(
-          email: email,
-          password: password,
-        );
+      await _firebaseAuth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
     } on FirebaseAuthException catch (e) {
       if (e.message!.contains('user-not-found') ||
           e.message!.contains('no user record')) {
