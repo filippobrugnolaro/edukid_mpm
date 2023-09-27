@@ -20,7 +20,7 @@ class TriviaDataSourceImpl implements TriviaDataSource {
           .child("/$typeQuestion")
           .get();
       if (response.exists) {
-        final random = Random().nextInt(response.children.length);
+        final random = Random().nextInt(response.children.length - 1) + 1;
         final selectedQuestion =
         await _database.child("/subject")
             .child("/$typeQuestion")
