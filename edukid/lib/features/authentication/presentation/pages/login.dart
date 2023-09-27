@@ -195,7 +195,7 @@ class _LoginState extends State<LoginScreen> {
         autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: (value) {
           return value != null && value.isEmpty
-              ? 'Perfavore inserisci la password.'
+              ? 'Per favore inserisci la password.'
               : null;
         },
       ),
@@ -220,7 +220,7 @@ class _LoginState extends State<LoginScreen> {
           autovalidateMode: AutovalidateMode.onUserInteraction,
           validator: (value) {
             return value != null && !EmailValidator.validate(value)
-                ? 'Perfavore inserisci un email valida'
+                ? 'Per favore inserisci un email valida'
                 : null;
           },
           decoration: InputDecoration(

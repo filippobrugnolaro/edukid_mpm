@@ -64,12 +64,12 @@ class AuthDataSourceRemoteImpl implements AuthDataSourceRemote {
       if (e.message!.contains('user-not-found') ||
           e.message!.contains('no user record')) {
         throw Exception(
-            'Utente non trovato. Perfavore controlla la tua email o crea un nuovo account.');
+            'Utente non trovato. Per favore controlla la tua email o crea un nuovo account.');
       }
       if (e.message!.contains('wrong-password') ||
           e.message!.contains('password is invalid')) {
         throw Exception(
-            'La password inserita non è corretta. Perfavore controlla la tua password e riprova.');
+            'La password inserita non è corretta. Per favore controlla la tua password e riprova.');
       }
     }
   }

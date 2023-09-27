@@ -161,7 +161,7 @@ class _SignUpState extends State<SignUpScreen> {
         autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return 'Perfavore inserisci la password';
+            return 'Per favore inserisci la password';
           } else if (value.length < 6) {
             return 'La password deve avere almeno 6 caratteri';
           }
@@ -189,7 +189,7 @@ class _SignUpState extends State<SignUpScreen> {
           autovalidateMode: AutovalidateMode.onUserInteraction,
           validator: (value) {
             return value != null && !EmailValidator.validate(value)
-                ? 'Perfavore inserisci un email valida'
+                ? 'Per favore inserisci un email valida'
                 : null;
           },
           decoration: InputDecoration(
