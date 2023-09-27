@@ -28,8 +28,8 @@ class AuthRepositoryImpl implements AuthRepository {
 
         if (!authDataSourceRemote.isSignedUpUserNull()) {
           final userUID = authDataSourceRemote.getSignedUpUserUID();
-          databaseAPI.setUserData(userUID, email, name, surname, points);
-          databaseAPI.setInitialUserStatistics(userUID);
+          await databaseAPI.setUserData(userUID, email, name, surname, points);
+          await databaseAPI.setInitialUserStatistics(userUID);
         }
       } else {
         throw Exception(
